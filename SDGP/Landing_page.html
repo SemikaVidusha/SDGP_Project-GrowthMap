@@ -3,69 +3,90 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FixIt — Trusted Local Repairs</title>
+  <title>FixIt - Home</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
   <link rel="stylesheet" href="Landing_page.css">
 </head>
+<body style="background-color: rgb(207, 223, 252);">
+  <nav>
+    <ul>
+      <li><a href="#top">Home</a></li>
+      <li><a href="#problem">Problem</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#why-us">Why Us</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
 
-<body>
-  <header>
-    <nav>
-      <div class="nav-container">
-          <div class="logo">
-              <a href="home.html">
-                  <img src="images/ecovlotlogotrnsnew.png" alt="Logo">
-              </a>
-          </div>
-
-          <ul class="nav-links">
-              <li><a href="splash.html">Home</a></li>
-              <li><a href="table.html">Table</a></li>
-              <li><a href="volunteer.html">Volunteer</a></li>
-              <li><a href="feedback.html">Feedback</a></li>
-              <li><a href="team.html">Team</a></li>
-              <li><a href="sitemap.html">SiteMap</a></li>
-
-          </ul>
-
-          <div class="profile">
-              <a href="profile.html">
-                  <img src="images/profileicon.png" alt="Profile Picture">
-              </a>
-          </div>
-      </div>
-    </nav>
-    <h1>FixIt — Trusted Local Repairs</h1>
-    <p>Book verified technicians instantly for home repairs, with safety and reliability guaranteed.</p>
-    <a href="#features" class="Explore">Explore Features</a>
+  <header id="top">
+    <h2>FixIt</h2>
+    <h1>Repairs Made Simple.</h1>
+    <h1>Technicians You Can Trust.</h1>
+    <p>Connect with verified professionals for all your home repair needs. Fast, reliable, and stress-free.</p>
+    <a href="#features" class="btn">Explore Features -></a>
   </header>
 
-  <section>
-    <h2>Why FixIt?</h2>
-    <p>From broken taps to faulty wiring, finding the right technician is a hassle. FixIt removes the guesswork with <b>verified pros</b>, repair records, and real-time support - all from your phone.</p>
-
-    <div class="features" id="features">
-      <div class="feature">
-        <h3>Smart Matching</h3>
-        <p>Automatically connect with the right technician for your task based on skill, rating, and availability.</p>
+  <section id="problem" class="problem-section">
+    <div class="comparison-grid">
+      <div class="comparison-card">
+        <h3>The Problem</h3>
+        <ul>
+          <li><i class="fas fa-times-circle"></i> Technicians with no verified credentials or customer reviews</li>
+          <li><i class="fas fa-times-circle"></i> Unpredictable arrival times and last-minute cancellations</li>
+          <li><i class="fas fa-times-circle"></i> Hidden costs and poor communication</li>
+          <li><i class="fas fa-times-circle"></i> No accountability or record of repairs</li>
+        </ul>
       </div>
-      <div class="feature">
-        <h3>Repair Recordbook</h3>
-        <p>Every fix is logged — view past jobs, receipts, and warranties in your personal repair history.</p>
-      </div>
-      <div class="feature">
-        <h3>Arrival Guarantee</h3>
-        <p>If a technician is late, we auto-reassign or compensate you. No more endless waiting.</p>
-      </div>
-      <div class="feature">
-        <h3>Verified Professionals</h3>
-        <p>All technicians are background-checked, reviewed, and verified to ensure safety and trust.</p>
+      <div class="comparison-card solution">
+        <h3>How we Fix It</h3>
+        <ul>
+          <li><i class="fas fa-check-circle"></i> Verified Technicians: Background-checked with real ratings</li>
+          <li><i class="fas fa-check-circle"></i> Real-Time Booking: Instant slots and live tracking</li>
+          <li><i class="fas fa-check-circle"></i> Transparent Pricing: Upfront quotes, no hidden fees</li>
+          <li><i class="fas fa-check-circle"></i> Repair History: Every job logged in your recordbook</li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <footer>
+  <section id="features">
+    <h1>Key Features</h1>
+    <div class="features">
+      <div class="feature">
+        <i class="fas fa-bolt"></i>
+        <h3>Smart Service Matching</h3>
+        <p>Connect instantly with the best technician based on skill, location, and availability.</p>
+      </div>
+      <div class="feature">
+        <i class="fas fa-book-open"></i>
+        <h3>Repair Recordbook</h3>
+        <p>Every repair, invoice, and warranty is logged - your appliance history, all in one place.</p>
+      </div>
+      <div class="feature">
+        <i class="fas fa-map-marker-alt"></i>
+        <h3>Real-Time Tracking & Arrival Policy</h3>
+        <p>Track technicians live. Late arrivals trigger auto-reassignment or compensation.</p>
+      </div>
+      <div class="feature">
+        <i class="fas fa-user-shield"></i>
+        <h3>Verified & Trusted Professionals</h3>
+        <p>echnicians are background-checked, certified, and user-reviewed for total peace of mind.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="why-us" class="why-us">
+    <h2>Why Choose FixIt?</h2>
+    <p>FixIt isn't just a directory of technicians, it's a full solution for home repair. From smart scheduling to safety-first design, we ensure every part of the experience is seamless, trustworthy, and fast.</p>
+  </section>
+
+  <footer id="contact">
     <p>&copy; 2025 FixIt. All rights reserved.</p>
+    <p>FixIT Team: semika.20231793@iit.ac.lk</p>
   </footer>
 </body>
 </html>
