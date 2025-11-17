@@ -1,2 +1,2 @@
-# SDGP-TaskO-project
-Service providing platform, that helps users to gain services and service providers to give their services.
+# SDGP-CareerGuide
+career guidance platform that will give local qualifications and local institutes as suggestions.
