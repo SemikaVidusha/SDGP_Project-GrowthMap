@@ -1,92 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FixIt - Home</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareerGuide.lk - Shape Your Future</title>
   <link rel="stylesheet" href="Landing_page.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body style="background-color: rgb(207, 223, 252);">
-  <nav>
-    <ul>
-      <li><a href="#top">Home</a></li>
-      <li><a href="#problem">Problem</a></li>
+
+<body>
+
+  <nav class="navbar">
+    <div class="logo"><i class="fas fa-compass"></i> CareerGuide</div>
+    <ul class="nav-links">
       <li><a href="#features">Features</a></li>
-      <li><a href="#why-us">Why Us</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
+    <a class="nav-btn" href="#">Get Started</a>
   </nav>
 
-  <header id="top">
-    <h2>FixIt</h2>
-    <h1>Repairs Made Simple.</h1>
-    <h1>Technicians You Can Trust.</h1>
-    <p>Connect with verified professionals for all your home repair needs. Fast, reliable, and stress-free.</p>
-    <a href="#features" class="btn">Explore Features -></a>
-  </header>
+  <header class="hero-section">
+  <div class="hero-content">
+    <div class="badge">Your Future Starts Here</div>
 
-  <section id="problem" class="problem-section">
-    <div class="comparison-grid">
-      <div class="comparison-card">
-        <h3>The Problem</h3>
-        <ul>
-          <li><i class="fas fa-times-circle"></i> Technicians with no verified credentials or customer reviews</li>
-          <li><i class="fas fa-times-circle"></i> Unpredictable arrival times and last-minute cancellations</li>
-          <li><i class="fas fa-times-circle"></i> Hidden costs and poor communication</li>
-          <li><i class="fas fa-times-circle"></i> No accountability or record of repairs</li>
-        </ul>
+    <h1 class="hero-title">
+      Discover Your
+      <span class="gradient-text">Career Path</span>
+    </h1>
+
+    <p class="hero-description">
+      Explore job opportunities, understand skill requirements, and map out a path that aligns with your strengths and goals.
+    </p>
+
+    <div class="hero-buttons">
+      <a href="#" class="cta primary">Get Started</a>
+      <a href="#" class="cta secondary">Learn More</a>
+    </div>
+
+    <div class="trust-badges">
+      <div class="trust-item">
+        <br>
+        <br>
+        <strong><i class="fa-solid fa-circle-check"></i> Accurate</strong>
+        <span>Verified data sources.</span>
       </div>
-      <div class="comparison-card solution">
-        <h3>How we Fix It</h3>
-        <ul>
-          <li><i class="fas fa-check-circle"></i> Verified Technicians: Background-checked with real ratings</li>
-          <li><i class="fas fa-check-circle"></i> Real-Time Booking: Instant slots and live tracking</li>
-          <li><i class="fas fa-check-circle"></i> Transparent Pricing: Upfront quotes, no hidden fees</li>
-          <li><i class="fas fa-check-circle"></i> Repair History: Every job logged in your recordbook</li>
-        </ul>
+      <br>
+      <div class="trust-item">
+        <strong><i class="fa-solid fa-circle-check"></i> Updated</strong>
+        <span>Based on latest trends.</span>
       </div>
+      <br>
+      <div class="trust-item">
+        <strong><i class="fa-solid fa-circle-check"></i> Reliable</strong>
+        <span>Clear & unbiased.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="orbit-container">
+      <div class="orbit"></div>
+      <div class="orbit"></div>
+      <div class="orbit"></div>
+    </div>
+  </div>
+</header>
+
+
+  <section id="features" class="features">
+    <h1>Why Choose CareerPath?</h1>
+
+    <div class="features-grid">
+
+      <div class="feature-card">
+        <h1><i class="fas fa-lightbulb"></i></h1>
+        <h2>Personalized Suggestions</h2>
+        <p>We match your strengths with the most suitable ICT career roles.</p>
+      </div>
+
+      <div class="feature-card">
+        <h1><i class="fas fa-chart-line"></i></h1>
+        <h2>Skill Gap Insights</h2>
+        <p>See what skills you're missing - and learn how to improve them.</p>
+      </div>
+
+      <div class="feature-card">
+        <h1><i class="fas fa-user-graduate"></i></h1>
+        <h2>Qualification Roadmap</h2>
+        <p>Get a step-by-step list of NVQ Levels, diplomas & degrees for your chosen path.</p>
+      </div>
+
+      <div class="feature-card">
+        <h1><i class="fas fa-map-marker-alt"></i></h1>
+        <h2>Local Institute Guide</h2>
+        <p>Find Sri Lankan institutes offering the qualifications you need.</p>
+      </div>
+
     </div>
   </section>
 
-  <section id="features">
-    <h1>Key Features</h1>
-    <div class="features">
-      <div class="feature">
-        <i class="fas fa-bolt"></i>
-        <h3>Smart Service Matching</h3>
-        <p>Connect instantly with the best technician based on skill, location, and availability.</p>
-      </div>
-      <div class="feature">
-        <i class="fas fa-book-open"></i>
-        <h3>Repair Recordbook</h3>
-        <p>Every repair, invoice, and warranty is logged - your appliance history, all in one place.</p>
-      </div>
-      <div class="feature">
-        <i class="fas fa-map-marker-alt"></i>
-        <h3>Real-Time Tracking & Arrival Policy</h3>
-        <p>Track technicians live. Late arrivals trigger auto-reassignment or compensation.</p>
-      </div>
-      <div class="feature">
-        <i class="fas fa-user-shield"></i>
-        <h3>Verified & Trusted Professionals</h3>
-        <p>echnicians are background-checked, certified, and user-reviewed for total peace of mind.</p>
-      </div>
+  <section id="how-it-works" class="how-it-works">
+    <h1>How It Works</h1><br>
+
+    <div class="steps">
+      <div class="step">1. Select your interests</div>
+      <div class="step">2. Choose the skills you have</div>
+      <div class="step">3. View recommended ICT careers</div>
+      <div class="step">4. Explore required qualifications</div>
     </div>
   </section>
 
-  <section id="why-us" class="why-us">
-    <h2>Why Choose FixIt?</h2>
-    <p>FixIt isn't just a directory of technicians, it's a full solution for home repair. From smart scheduling to safety-first design, we ensure every part of the experience is seamless, trustworthy, and fast.</p>
+  <section id="contact" class="newsletter">
+    <h1>Stay Updated</h1>
+    <p>Get the latest career tips sent directly to your inbox.</p><br>
+
+    <form>
+      <input type="email" placeholder="Enter your email" required>
+      <button type="submit" class="cta primary">Subscribe</button>
+    </form>
   </section>
 
-  <footer id="contact">
-    <p>&copy; 2025 FixIt. All rights reserved.</p>
-    <p>FixIT Team: semika.20231793@iit.ac.lk</p>
+  <footer class="footer">
+    <p>© 2025 CareerPath. All rights reserved.</p>
   </footer>
+
 </body>
 </html>
