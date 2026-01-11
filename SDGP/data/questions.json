@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "question": "What type of work environment do you prefer?",
+    "options": [
+      { "text": "Fast-paced environment focused on solving problems", "trait": "logic", "value": 2 },
+      { "text": "Creative and flexible environment", "trait": "creativity", "value": 2 },
+      { "text": "Structured workplace with clear procedures", "trait": "systems", "value": 2 },
+      { "text": "Team-based environment with frequent interaction", "trait": "collaboration", "value": 2 }
+    ]
+  },
+  {
+    "id": 2,
+    "question": "Which activity sounds most enjoyable to you?",
+    "options": [
+      { "text": "Writing code and fixing bugs", "trait": "logic", "value": 2 },
+      { "text": "Designing interfaces or visuals", "trait": "creativity", "value": 2 },
+      { "text": "Setting up computers or networks", "trait": "systems", "value": 2 },
+      { "text": "Talking with users and understanding their needs", "trait": "collaboration", "value": 2 }
+    ]
+  }
+]
