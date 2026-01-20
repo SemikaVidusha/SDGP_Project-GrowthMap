@@ -54,23 +54,58 @@ document.getElementById("nextBtn").onclick = () => {
 };
 
 function calculateCareer() {
-  let results = careers.map(career => {
-    let score =
-      traits[career.primary] * 2 +
-      traits[career.secondary];
-    return { name: career.name, score };
-  });
+  const maxPerTrait = questions.length * 2;
 
-  results.sort((a, b) => b.score - a.score);
-  showResults(results[0]);
+  const normalizedTraits = normaliseTraits(traits, maxPerTrait);
+
+  const dominantTraits = getDomainTraits(normalizedTraits);
+
+  const rankedCareers = scoreCareers(careers, normalizedTraits);
+
+  showResults(rankedCareers[0], dominantTraits);
 }
 
-function showResults(bestCareer) {
+
+function showResults(bestCareer, dominantTraits) {
   document.getElementById("quiz").style.display = "none";
+
   document.getElementById("result").innerHTML = `
     <h2>Your Recommended Career</h2>
-    <p>${bestCareer.name}</p>
+    <p><strong>${bestCareer.name}</strong></p>
+
+    <h3>Why this career?</h3>
+    <p>Your strongest traits are <strong>${dominantTraits[0][0]}</strong> 
+    and <strong>${dominantTraits[1][0]}</strong>.</p>
   `;
 }
+
+
+function normalisetraits(traits, maxPertraiit){
+  let normalise = {}
+  for(let trait in traits){
+    normalise[trait] = traits[trait] / maxPertraiit;
+  }
+  window.print(normalise)
+  return normalise
+}
+
+function getDomainTraits(normalisedTraits){
+  return Object.entries(normalisedTraits).sort((a, b) => b[1] - a[1]);
+}
+
+function scoreCareers(careers, normalizedTraits) {
+  return careers.map(career => {
+    let score =
+      (normalizedTraits[career.primary] * 2) +
+      (normalizedTraits[career.secondary] * 1);
+
+    return {
+      id: career.id,
+      name: career.name,
+      score: score
+    };
+  }).sort((a, b) => b.score - a.score);
+}
+
 
 window.onload = loadData;
