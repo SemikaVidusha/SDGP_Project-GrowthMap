@@ -18,5 +18,46 @@
       { "text": "Setting up computers or networks", "trait": "systems", "value": 2 },
       { "text": "Talking with users and understanding their needs", "trait": "collaboration", "value": 2 }
     ]
+  },
+  {
+    "id": 3,
+    "question": "When faced with a difficult problem, what is your usual approach?",
+    "options": [
+      { "text": "Break it down logically and analyze each part", "trait": "logic", "value": 2 },
+      { "text": "Think of creative or unconventional solutions", "trait": "creativity", "value": 2 },
+      { "text": "Follow proven methods or existing systems", "trait": "systems", "value": 2 },
+      { "text": "Discuss it with others to gain different perspectives", "trait": "collaboration", "value": 2 }
+    ]
+  },
+  {
+    "id": 4,
+    "question": "Which task would you feel most confident handling?",
+    "options": [
+      { "text": "Solving logical or technical challenges", "trait": "logic", "value": 2 },
+      { "text": "Creating designs or improving visual appeal", "trait": "creativity", "value": 2 },
+      { "text": "Managing tools, hardware, or technical setups", "trait": "systems", "value": 2 },
+      { "text": "Communicating ideas clearly with others", "trait": "collaboration", "value": 2 }
+    ]
+  },
+  {
+    "id": 5,
+    "question": "What motivates you the most in a project?",
+    "options": [
+      { "text": "Finding efficient and accurate solutions", "trait": "logic", "value": 2 },
+      { "text": "Expressing ideas in a creative way", "trait": "creativity", "value": 2 },
+      { "text": "Ensuring everything works smoothly and reliably", "trait": "systems", "value": 2 },
+      { "text": "Working closely with people toward a shared goal", "trait": "collaboration", "value": 2 }
+    ]
+  },
+  {
+    "id": 6,
+    "question": "Which role do you naturally take in group activities?",
+    "options": [
+      { "text": "The problem-solver who handles complex tasks", "trait": "logic", "value": 2 },
+      { "text": "The idea-generator who suggests creative concepts", "trait": "creativity", "value": 2 },
+      { "text": "The organizer who keeps things structured", "trait": "systems", "value": 2 },
+      { "text": "The communicator who connects the team", "trait": "collaboration", "value": 2 }
+    ]
   }
 ]
+
