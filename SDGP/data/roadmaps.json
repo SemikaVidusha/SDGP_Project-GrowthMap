@@ -1,53 +1,113 @@
-{
-  "software_engineer": {
-    "foundation": [
-      "Programming Basics",
-      "Problem Solving",
-      "Version Control (Git)"
-    ],
-    "intermediate": [
-      "Data Structures & Algorithms",
-      "Object-Oriented Programming",
-      "Web Development Basics"
-    ],
-    "advanced": [
-      "System Design",
-      "Cloud Computing Fundamentals",
-      "Software Architecture"
+[
+  {
+    "careerId": "software_engineer",
+    "title": "Software Engineer",
+    "roadmap": [
+      {
+        "level": "Beginner",
+        "duration": "3-6 months",
+        "skills": [
+          "Programming fundamentals",
+          "Problem solving",
+          "Basic algorithms"
+        ],
+        "tools": [
+          "Python",
+          "Java",
+          "VS Code"
+        ],
+        "qualifications": [
+          "NVQ Level 4 ICT"
+        ]
+      },
+      {
+        "level": "Intermediate",
+        "duration": "6-12 months",
+        "skills": [
+          "Object-oriented programming",
+          "Databases",
+          "Web development basics"
+        ],
+        "tools": [
+          "JavaScript",
+          "MySQL",
+          "Git"
+        ],
+        "qualifications": [
+          "Diploma in Software Engineering"
+        ]
+      },
+      {
+        "level": "Advanced",
+        "duration": "12+ months",
+        "skills": [
+          "System design",
+          "Software architecture",
+          "Testing and deployment"
+        ],
+        "tools": [
+          "Frameworks",
+          "Cloud platforms"
+        ],
+        "qualifications": [
+          "BSc in Computer Science"
+        ]
+      }
     ]
   },
-  "ui_ux_designer": {
-    "foundation": [
-      "Design Principles",
-      "Color Theory & Typography",
-      "User-Centered Design"
-    ],
-    "intermediate": [
-      "Wireframing & Prototyping",
-      "User Research",
-      "Usability Testing"
-    ],
-    "advanced": [
-      "Interaction Design",
-      "Design Systems",
-      "Accessibility Standards"
-    ]
-  },
-  "network_technician": {
-    "foundation": [
-      "Computer Hardware Basics",
-      "Networking Fundamentals",
-      "Operating Systems"
-    ],
-    "intermediate": [
-      "Network Configuration",
-      "Routing & Switching",
-      "Network Security Basics"
-    ],
-    "advanced": [
-      "Advanced Network Security",
-      "Troubleshooting Complex Networks",
-      "Cloud Networking"
+
+  {
+    "careerId": "ui_ux_designer",
+    "title": "UI/UX Designer",
+    "roadmap": [
+      {
+        "level": "Beginner",
+        "duration": "3-6 months",
+        "skills": [
+          "Design fundamentals",
+          "Color theory",
+          "Typography"
+        ],
+        "tools": [
+          "Figma",
+          "Canva"
+        ],
+        "qualifications": [
+          "NVQ Level 4 Multimedia"
+        ]
+      },
+      {
+        "level": "Intermediate",
+        "duration": "6-12 months",
+        "skills": [
+          "User research",
+          "Wireframing",
+          "Prototyping"
+        ],
+        "tools": [
+          "Figma",
+          "Adobe XD"
+        ],
+        "qualifications": [
+          "Diploma in UI/UX Design"
+        ]
+      },
+      {
+        "level": "Advanced",
+        "duration": "12+ months",
+        "skills": [
+          "Design systems",
+          "Usability testing",
+          "UX strategy"
+        ],
+        "tools": [
+          "Design libraries",
+          "Analytics tools"
+        ],
+        "qualifications": [
+          "Degree in Digital Design"
+        ]
+      }
     ]
   }
-}
+]

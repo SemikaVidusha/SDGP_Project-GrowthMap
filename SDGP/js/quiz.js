@@ -7,6 +7,7 @@ let traits = {
 
 let questions = [];
 let careers = [];
+let roadmaps = [];
 let currentQuestionIndex = 0;
 let selectedAnswer = null;
 
@@ -18,10 +19,17 @@ async function loadData() {
     const cRes = await fetch("../data/careers.json");
     careers = await cRes.json();
 
-    console.log("Questions loaded:", questions.length);
+    const rRes = await fetch("../data/roadmaps.json");
+    roadmaps = await rRes.json();
+
+    console.log("Loaded:", {
+      questions: questions.length,
+      careers: careers.length,
+      roadmaps: roadmaps.length,
+    });
     loadQuestion();
   } catch (error) {
-    console.error("Data loading failed. Check your JSON syntax!", error);
+    console.error("Data loading failed.", error);
   }
 }
 
@@ -94,6 +102,44 @@ function showResults(bestCareer, dominantTraits) {
     and <strong>${dominantTraits[1][0]}</strong>.</p>
   `;
 }
+//roadmap generation
+function getRoadmap (careerId){
+  return roadmaps.find(r =>r.careerId === careerId);
+}
+
+function showResults(bestCareer, dominantTraits) {
+  const roadmap = getRoadmap(bestCareer.id);
+
+  document.getElementById("quiz").style.display = "none";
+
+  let roadmapHTML = "";
+
+  if (roadmap) {
+    roadmap.roadmap.forEach(stage => {
+      roadmapHTML += `
+        <div class="roadmap-stage">
+          <h4>${stage.level} (${stage.duration})</h4>
+          <p><strong>Skills:</strong> ${stage.skills.join(", ")}</p>
+          <p><strong>Tools:</strong> ${stage.tools.join(", ")}</p>
+          <p><strong>Qualifications:</strong> ${stage.qualifications.join(", ")}</p>
+        </div>
+      `;
+    });
+  }
+
+  document.getElementById("result").innerHTML = `
+    <h2>Your Recommended Career</h2>
+    <p><strong>${bestCareer.name}</strong></p>
+
+    <h3>Why this career?</h3>
+    <p>Your strongest traits are <strong>${dominantTraits[0][0]}</strong> 
+    and <strong>${dominantTraits[1][0]}</strong>.</p>
+
+    <h3>Career Roadmap</h3>
+    ${roadmapHTML}
+  `;
+}
+
 
 window.onload = async () => {
   await loadData();
