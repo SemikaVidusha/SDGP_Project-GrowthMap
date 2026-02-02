@@ -2,12 +2,12 @@ let traits = {
   logic: 0,
   creativity: 0,
   systems: 0,
-  collaboration: 0
+  collaboration: 0,
+  detail: 0
 };
 
 let questions = [];
 let careers = [];
-let roadmaps = [];
 let currentQuestionIndex = 0;
 let selectedAnswer = null;
 
@@ -19,24 +19,18 @@ async function loadData() {
     const cRes = await fetch("../data/careers.json");
     careers = await cRes.json();
 
-    const rRes = await fetch("../data/roadmaps.json");
-    roadmaps = await rRes.json();
+    console.log("Questions loaded:", questions.length);
+    console.log("Careers loaded:", careers.length);
 
-    console.log("Loaded:", {
-      questions: questions.length,
-      careers: careers.length,
-      roadmaps: roadmaps.length,
-    });
     loadQuestion();
   } catch (error) {
-    console.error("Data loading failed.", error);
+    console.error("Data loading failed. Check JSON paths!", error);
   }
 }
 
 function loadQuestion() {
-  if (questions.length === 0) return;
-
   const q = questions[currentQuestionIndex];
+
   document.getElementById("questionText").innerText = q.question;
 
   const optionsContainer = document.getElementById("options");
@@ -45,6 +39,7 @@ function loadQuestion() {
   q.options.forEach(opt => {
     const btn = document.createElement("button");
     btn.innerText = opt.text;
+    btn.className = "option-btn";
     btn.onclick = () => selectOption(opt, btn);
     optionsContainer.appendChild(btn);
   });
@@ -57,89 +52,48 @@ function selectOption(option, btn) {
   btn.style.border = "2px solid blue";
 }
 
-function calculateCareer() {
-  const maxPerTrait = questions.length * 2;
-  const normalizedTraits = normaliseTraits(traits, maxPerTrait);
-  const dominantTraits = getDomainTraits(normalizedTraits);
-  const rankedCareers = scoreCareers(careers, normalizedTraits);
-
-  showResults(rankedCareers[0], dominantTraits);
-}
-
-function normaliseTraits(traits, maxPerTrait) {
-  let normalized = {};
-  for (let trait in traits) {
-    normalized[trait] = traits[trait] / maxPerTrait;
-  }
+function normalizeTraits(rawTraits) {
+  const max = Math.max(...Object.values(rawTraits), 1);
+  const normalized = {};
+  for (let t in rawTraits) normalized[t] = rawTraits[t] / max;
   return normalized;
 }
 
-function getDomainTraits(normalizedTraits) {
-  return Object.entries(normalizedTraits).sort((a, b) => b[1] - a[1]);
-}
+function scoreCareers() {
+  const normalizedTraits = normalizeTraits(traits);
 
-function scoreCareers(careers, normalizedTraits) {
-  return careers.map(career => {
-    let score =
-      (normalizedTraits[career.primaryTrait] * 2) +
-      (normalizedTraits[career.secondaryTrait] * 1);
+  const ranked = careers.map(career => {
+    const primary = normalizedTraits[career.primaryTrait] ?? 0;
+    const secondary = normalizedTraits[career.secondaryTrait] ?? 0;
+
+    const score = (primary * 0.7) + (secondary * 0.3); // score 0..1
 
     return {
       id: career.id,
       name: career.name,
-      score: score
+      description: career.description,
+      score
     };
   }).sort((a, b) => b.score - a.score);
+
+  return { ranked, normalizedTraits };
 }
 
-function showResults(bestCareer, dominantTraits) {
-  document.getElementById("quiz").style.display = "none";
-  document.getElementById("result").innerHTML = `
-    <h2>Your Recommended Career</h2>
-    <p><strong>${bestCareer.name}</strong></p>
-    <h3>Why this career?</h3>
-    <p>Your strongest traits are <strong>${dominantTraits[0][0]}</strong> 
-    and <strong>${dominantTraits[1][0]}</strong>.</p>
-  `;
+function finishQuiz() {
+  const { ranked, normalizedTraits } = scoreCareers();
+
+  const assessmentResult = {
+    bestCareer: ranked[0],
+    topCareers: ranked.slice(0, 3),
+    traits: normalizedTraits
+  };
+
+  console.log("FINAL RESULT:", assessmentResult);
+
+  localStorage.setItem("assessmentResult", JSON.stringify(assessmentResult));
+
+  window.location.href = "Result_page.html";
 }
-//roadmap generation
-function getRoadmap (careerId){
-  return roadmaps.find(r =>r.careerId === careerId);
-}
-
-function showResults(bestCareer, dominantTraits) {
-  const roadmap = getRoadmap(bestCareer.id);
-
-  document.getElementById("quiz").style.display = "none";
-
-  let roadmapHTML = "";
-
-  if (roadmap) {
-    roadmap.roadmap.forEach(stage => {
-      roadmapHTML += `
-        <div class="roadmap-stage">
-          <h4>${stage.level} (${stage.duration})</h4>
-          <p><strong>Skills:</strong> ${stage.skills.join(", ")}</p>
-          <p><strong>Tools:</strong> ${stage.tools.join(", ")}</p>
-          <p><strong>Qualifications:</strong> ${stage.qualifications.join(", ")}</p>
-        </div>
-      `;
-    });
-  }
-
-  document.getElementById("result").innerHTML = `
-    <h2>Your Recommended Career</h2>
-    <p><strong>${bestCareer.name}</strong></p>
-
-    <h3>Why this career?</h3>
-    <p>Your strongest traits are <strong>${dominantTraits[0][0]}</strong> 
-    and <strong>${dominantTraits[1][0]}</strong>.</p>
-
-    <h3>Career Roadmap</h3>
-    ${roadmapHTML}
-  `;
-}
-
 
 window.onload = async () => {
   await loadData();
@@ -150,14 +104,19 @@ window.onload = async () => {
       return;
     }
 
-    traits[selectedAnswer.trait] += selectedAnswer.value;
+    const traitKey = selectedAnswer.trait;
+    const value = selectedAnswer.value;
+
+    if (traits[traitKey] === undefined) traits[traitKey] = 0;
+    traits[traitKey] += value;
+
     selectedAnswer = null;
     currentQuestionIndex++;
 
     if (currentQuestionIndex < questions.length) {
       loadQuestion();
     } else {
-      calculateCareer();
+      finishQuiz();
     }
   };
 };

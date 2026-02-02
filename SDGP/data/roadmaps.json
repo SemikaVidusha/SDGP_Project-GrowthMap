@@ -4,11 +4,13 @@
     "title": "Software Engineer",
     "roadmap": [
       {
-        "level": "Beginner",
+        "level": "Foundation",
         "duration": "3-6 months",
+        "title": "Programming Foundations",
+        "description": "Build a strong base in programming logic and problem solving.",
         "skills": [
           "Programming fundamentals",
-          "Problem solving",
+          "Logical thinking",
           "Basic algorithms"
         ],
         "tools": [
@@ -23,10 +25,12 @@
       {
         "level": "Intermediate",
         "duration": "6-12 months",
+        "title": "Core Software Development",
+        "description": "Develop real-world applications using modern tools and practices.",
         "skills": [
           "Object-oriented programming",
           "Databases",
-          "Web development basics"
+          "Web development"
         ],
         "tools": [
           "JavaScript",
@@ -40,10 +44,12 @@
       {
         "level": "Advanced",
         "duration": "12+ months",
+        "title": "Professional Software Engineer",
+        "description": "Design scalable systems and deploy production-ready software.",
         "skills": [
           "System design",
           "Software architecture",
-          "Testing and deployment"
+          "Testing & deployment"
         ],
         "tools": [
           "Frameworks",
@@ -61,12 +67,14 @@
     "title": "UI/UX Designer",
     "roadmap": [
       {
-        "level": "Beginner",
+        "level": "Foundation",
         "duration": "3-6 months",
+        "title": "Design Fundamentals",
+        "description": "Understand visual design principles and user-centered thinking.",
         "skills": [
-          "Design fundamentals",
           "Color theory",
-          "Typography"
+          "Typography",
+          "Layout principles"
         ],
         "tools": [
           "Figma",
@@ -79,6 +87,8 @@
       {
         "level": "Intermediate",
         "duration": "6-12 months",
+        "title": "User Experience Design",
+        "description": "Create intuitive user journeys backed by research.",
         "skills": [
           "User research",
           "Wireframing",
@@ -95,6 +105,8 @@
       {
         "level": "Advanced",
         "duration": "12+ months",
+        "title": "Design Systems & Strategy",
+        "description": "Lead product design with scalable systems and UX strategy.",
         "skills": [
           "Design systems",
           "Usability testing",

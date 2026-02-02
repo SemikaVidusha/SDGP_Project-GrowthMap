@@ -19,3 +19,11 @@ body {
   font-weight: normal;
   color: #64748B;
 }
+
+.course-card {
+  padding: 12px;
+  margin-bottom: 12px;
+  border: 1px solid #D3BFFF;
+  border-radius: 6px;
+  background: #FFFFFF;
+}

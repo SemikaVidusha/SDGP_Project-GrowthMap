@@ -1,20 +1,32 @@
 [
   {
-    "title": "Python for Beginners",
-    "career": "software_engineer",
-    "level": "foundation",
-    "duration": "6 weeks"
+    "id": "course_ui_01",
+    "title": "UI Design Fundamentals",
+    "careerId": "ui_ux_designer",
+    "stage": "Foundation",
+    "provider": "Online Platform",
+    "duration": "3 months",
+    "mode": "Online",
+    "skillsCovered": ["Design basics", "Color theory", "Typography"]
   },
   {
-    "title": "Figma for UI Design",
-    "career": "ui_ux_designer",
-    "level": "intermediate",
-    "duration": "4 weeks"
+    "id": "course_ui_02",
+    "title": "UX Research & Prototyping",
+    "careerId": "ui_ux_designer",
+    "stage": "Professional",
+    "provider": "Local Institute",
+    "duration": "6 months",
+    "mode": "Physical",
+    "skillsCovered": ["User research", "Wireframing", "Prototyping"]
   },
   {
-    "title": "Networking Fundamentals",
-    "career": "network_technician",
-    "level": "foundation",
-    "duration": "5 weeks"
+    "id": "course_se_01",
+    "title": "Programming Fundamentals with Python",
+    "careerId": "software_engineer",
+    "stage": "Foundation",
+    "provider": "Local Institute",
+    "duration": "4 months",
+    "mode": "Physical",
+    "skillsCovered": ["Programming basics", "Problem solving"]
   }
 ]
