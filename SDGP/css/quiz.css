@@ -1,0 +1,81 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f6f8fb;
+  margin: 0;
+  padding: 0;
+}
+
+.page-header {
+  text-align: center;
+  padding: 25px 10px;
+}
+
+.quiz-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.quiz-progress {
+  margin-bottom: 18px;
+}
+
+#progressText {
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 6px;
+}
+
+.progress-bar {
+  background: #e6e6e6;
+  height: 10px;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: #0078d4;
+  transition: width 0.25s ease;
+}
+
+.quiz-card {
+  background: white;
+  border-radius: 14px;
+  padding: 22px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+#questionText {
+  margin-top: 0;
+  margin-bottom: 18px;
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.option-btn {
+  padding: 14px;
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  text-align: left;
+  transition: 0.2s;
+}
+
+.option-btn:hover {
+  border-color: #0078d4;
+  transform: translateY(-1px);
+}
+
+.page-footer {
+  text-align: center;
+  margin: 30px 0;
+  color: #666;
+}

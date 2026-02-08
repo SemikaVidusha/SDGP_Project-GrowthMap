@@ -4,31 +4,32 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Career Quiz</title>
-  <link rel="stylesheet" href="../css/common_styles.css">
-</head>
-<body>
 
+  <link rel="stylesheet" href="../css/quiz.css">
+</head>
+
+<body>
   <header class="page-header">
     <h1>ICT Career Quiz</h1>
-    <p>Answer honestly. This will match you with the best ICT career path.</p>
+    <p>Answer 15 questions and we will recommend your best ICT career path.</p>
   </header>
 
   <main class="quiz-container">
-    <div id="quiz-root"></div>
-
-    <div id="quiz">
-      <h1 id="questionText"></h1>
-      <div id="options"></div>
+    <div class="quiz-progress">
+      <p id="progressText">Question 1 / 15</p>
+      <div class="progress-bar">
+        <div id="progressFill" class="progress-fill"></div>
+      </div>
     </div>
 
-    <div class="quiz-actions">
-      <button id="prevBtn" disabled>Previous</button>
-      <button id="nextBtn">Next</button>
+    <div class="quiz-card">
+      <h2 id="questionText">Loading...</h2>
+      <div id="optionsContainer" class="options-grid"></div>
     </div>
   </main>
 
   <footer class="page-footer">
-    <p>&copy; GrowthMap - Project 2025</p>
+    <p>&copy; 2026 Career Assessment Tool</p>
   </footer>
 
   <script src="../js/quiz.js"></script>

@@ -2,62 +2,104 @@
   {
     "careerId": "software_engineer",
     "title": "Software Engineer",
-    "roadmap": [
+    "stages": [
       {
         "level": "Foundation",
-        "duration": "3-6 months",
+        "duration": "3–6 months",
         "title": "Programming Foundations",
-        "description": "Build a strong base in programming logic and problem solving.",
+        "description": "Build strong fundamentals in coding, logic, and problem solving.",
+        "requirements": [
+          "Basic computer literacy",
+          "Motivation to practice daily"
+        ],
         "skills": [
           "Programming fundamentals",
           "Logical thinking",
-          "Basic algorithms"
+          "Basic algorithms",
+          "Debugging mindset"
         ],
         "tools": [
-          "Python",
-          "Java",
-          "VS Code"
+          "Python or Java",
+          "VS Code",
+          "GitHub"
+        ],
+        "projects": [
+          "Calculator / unit converter",
+          "Student record system (CLI)",
+          "Simple quiz app"
         ],
         "qualifications": [
-          "NVQ Level 4 ICT"
-        ]
+          "NVQ Level 4 ICT (optional)"
+        ],
+        "milestone": "You can build small programs independently and understand problem solving."
       },
       {
-        "level": "Intermediate",
-        "duration": "6-12 months",
+        "level": "NVQ Level 5-6 / Diploma",
+        "duration": "6–12 months",
         "title": "Core Software Development",
-        "description": "Develop real-world applications using modern tools and practices.",
+        "description": "Start building real applications with databases, web technologies, and clean coding practices.",
+        "requirements": [
+          "Comfortable with variables, loops, functions",
+          "Basic Git knowledge"
+        ],
         "skills": [
-          "Object-oriented programming",
-          "Databases",
-          "Web development"
+          "Object-oriented programming (OOP)",
+          "Database fundamentals",
+          "Web development basics",
+          "API basics",
+          "Software testing basics"
         ],
         "tools": [
           "JavaScript",
+          "HTML/CSS",
           "MySQL",
-          "Git"
+          "Git",
+          "Postman"
+        ],
+        "projects": [
+          "CRUD web app (with database)",
+          "Mini e-commerce or booking system",
+          "Simple REST API"
         ],
         "qualifications": [
-          "Diploma in Software Engineering"
-        ]
+          "NVQ Level 5/6 ICT",
+          "Diploma in Software Engineering / HND"
+        ],
+        "milestone": "You can build full projects with database + UI and explain your code clearly."
       },
       {
-        "level": "Advanced",
+        "level": "Degree / Professional",
         "duration": "12+ months",
         "title": "Professional Software Engineer",
-        "description": "Design scalable systems and deploy production-ready software.",
+        "description": "Learn scalable system design, frameworks, deployment, and industry workflows.",
+        "requirements": [
+          "Can build a full-stack project",
+          "Strong Git and teamwork skills"
+        ],
         "skills": [
-          "System design",
+          "System design basics",
           "Software architecture",
-          "Testing & deployment"
+          "Security basics",
+          "CI/CD concepts",
+          "Cloud deployment"
         ],
         "tools": [
-          "Frameworks",
-          "Cloud platforms"
+          "React or Angular",
+          "Node.js / Spring Boot",
+          "Docker",
+          "AWS / Azure",
+          "Testing frameworks"
+        ],
+        "projects": [
+          "Full-stack portfolio project",
+          "Team project with Git workflow",
+          "Deployed app (live demo)"
         ],
         "qualifications": [
-          "BSc in Computer Science"
-        ]
+          "BSc in Computer Science / IT",
+          "Professional certifications (optional)"
+        ],
+        "milestone": "You are job-ready: portfolio + deployed projects + interview preparation."
       }
     ]
   },
@@ -65,60 +107,104 @@
   {
     "careerId": "ui_ux_designer",
     "title": "UI/UX Designer",
-    "roadmap": [
+    "stages": [
       {
         "level": "Foundation",
-        "duration": "3-6 months",
+        "duration": "3–6 months",
         "title": "Design Fundamentals",
-        "description": "Understand visual design principles and user-centered thinking.",
+        "description": "Understand visual design basics and user-centered design principles.",
+        "requirements": [
+          "Basic computer literacy",
+          "Interest in design and user experience"
+        ],
         "skills": [
           "Color theory",
           "Typography",
-          "Layout principles"
+          "Layout & spacing",
+          "Design thinking",
+          "Basic UI principles"
         ],
         "tools": [
           "Figma",
-          "Canva"
+          "Canva",
+          "Pinterest / Behance (inspiration)"
+        ],
+        "projects": [
+          "Redesign 3 mobile app screens",
+          "Landing page UI design",
+          "Poster / banner set"
         ],
         "qualifications": [
-          "NVQ Level 4 Multimedia"
-        ]
+          "NVQ Level 4 Multimedia (optional)"
+        ],
+        "milestone": "You can design clean UI screens and explain design decisions."
       },
       {
-        "level": "Intermediate",
-        "duration": "6-12 months",
-        "title": "User Experience Design",
-        "description": "Create intuitive user journeys backed by research.",
+        "level": "NVQ Level 5-6 / Diploma",
+        "duration": "6–12 months",
+        "title": "UX Process & Prototyping",
+        "description": "Learn UX research and create user journeys with prototypes and testing.",
+        "requirements": [
+          "Comfortable using Figma",
+          "Understands basic UI principles"
+        ],
         "skills": [
           "User research",
+          "Personas",
+          "User journeys",
           "Wireframing",
-          "Prototyping"
+          "Prototyping",
+          "Usability testing"
         ],
         "tools": [
-          "Figma",
-          "Adobe XD"
+          "Figma (advanced)",
+          "FigJam",
+          "Google Forms",
+          "Notion"
+        ],
+        "projects": [
+          "Case study: redesign an app with UX research",
+          "Prototype with interactions",
+          "Usability testing report"
         ],
         "qualifications": [
+          "NVQ Level 5/6 Multimedia",
           "Diploma in UI/UX Design"
-        ]
+        ],
+        "milestone": "You can create complete UX case studies and prototypes like industry designers."
       },
       {
-        "level": "Advanced",
+        "level": "Degree / Professional",
         "duration": "12+ months",
-        "title": "Design Systems & Strategy",
-        "description": "Lead product design with scalable systems and UX strategy.",
+        "title": "Design Systems & Product Strategy",
+        "description": "Work like a product designer: scalable systems, accessibility, analytics, and teamwork.",
+        "requirements": [
+          "Has portfolio with at least 3 case studies",
+          "Understands UX research + UI design"
+        ],
         "skills": [
           "Design systems",
-          "Usability testing",
-          "UX strategy"
+          "Accessibility (WCAG basics)",
+          "Advanced usability testing",
+          "UX strategy",
+          "Collaboration with developers"
         ],
         "tools": [
           "Design libraries",
-          "Analytics tools"
+          "Analytics tools",
+          "Prototyping tools",
+          "Collaboration tools (Jira/Trello)"
+        ],
+        "projects": [
+          "Design system + component library",
+          "Portfolio website",
+          "Client-style project simulation"
         ],
         "qualifications": [
-          "Degree in Digital Design"
-        ]
+          "Degree in Digital Design / Multimedia",
+          "Professional UX certification (optional)"
+        ],
+        "milestone": "You are ready for UI/UX jobs with strong portfolio + professional workflow."
       }
     ]
   }

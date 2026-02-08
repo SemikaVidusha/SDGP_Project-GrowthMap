@@ -87,3 +87,52 @@
     margin: 30px 0;
 }
 
+.top-careers-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin-top: 15px;
+}
+
+.career-card {
+  background: white;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+  border-left: 5px solid #0078d4;
+}
+
+.career-rank {
+  font-size: 13px;
+  font-weight: bold;
+  color: #0078d4;
+  margin-bottom: 8px;
+}
+
+.career-percent {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 6px 0;
+}
+
+.career-desc {
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 12px;
+}
+
+.roadmap-btn {
+  background: #0078d4;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.roadmap-btn:hover {
+  opacity: 0.9;
+}
+
+

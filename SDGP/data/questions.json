@@ -3,61 +3,150 @@
     "id": 1,
     "question": "What type of work environment do you prefer?",
     "options": [
-      { "text": "Fast-paced environment focused on solving problems", "trait": "logic", "value": 2 },
-      { "text": "Creative and flexible environment", "trait": "creativity", "value": 2 },
-      { "text": "Structured workplace with clear procedures", "trait": "systems", "value": 2 },
-      { "text": "Team-based environment with frequent interaction", "trait": "collaboration", "value": 2 }
+      { "text": "Fast-paced problem solving", "trait": "logic", "value": 2 },
+      { "text": "Creative and flexible", "trait": "creativity", "value": 2 },
+      { "text": "Structured and systematic", "trait": "systems", "value": 2 },
+      { "text": "Team-based interaction", "trait": "collaboration", "value": 2 }
     ]
   },
   {
     "id": 2,
     "question": "Which activity sounds most enjoyable to you?",
     "options": [
-      { "text": "Writing code and fixing bugs", "trait": "logic", "value": 2 },
-      { "text": "Designing interfaces or visuals", "trait": "creativity", "value": 2 },
+      { "text": "Writing and debugging code", "trait": "logic", "value": 2 },
+      { "text": "Designing interfaces and visuals", "trait": "creativity", "value": 2 },
       { "text": "Setting up computers or networks", "trait": "systems", "value": 2 },
-      { "text": "Talking with users and understanding their needs", "trait": "collaboration", "value": 2 }
+      { "text": "Helping users solve problems", "trait": "collaboration", "value": 2 }
     ]
   },
   {
     "id": 3,
-    "question": "When faced with a difficult problem, what is your usual approach?",
+    "question": "When facing a difficult problem, what do you do first?",
     "options": [
-      { "text": "Break it down logically and analyze each part", "trait": "logic", "value": 2 },
-      { "text": "Think of creative or unconventional solutions", "trait": "creativity", "value": 2 },
-      { "text": "Follow proven methods or existing systems", "trait": "systems", "value": 2 },
-      { "text": "Discuss it with others to gain different perspectives", "trait": "collaboration", "value": 2 }
+      { "text": "Break it into smaller steps and analyze", "trait": "logic", "value": 2 },
+      { "text": "Think of creative alternatives and ideas", "trait": "creativity", "value": 2 },
+      { "text": "Look for a proven method or process", "trait": "systems", "value": 2 },
+      { "text": "Ask others and discuss possible solutions", "trait": "collaboration", "value": 2 }
     ]
   },
   {
     "id": 4,
-    "question": "Which task would you feel most confident handling?",
+    "question": "Which of these best describes you?",
     "options": [
-      { "text": "Solving logical or technical challenges", "trait": "logic", "value": 2 },
-      { "text": "Creating designs or improving visual appeal", "trait": "creativity", "value": 2 },
-      { "text": "Managing tools, hardware, or technical setups", "trait": "systems", "value": 2 },
-      { "text": "Communicating ideas clearly with others", "trait": "collaboration", "value": 2 }
+      { "text": "I enjoy logical puzzles and technical challenges", "trait": "logic", "value": 2 },
+      { "text": "I notice design details and visual aesthetics", "trait": "creativity", "value": 2 },
+      { "text": "I like organizing systems and improving efficiency", "trait": "systems", "value": 2 },
+      { "text": "I enjoy working with people and sharing ideas", "trait": "collaboration", "value": 2 }
     ]
   },
   {
     "id": 5,
-    "question": "What motivates you the most in a project?",
+    "question": "What kind of tasks do you enjoy most?",
     "options": [
-      { "text": "Finding efficient and accurate solutions", "trait": "logic", "value": 2 },
-      { "text": "Expressing ideas in a creative way", "trait": "creativity", "value": 2 },
-      { "text": "Ensuring everything works smoothly and reliably", "trait": "systems", "value": 2 },
-      { "text": "Working closely with people toward a shared goal", "trait": "collaboration", "value": 2 }
+      { "text": "Solving technical problems", "trait": "logic", "value": 2 },
+      { "text": "Creating designs and layouts", "trait": "creativity", "value": 2 },
+      { "text": "Managing and maintaining systems", "trait": "systems", "value": 2 },
+      { "text": "Communicating and supporting others", "trait": "collaboration", "value": 2 }
     ]
   },
   {
     "id": 6,
-    "question": "Which role do you naturally take in group activities?",
+    "question": "Which is most important to you when doing work?",
     "options": [
-      { "text": "The problem-solver who handles complex tasks", "trait": "logic", "value": 2 },
-      { "text": "The idea-generator who suggests creative concepts", "trait": "creativity", "value": 2 },
-      { "text": "The organizer who keeps things structured", "trait": "systems", "value": 2 },
-      { "text": "The communicator who connects the team", "trait": "collaboration", "value": 2 }
+      { "text": "Accuracy and correctness", "trait": "detail", "value": 2 },
+      { "text": "Innovation and originality", "trait": "creativity", "value": 2 },
+      { "text": "Following a structured approach", "trait": "systems", "value": 2 },
+      { "text": "Working smoothly with a team", "trait": "collaboration", "value": 2 }
+    ]
+  },
+  {
+    "id": 7,
+    "question": "If you were assigned a group project, what role would you prefer?",
+    "options": [
+      { "text": "Developer / technical builder", "trait": "logic", "value": 2 },
+      { "text": "Designer / UI planner", "trait": "creativity", "value": 2 },
+      { "text": "Organizer / system planner", "trait": "systems", "value": 2 },
+      { "text": "Presenter / communicator", "trait": "collaboration", "value": 2 }
+    ]
+  },
+  {
+    "id": 8,
+    "question": "Which tool sounds most exciting to learn?",
+    "options": [
+      { "text": "Programming language (Python/JavaScript)", "trait": "logic", "value": 2 },
+      { "text": "Design tool (Figma/Adobe XD)", "trait": "creativity", "value": 2 },
+      { "text": "Networking tools (Cisco Packet Tracer)", "trait": "systems", "value": 2 },
+      { "text": "Collaboration tools (Trello/Notion)", "trait": "collaboration", "value": 2 }
+    ]
+  },
+  {
+    "id": 9,
+    "question": "When learning something new, how do you prefer to learn?",
+    "options": [
+      { "text": "Through logic, examples, and practice problems", "trait": "logic", "value": 2 },
+      { "text": "Through visuals, design examples, and creativity", "trait": "creativity", "value": 2 },
+      { "text": "Through structured lessons and step-by-step guides", "trait": "systems", "value": 2 },
+      { "text": "Through discussions and group learning", "trait": "collaboration", "value": 2 }
+    ]
+  },
+  {
+    "id": 10,
+    "question": "What type of mistake bothers you the most?",
+    "options": [
+      { "text": "A solution that fails logically", "trait": "logic", "value": 2 },
+      { "text": "A design that looks ugly or confusing", "trait": "creativity", "value": 2 },
+      { "text": "A system that is disorganized or inefficient", "trait": "systems", "value": 2 },
+      { "text": "Miscommunication in a team", "trait": "collaboration", "value": 2 }
+    ]
+  },
+  {
+    "id": 11,
+    "question": "Which of these describes your attention style?",
+    "options": [
+      { "text": "I focus deeply on solving problems", "trait": "logic", "value": 2 },
+      { "text": "I notice visuals and user experience quickly", "trait": "creativity", "value": 2 },
+      { "text": "I think about how everything connects together", "trait": "systems", "value": 2 },
+      { "text": "I focus on people’s feelings and teamwork", "trait": "collaboration", "value": 2 }
+    ]
+  },
+  {
+    "id": 12,
+    "question": "Which task would you enjoy the most?",
+    "options": [
+      { "text": "Building an app feature and testing it", "trait": "logic", "value": 2 },
+      { "text": "Creating a modern website layout", "trait": "creativity", "value": 2 },
+      { "text": "Configuring a secure Wi-Fi network", "trait": "systems", "value": 2 },
+      { "text": "Interviewing users and collecting feedback", "trait": "collaboration", "value": 2 }
+    ]
+  },
+  {
+    "id": 13,
+    "question": "How do you feel about rules and standards?",
+    "options": [
+      { "text": "They help ensure correct solutions", "trait": "logic", "value": 2 },
+      { "text": "I prefer freedom to explore new ideas", "trait": "creativity", "value": 2 },
+      { "text": "They are essential for stable systems", "trait": "systems", "value": 2 },
+      { "text": "They help teams work smoothly", "trait": "collaboration", "value": 2 }
+    ]
+  },
+  {
+    "id": 14,
+    "question": "What motivates you the most in ICT?",
+    "options": [
+      { "text": "Building solutions that work perfectly", "trait": "detail", "value": 2 },
+      { "text": "Creating products that look and feel great", "trait": "creativity", "value": 2 },
+      { "text": "Making systems reliable and efficient", "trait": "systems", "value": 2 },
+      { "text": "Helping people with technology", "trait": "collaboration", "value": 2 }
+    ]
+  },
+  {
+    "id": 15,
+    "question": "Which statement sounds most like you?",
+    "options": [
+      { "text": "I like debugging and improving solutions", "trait": "logic", "value": 2 },
+      { "text": "I enjoy making things look simple and beautiful", "trait": "creativity", "value": 2 },
+      { "text": "I like designing how systems work together", "trait": "systems", "value": 2 },
+      { "text": "I like guiding and supporting others", "trait": "collaboration", "value": 2 }
     ]
   }
 ]
-
