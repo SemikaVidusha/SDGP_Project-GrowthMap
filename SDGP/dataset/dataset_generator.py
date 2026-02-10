@@ -1,15 +1,20 @@
 import json
 import random
+import os
 
 CAREERS = {
-    "software_engineer": ["logic", "systems", "detail"],
-    "ui_ux_designer": ["creativity", "collaboration"],
-    "network_technician": ["systems", "logic"],
-    "data_scientist": ["logic", "detail", "creativity"],
-    "cybersecurity_analyst": ["systems", "logic", "detail"]
+    "software_engineer": ["logic", "technical", "focus", "discipline"],
+    "ui_ux_designer": ["creativity", "empathy", "social", "adaptability"],
+    "network_technician": ["technical", "logic", "discipline", "focus"],
+    "data_scientist": ["logic", "technical", "focus", "creativity"],
+    "cybersecurity_analyst": ["technical", "logic", "discipline", "risk"]
 }
 
-TRAITS = ["collaboration", "creativity", "logic", "systems", "detail"]
+TRAITS = [
+    "logic", "creativity", "leadership", "empathy",
+    "discipline", "social", "technical", "risk",
+    "focus", "adaptability"
+]
 
 def generate_trait_vector(strong_traits):
     traits = {}
@@ -41,7 +46,10 @@ def generate_dataset(samples=5000):
 if __name__ == "__main__":
     data = generate_dataset(5000)
 
-    with open("dataset/synthetic_dataset.json", "w") as f:
+    out_path = os.path.join(os.path.dirname(__file__), "synthetic_dataset.json")
+
+    with open(out_path, "w") as f:
         json.dump(data, f, indent=2)
 
     print("synthetic_dataset.json generated with", len(data), "samples")
+    print("Saved to:", out_path)

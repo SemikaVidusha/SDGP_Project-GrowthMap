@@ -150,44 +150,50 @@ function getTopCareers(normalizedTraits, topN = 3) {
 }
 
 
-function finishQuiz() {
+async function finishQuiz() {
   const progressFill = document.getElementById("progressFill");
   if (progressFill) progressFill.style.width = "100%";
 
-  if (!careers || careers.length === 0) {
-    alert("Careers data missing!");
-    return;
-  }
-
   const normalizedTraits = normalizeTraits(traits);
-  const topCareers = getTopCareers(normalizedTraits, 3);
 
-  if (!topCareers || topCareers.length === 0) {
-    alert("No careers found!");
-    return;
+  try {
+    const response = await fetch("http://127.0.0.1:5000/predict", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        traits: normalizedTraits
+      })
+    });
+
+    if (!response.ok) throw new Error("Prediction API failed");
+
+    const prediction = await response.json();
+
+    const resultData = {
+      bestCareer: prediction.bestCareer,
+      topCareers: prediction.topCareers,
+      traits: normalizedTraits,
+      rawTraits: traits,
+      answers: answersLog,
+      totalQuestions: questions.length,
+      createdAt: new Date().toISOString()
+    };
+
+    localStorage.setItem("assessmentResult", JSON.stringify(resultData));
+
+    const history = JSON.parse(localStorage.getItem("assessmentHistory") || "[]");
+    history.push(resultData);
+    localStorage.setItem("assessmentHistory", JSON.stringify(history));
+
+    console.log("Quiz finished using ML model. Redirecting...");
+    window.location.href = "Result_page.html";
+
+  } catch (err) {
+    console.error("ML Prediction Error:", err);
+    alert("Prediction server is not responding. Please try again.");
   }
-
-  const bestCareer = topCareers[0];
-
-  const resultData = {
-    bestCareer,
-    topCareers,
-    traits: normalizedTraits,
-    rawTraits: traits,
-    answers: answersLog,
-    totalQuestions: questions.length,
-    createdAt: new Date().toISOString()
-  };
-
-  localStorage.setItem("assessmentResult", JSON.stringify(resultData));
-
-  const history = JSON.parse(localStorage.getItem("assessmentHistory") || "[]");
-  history.push(resultData);
-  localStorage.setItem("assessmentHistory", JSON.stringify(history));
-
-  console.log("Quiz finished. Redirecting...");
-  window.location.href = "Result_page.html";
 }
+
 
 
 window.onload = loadData;
