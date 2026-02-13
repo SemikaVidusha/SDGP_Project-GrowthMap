@@ -5,6 +5,9 @@ import joblib
 import numpy as np
 import traceback
 import os
+from db import test_connection
+
+test_connection()
 
 app = Flask(__name__)
 CORS(app, resources={r"/predict": {"origins": "*"}})

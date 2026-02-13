@@ -28,7 +28,7 @@ function renderRoadmap(roadmapObj, careerObj = null) {
       <div class="roadmap-container">
         <h2>No roadmap found</h2>
         <p>Roadmap information is not available for this career.</p>
-        <a href="result_page.html">← Back to Results</a>
+        <a href="Result_page.html">← Back to Results</a>
       </div>
     `;
     return;
@@ -37,7 +37,6 @@ function renderRoadmap(roadmapObj, careerObj = null) {
   const title = (roadmapObj && roadmapObj.title) || (careerObj && careerObj.name) || "Career Roadmap";
   const stages = (roadmapObj && (roadmapObj.stages || roadmapObj.roadmap)) || [];
 
-  // If no detailed roadmap found, generate a basic 3-stage fallback from careerObj (simple)
   const finalStages = stages.length ? stages : (careerObj ? [
     {
       level: "Foundation",
@@ -73,7 +72,7 @@ function renderRoadmap(roadmapObj, careerObj = null) {
       <div class="roadmap-container">
         <h2>No stages available</h2>
         <p>This career roadmap has no stages yet.</p>
-        <a href="result_page.html">← Back to Results</a>
+        <a href="Result_page.html">← Back to Results</a>
       </div>
     `;
     return;

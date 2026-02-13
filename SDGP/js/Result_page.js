@@ -15,7 +15,6 @@ const traitDescriptions = {
 
 let careersData = [];
 
-// load careers data first so we can use it synchronously later
 async function loadCareers() {
   try {
     const res = await fetch("../data/careers.json");
@@ -39,8 +38,6 @@ window.onload = async () => {
 
   const result = JSON.parse(resultRaw);
 
-  // Determine bestCareerId robustly (API vs local formats)
-  // result.bestCareer may be string id or object; topCareers items have .career (id) and .score
   let bestCareerId = null;
   if (typeof result.bestCareer === "string") {
     bestCareerId = result.bestCareer;
@@ -52,25 +49,21 @@ window.onload = async () => {
 
   const bestCareerObj = careersData.find(c => c.id === bestCareerId);
 
-  // Render main recommended career card (top1)
   const bestTitleEl = document.getElementById("bestCareerTitle");
   const bestDescEl = document.getElementById("bestCareerDesc");
   const matchPercentEl = document.getElementById("matchPercent");
-  const mainActionsEl = document.getElementById("mainCareerActions"); // optional container for buttons
+  const mainActionsEl = document.getElementById("mainCareerActions");
 
   if (bestTitleEl) bestTitleEl.innerText = bestCareerObj?.name || (bestCareerId || "Unknown Career");
   if (bestDescEl) bestDescEl.innerText = bestCareerObj?.description || "";
 
-  // Best score: prefer topCareers[0].score (from model). Fallback to bestCareer object score if available.
   const bestScore = (result.topCareers && result.topCareers[0] && typeof result.topCareers[0].score === "number")
     ? result.topCareers[0].score
     : (result.bestCareer && result.bestCareer.score) ? result.bestCareer.score : 0;
 
   if (matchPercentEl) matchPercentEl.innerText = `${Math.round(bestScore * 100)}% Match`;
 
-  // Add a View Roadmap button for the recommended career (if missing in markup)
   if (mainActionsEl) {
-    // remove existing if any (idempotent)
     const existing = document.getElementById("viewRoadmapMainBtn");
     if (existing) existing.remove();
 
@@ -85,10 +78,8 @@ window.onload = async () => {
     mainActionsEl.appendChild(roadmapBtn);
   }
 
-  // Render traits (first 5 visible, rest behind a "More" toggle)
   renderTraits(result.traits || {});
 
-  // Render top 2 and 3 below (topCareers[1] and topCareers[2])
   renderTopCareers(result.topCareers || []);
 };
 
@@ -99,40 +90,58 @@ function renderTraits(traits) {
   if (!container) return;
   container.innerHTML = "";
 
-  // Ensure consistent ordering of traits for user friendliness
   const order = ["logic","creativity","leadership","empathy","discipline","social","technical","risk","focus","adaptability"];
   const entries = order.map(t => [t, traits[t] ?? 0]);
 
   const firstFive = entries.slice(0, 5);
   const hiddenFive = entries.slice(5);
 
-  firstFive.forEach(t => container.appendChild(createTraitCard(t)));
+  // Create grid for first 5 traits
+  const traitsGrid = document.createElement("div");
+  traitsGrid.className = "traits-grid";
+  traitsGrid.style.display = "grid";
+  traitsGrid.style.gridTemplateColumns = "repeat(auto-fit, minmax(180px, 1fr))";
+  traitsGrid.style.gap = "12px";
+  
+  firstFive.forEach(t => traitsGrid.appendChild(createTraitCard(t)));
+  container.appendChild(traitsGrid);
 
+  // Add "More Traits" link and hidden traits
   if (hiddenFive.length > 0) {
-    const btn = document.createElement("button");
-    btn.className = "more-traits-btn secondary-btn";
-    btn.innerText = "More Traits ▼";
+    const moreTraitsContainer = document.createElement("div");
+    moreTraitsContainer.className = "more-traits-container";
+    
+    const moreLink = document.createElement("a");
+    moreLink.href = "#";
+    moreLink.className = "more-traits-link";
+    moreLink.innerText = "More Traits ▼";
+    moreLink.style.display = "inline-block";
+    moreLink.style.marginTop = "16px";
+    moreLink.style.color = "#4361ee";
+    moreLink.style.textDecoration = "none";
+    moreLink.style.fontWeight = "500";
+    moreLink.style.cursor = "pointer";
 
-    const hiddenDiv = document.createElement("div");
-    hiddenDiv.id = "hiddenTraits";
-    hiddenDiv.style.display = "none";
-    hiddenDiv.style.marginTop = "12px";
-    hiddenDiv.style.display = "grid";
-    hiddenDiv.style.gridTemplateColumns = "repeat(auto-fit,minmax(180px,1fr))";
-    hiddenDiv.style.gap = "12px";
-    // Initially hidden
-    hiddenDiv.style.display = "none";
+    const hiddenTraitsGrid = document.createElement("div");
+    hiddenTraitsGrid.id = "hiddenTraits";
+    hiddenTraitsGrid.className = "hidden-traits-grid";
+    hiddenTraitsGrid.style.display = "none";
+    hiddenTraitsGrid.style.marginTop = "12px";
+    hiddenTraitsGrid.style.gridTemplateColumns = "repeat(auto-fit, minmax(180px, 1fr))";
+    hiddenTraitsGrid.style.gap = "12px";
+    
+    hiddenFive.forEach(t => hiddenTraitsGrid.appendChild(createTraitCard(t)));
 
-    hiddenFive.forEach(t => hiddenDiv.appendChild(createTraitCard(t)));
-
-    btn.onclick = () => {
-      const isHidden = hiddenDiv.style.display === "none";
-      hiddenDiv.style.display = isHidden ? "grid" : "none";
-      btn.innerText = isHidden ? "Less Traits ▲" : "More Traits ▼";
+    moreLink.onclick = (e) => {
+      e.preventDefault();
+      const isHidden = hiddenTraitsGrid.style.display === "none";
+      hiddenTraitsGrid.style.display = isHidden ? "grid" : "none";
+      moreLink.innerText = isHidden ? "Less Traits ▲" : "More Traits ▼";
     };
 
-    container.appendChild(btn);
-    container.appendChild(hiddenDiv);
+    moreTraitsContainer.appendChild(moreLink);
+    moreTraitsContainer.appendChild(hiddenTraitsGrid);
+    container.appendChild(moreTraitsContainer);
   }
 }
 
