@@ -3,11 +3,16 @@ let careers = [];
 let currentQuestionIndex = 0;
 
 let traits = {
-  collaboration: 0,
-  creativity: 0,
   logic: 0,
-  systems: 0,
-  detail: 0
+  creativity: 0,
+  leadership: 0,
+  empathy: 0,
+  discipline: 0,
+  social: 0,
+  technical: 0,
+  risk: 0,
+  focus: 0,
+  adaptability: 0
 };
 
 let answersLog = [];
@@ -32,8 +37,7 @@ async function loadData() {
 
     const questionText = document.getElementById("questionText");
     if (questionText) {
-      questionText.innerText =
-        "Failed to load quiz data. Please check JSON file paths.";
+      questionText.innerText = "Failed to load quiz data. Please check JSON file paths.";
     }
   }
 }
@@ -47,7 +51,7 @@ function updateProgress() {
 
   if (progressText) progressText.innerText = `Question ${current} / ${total}`;
 
-  const percent = ((currentQuestionIndex) / total) * 100;
+  const percent = (currentQuestionIndex / total) * 100;
   if (progressFill) progressFill.style.width = `${percent}%`;
 }
 
@@ -85,6 +89,12 @@ function loadQuestion() {
 function selectOption(option) {
   if (currentQuestionIndex >= questions.length) return;
 
+  if (!traits.hasOwnProperty(option.trait)) {
+    console.error(`Invalid trait "${option.trait}" in question ${currentQuestionIndex + 1}`);
+    alert(`Error: Question contains invalid trait "${option.trait}". Please check questions.json`);
+    return;
+  }
+
   traits[option.trait] += option.value;
 
   const q = questions[currentQuestionIndex];
@@ -105,48 +115,24 @@ function selectOption(option) {
   }
 }
 
-
 function normalizeTraits(rawTraits) {
-  const maxPossible = questions.length * 2;
+  const maxScores = {};
+
+  questions.forEach(q => {
+    q.options.forEach(opt => {
+      if (!maxScores[opt.trait] || opt.value > maxScores[opt.trait]) {
+        maxScores[opt.trait] = opt.value;
+      }
+    });
+  });
 
   const normalized = {};
-  Object.entries(rawTraits).forEach(([trait, value]) => {
-    normalized[trait] = maxPossible === 0 ? 0 : value / maxPossible;
+  Object.keys(rawTraits).forEach(trait => {
+    const max = (maxScores[trait] || 1) * questions.length;
+    normalized[trait] = max === 0 ? 0 : rawTraits[trait] / max;
   });
 
   return normalized;
-}
-
-function getTopCareers(normalizedTraits, topN = 3) {
-  const scored = careers.map((career) => {
-    const focusTraits = career.focusTraits || [career.primaryTrait, career.secondaryTrait].filter(Boolean);
-
-    if (!focusTraits || focusTraits.length === 0) {
-      return {
-        id: career.id,
-        name: career.name,
-        description: career.description,
-        score: 0
-      };
-    }
-
-    let score = 0;
-    focusTraits.forEach((trait) => {
-      score += normalizedTraits[trait] || 0;
-    });
-
-    score = score / focusTraits.length;
-
-    return {
-      id: career.id,
-      name: career.name,
-      description: career.description,
-      score
-    };
-  });
-
-  scored.sort((a, b) => b.score - a.score);
-  return scored.slice(0, topN);
 }
 
 
@@ -193,7 +179,5 @@ async function finishQuiz() {
     alert("Prediction server is not responding. Please try again.");
   }
 }
-
-
 
 window.onload = loadData;

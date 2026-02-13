@@ -1,12 +1,29 @@
+// roadmap_page.js
+
 async function loadRoadmaps() {
-  const res = await fetch("../data/roadmaps.json");
-  return await res.json();
+  try {
+    const res = await fetch("../data/roadmaps.json");
+    return await res.json();
+  } catch (e) {
+    console.error("Failed loading roadmaps.json", e);
+    return [];
+  }
 }
 
-function renderRoadmap(roadmapObj) {
+async function loadCareers() {
+  try {
+    const res = await fetch("../data/careers.json");
+    return await res.json();
+  } catch (e) {
+    console.error("Failed loading careers.json", e);
+    return [];
+  }
+}
+
+function renderRoadmap(roadmapObj, careerObj = null) {
   const root = document.getElementById("roadmap-root");
 
-  if (!roadmapObj) {
+  if (!roadmapObj && !careerObj) {
     root.innerHTML = `
       <div class="roadmap-container">
         <h2>No roadmap found</h2>
@@ -17,9 +34,41 @@ function renderRoadmap(roadmapObj) {
     return;
   }
 
-  const stages = roadmapObj.stages || roadmapObj.roadmap || [];
+  const title = (roadmapObj && roadmapObj.title) || (careerObj && careerObj.name) || "Career Roadmap";
+  const stages = (roadmapObj && (roadmapObj.stages || roadmapObj.roadmap)) || [];
 
-  if (stages.length === 0) {
+  // If no detailed roadmap found, generate a basic 3-stage fallback from careerObj (simple)
+  const finalStages = stages.length ? stages : (careerObj ? [
+    {
+      level: "Foundation",
+      duration: "3-6 months",
+      title: `Foundations for ${careerObj.name}`,
+      description: careerObj.description || "",
+      requirements: ["Basic computer literacy"],
+      skills: ["Core domain knowledge"],
+      tools: [],
+      projects: ["Intro project"],
+      qualifications: []
+    },
+    {
+      level: "Intermediate",
+      duration: "6-12 months",
+      title: "Intermediate skills",
+      description: "Expand practical skills and build portfolio.",
+      skills: ["Practical applications"],
+      projects: ["Portfolio project"]
+    },
+    {
+      level: "Professional",
+      duration: "12+ months",
+      title: "Professional readiness",
+      description: "Prepare for job roles and specialize.",
+      skills: ["Advanced skills"],
+      projects: ["Team project"]
+    }
+  ] : []);
+
+  if (finalStages.length === 0) {
     root.innerHTML = `
       <div class="roadmap-container">
         <h2>No stages available</h2>
@@ -30,59 +79,29 @@ function renderRoadmap(roadmapObj) {
     return;
   }
 
-  const stagesHTML = stages.map(stage => {
+  const stagesHTML = finalStages.map(stage => {
     const requirementsHTML = stage.requirements?.length
-      ? `
-        <div class="stage-section">
-          <h4>Requirements</h4>
-          <ul>${stage.requirements.map(r => `<li>${r}</li>`).join("")}</ul>
-        </div>
-      `
+      ? `<div class="stage-section"><h4>Requirements</h4><ul>${stage.requirements.map(r => `<li>${r}</li>`).join("")}</ul></div>`
       : "";
 
     const skillsHTML = stage.skills?.length
-      ? `
-        <div class="stage-section">
-          <h4>Skills</h4>
-          <ul>${stage.skills.map(s => `<li>${s}</li>`).join("")}</ul>
-        </div>
-      `
+      ? `<div class="stage-section"><h4>Skills</h4><ul>${stage.skills.map(s => `<li>${s}</li>`).join("")}</ul></div>`
       : "";
 
     const toolsHTML = stage.tools?.length
-      ? `
-        <div class="stage-section">
-          <h4>Tools</h4>
-          <ul>${stage.tools.map(t => `<li>${t}</li>`).join("")}</ul>
-        </div>
-      `
+      ? `<div class="stage-section"><h4>Tools</h4><ul>${stage.tools.map(t => `<li>${t}</li>`).join("")}</ul></div>`
       : "";
 
     const projectsHTML = stage.projects?.length
-      ? `
-        <div class="stage-section">
-          <h4>Projects</h4>
-          <ul>${stage.projects.map(p => `<li>${p}</li>`).join("")}</ul>
-        </div>
-      `
+      ? `<div class="stage-section"><h4>Projects</h4><ul>${stage.projects.map(p => `<li>${p}</li>`).join("")}</ul></div>`
       : "";
 
     const qualificationsHTML = stage.qualifications?.length
-      ? `
-        <div class="stage-section">
-          <h4>Qualifications</h4>
-          <ul>${stage.qualifications.map(q => `<li>${q}</li>`).join("")}</ul>
-        </div>
-      `
+      ? `<div class="stage-section"><h4>Qualifications</h4><ul>${stage.qualifications.map(q => `<li>${q}</li>`).join("")}</ul></div>`
       : "";
 
     const milestoneHTML = stage.milestone
-      ? `
-        <div class="stage-section">
-          <h4>Milestone</h4>
-          <p>${stage.milestone}</p>
-        </div>
-      `
+      ? `<div class="stage-section"><h4>Milestone</h4><p>${stage.milestone}</p></div>`
       : "";
 
     return `
@@ -106,7 +125,7 @@ function renderRoadmap(roadmapObj) {
 
   root.innerHTML = `
     <div class="roadmap-container">
-      <h1>${roadmapObj.title || "Career Roadmap"}</h1>
+      <h1>${title}</h1>
       <p>This is your recommended learning path based on your assessment.</p>
 
       <div style="margin: 12px 0 20px;">
@@ -120,7 +139,7 @@ function renderRoadmap(roadmapObj) {
   `;
 
   document.getElementById("backBtn").onclick = () => {
-    window.location.href = "result_page.html";
+    window.location.href = "Result_page.html";
   };
 }
 
@@ -138,8 +157,10 @@ window.onload = async () => {
     return;
   }
 
-  const roadmaps = await loadRoadmaps();
-  const roadmapObj = roadmaps.find(r => r.careerId === careerId);
+  const [roadmaps, careers] = await Promise.all([loadRoadmaps(), loadCareers()]);
 
-  renderRoadmap(roadmapObj);
+  const roadmapObj = (roadmaps || []).find(r => r.careerId === careerId);
+  const careerObj = (careers || []).find(c => c.id === careerId);
+
+  renderRoadmap(roadmapObj, careerObj);
 };

@@ -34,7 +34,7 @@
         "milestone": "You can build small programs independently and understand problem solving."
       },
       {
-        "level": "NVQ Level 5-6 / Diploma",
+        "level": "Intermediate",
         "duration": "6–12 months",
         "title": "Core Software Development",
         "description": "Start building real applications with databases, web technologies, and clean coding practices.",
@@ -68,7 +68,7 @@
         "milestone": "You can build full projects with database + UI and explain your code clearly."
       },
       {
-        "level": "Degree / Professional",
+        "level": "Advanced",
         "duration": "12+ months",
         "title": "Professional Software Engineer",
         "description": "Learn scalable system design, frameworks, deployment, and industry workflows.",
@@ -140,7 +140,7 @@
         "milestone": "You can design clean UI screens and explain design decisions."
       },
       {
-        "level": "NVQ Level 5-6 / Diploma",
+        "level": "Intermediate",
         "duration": "6–12 months",
         "title": "UX Process & Prototyping",
         "description": "Learn UX research and create user journeys with prototypes and testing.",
@@ -174,7 +174,7 @@
         "milestone": "You can create complete UX case studies and prototypes like industry designers."
       },
       {
-        "level": "Degree / Professional",
+        "level": "Advanced",
         "duration": "12+ months",
         "title": "Design Systems & Product Strategy",
         "description": "Work like a product designer: scalable systems, accessibility, analytics, and teamwork.",
