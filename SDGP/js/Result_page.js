@@ -1,5 +1,3 @@
-// result_page.js
-
 const traitDescriptions = {
   logic: "Ability to analyze problems systematically and think in structured steps.",
   creativity: "Capacity for innovative thinking, design sense, and originality.",
@@ -17,7 +15,7 @@ let careersData = [];
 
 async function loadCareers() {
   try {
-    const res = await fetch("../data/careers.json");
+    const res = await fetch("http://127.0.0.1:5000/api/careers");
     careersData = await res.json();
   } catch (err) {
     console.error("Failed loading careers.json", err);
@@ -83,7 +81,6 @@ window.onload = async () => {
   renderTopCareers(result.topCareers || []);
 };
 
-/* ------------ Traits UI (5 shown, 5 hidden) ------------ */
 
 function renderTraits(traits) {
   const container = document.getElementById("traitsGrid");
@@ -96,7 +93,6 @@ function renderTraits(traits) {
   const firstFive = entries.slice(0, 5);
   const hiddenFive = entries.slice(5);
 
-  // Create grid for first 5 traits
   const traitsGrid = document.createElement("div");
   traitsGrid.className = "traits-grid";
   traitsGrid.style.display = "grid";
@@ -106,7 +102,6 @@ function renderTraits(traits) {
   firstFive.forEach(t => traitsGrid.appendChild(createTraitCard(t)));
   container.appendChild(traitsGrid);
 
-  // Add "More Traits" link and hidden traits
   if (hiddenFive.length > 0) {
     const moreTraitsContainer = document.createElement("div");
     moreTraitsContainer.className = "more-traits-container";
@@ -163,15 +158,13 @@ function createTraitCard([trait, value]) {
   return card;
 }
 
-/* ------------ Top 2 & 3 Careers UI ------------ */
 
 function renderTopCareers(careers) {
   const container = document.getElementById("topCareersContainer");
   if (!container) return;
   container.innerHTML = "";
 
-  // We assume careers[0] is the top (already shown above)
-  const showList = (careers || []).slice(1, 3); // show indexes 1 and 2 only
+  const showList = (careers || []).slice(1, 3);
 
   if (showList.length === 0) {
     container.innerHTML = `<p style="text-align:center;color:#666">No additional matches to show.</p>`;
@@ -194,7 +187,6 @@ function renderTopCareers(careers) {
       <button class="roadmap-btn" data-career-id="${item.career}">View Roadmap →</button>
     `;
 
-    // attach click
     const btn = card.querySelector("button.roadmap-btn");
     btn.onclick = () => {
       localStorage.setItem("selectedCareerId", item.career);
