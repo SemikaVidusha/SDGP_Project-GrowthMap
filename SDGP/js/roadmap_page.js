@@ -1,13 +1,13 @@
-async function loadRoadmaps() {
+async function loadRoadmaps(careerId) {
   try {
     const res = await fetch(`http://127.0.0.1:5000/api/roadmaps/${careerId}`);
-
     return await res.json();
   } catch (e) {
-    console.error("Failed loading roadmaps.json", e);
-    return [];
+    console.error("Failed loading roadmaps", e);
+    return null;
   }
 }
+
 
 async function loadCareers() {
   try {
@@ -155,7 +155,13 @@ window.onload = async () => {
     return;
   }
 
-  const roadmapObj = await loadRoadmaps(careerId); 
+  const [roadmapObj, careersData] = await Promise.all([
+    loadRoadmaps(careerId),
+    loadCareers()
+  ]);
+
+  const careerObj = careersData.find(c => c.id === careerId);
 
   renderRoadmap(roadmapObj, careerObj);
 };
+
