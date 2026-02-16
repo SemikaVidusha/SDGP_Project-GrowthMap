@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 
+// 1. Define types (Ensure file extension is .tsx)
 interface User {
   id: string;
   name: string;
@@ -17,12 +18,20 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true); // Added loading state
 
   useEffect(() => {
     const storedUser = localStorage.getItem("growthmap_user");
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      try {
+        // Safety check: parse only if it's valid JSON
+        setUser(JSON.parse(storedUser));
+      } catch (error) {
+        console.error("Failed to parse user from storage", error);
+        localStorage.removeItem("growthmap_user");
+      }
     }
+    setIsLoading(false);
   }, []);
 
   const login = (userData: User) => {
@@ -44,7 +53,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         logout,
       }}
     >
-      {children}
+      {/* Optional: Don't render children until we know if user is logged in */}
+      {!isLoading && children}
     </AuthContext.Provider>
   );
 };
