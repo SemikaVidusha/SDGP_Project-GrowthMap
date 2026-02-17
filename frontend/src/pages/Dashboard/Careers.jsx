@@ -5,8 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { createPageUrl } from "@/utils";
-//import { careers, roadmaps } from '../components/quiz/QuizData';
-//import RoadmapTimeline from '../components/roadmap/RoadmapTimeline';
+
 import { 
   MapPin, Search, ArrowRight, TrendingUp, Briefcase,
   Code, Network, Palette, BarChart3, Shield, Globe, 
@@ -42,6 +41,36 @@ export default function Careers() {
     "High": "bg-blue-100 text-blue-700",
     "Medium": "bg-amber-100 text-amber-700"
   };
+  const careers = [
+  {
+    id: 1,
+    title: "Software Engineer",
+    description: "Design and develop software applications and systems.",
+    skills: ["JavaScript", "React", "Problem Solving", "APIs"],
+    salary: "LKR 150,000 - 300,000",
+    demand: "Very High",
+    icon: "Code"
+  },
+  {
+    id: 2,
+    title: "Data Analyst",
+    description: "Analyze data to help businesses make informed decisions.",
+    skills: ["Python", "SQL", "Excel", "Statistics"],
+    salary: "LKR 120,000 - 250,000",
+    demand: "High",
+    icon: "BarChart3"
+  },
+  {
+    id: 3,
+    title: "Cybersecurity Specialist",
+    description: "Protect systems and networks from cyber threats.",
+    skills: ["Networking", "Security", "Ethical Hacking"],
+    salary: "LKR 180,000 - 350,000",
+    demand: "Very High",
+    icon: "Shield"
+  }
+];
+
 
   const filteredCareers = careers.filter(career =>
     career.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
