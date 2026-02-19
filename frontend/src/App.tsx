@@ -46,6 +46,7 @@ export default function App() {
         <Route path="/quiz" element={<Quiz />} />
         <Route path="/careers" element={<Careers />} />
         <Route path="/results" element={<Results />} />
+        <Route path="/skillgap" element={<SkillGap />} />
       </Routes>
       
       <Routes>
@@ -53,12 +54,8 @@ export default function App() {
        <Route path="/signup" element={<Signup />} />
       </Routes>
       
-      <Routes>
-       <Route path="/" element={<Home />} />
-       <Route path="/skillgap" element={<SkillGap />} />
-      </Routes>
-
       
+        
     </>
     
   );
