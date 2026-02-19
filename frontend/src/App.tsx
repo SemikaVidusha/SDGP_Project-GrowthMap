@@ -11,6 +11,8 @@ import Login from "./pages/Dashboard/Auth/Login";
 import Signup from "./pages/Dashboard/Auth/Signup";
 import SkillGap from "./pages/Dashboard/SkillGap";
 
+
+
 export default function App() {
   const location = useLocation();
   const [loading, setLoading] = useState(false);
@@ -52,7 +54,8 @@ export default function App() {
       </Routes>
       
       <Routes>
-        <Route path='/skillgap' element={<SkillGap/>}/>
+       <Route path="/" element={<Home />} />
+       <Route path="/skillgap" element={<SkillGap />} />
       </Routes>
 
       

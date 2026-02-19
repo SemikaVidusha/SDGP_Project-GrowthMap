@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '../ui/button';
 import { Badge } from "../ui/badge";
-import { CheckCircle2, XCircle, AlertCircle, RotateCcw, BookOpen, Clock, TrendingUp, Zap, ChevronDown, ChevronUp, ExternalLink, MapPin } from 'lucide-react';
+import {
+  CheckCircle2, XCircle, AlertCircle, RotateCcw, BookOpen,
+  Clock, TrendingUp, Zap, ChevronDown, ChevronUp, MapPin
+} from 'lucide-react';
 import UserInputForm from "./UserInputForm.jsx";
-import InstituteMapModal from "./InstituteMapModal";
+import InstituteMapModal from "./InstituteMapModel";
 import LocationDetector from "./LocationDetector";
-
-
-
-
 
 function MatchMeter({ percent }) {
   const color = percent >= 75 ? '#22c55e' : percent >= 50 ? '#f59e0b' : percent >= 25 ? '#f97316' : '#ef4444';
@@ -22,11 +21,17 @@ function MatchMeter({ percent }) {
       <div className="relative w-36 h-36">
         <svg className="w-full h-full -rotate-90" viewBox="0 0 120 120">
           <circle cx="60" cy="60" r="50" fill="none" stroke="#f1f5f9" strokeWidth="12" />
-          <motion.circle cx="60" cy="60" r="50" fill="none" stroke={color} strokeWidth="12"
-            strokeLinecap="round" strokeDasharray={`${2 * Math.PI * 50}`}
+          <motion.circle
+            cx="60" cy="60" r="50"
+            fill="none"
+            stroke={color}
+            strokeWidth="12"
+            strokeLinecap="round"
+            strokeDasharray={`${2 * Math.PI * 50}`}
             initial={{ strokeDashoffset: 2 * Math.PI * 50 }}
             animate={{ strokeDashoffset: 2 * Math.PI * 50 * (1 - percent / 100) }}
-            transition={{ duration: 1.5, ease: "easeOut" }} />
+            transition={{ duration: 1.5, ease: "easeOut" }}
+          />
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
           <motion.span className="text-3xl font-bold text-slate-800" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
@@ -40,7 +45,7 @@ function MatchMeter({ percent }) {
   );
 }
 
-function SkillRow({ skill, matched, type }) {
+function SkillRow({ skill, matched }) {
   return (
     <div className={`flex items-center justify-between py-2 px-3 rounded-lg ${matched ? 'bg-green-50' : 'bg-red-50'}`}>
       <span className="text-sm text-slate-700 font-medium">{skill}</span>
@@ -72,12 +77,19 @@ function CollapsibleSection({ title, icon: Icon, iconColor, count, total, childr
 }
 
 export default function GapAnalysisResult({ result, onReset }) {
-  const { career, matchPercentage, techAnalysis, softAnalysis, certAnalysis, educationMet, expGap, missingTech, missingSoft, priorityGaps, timeline } = result;
+  const { career, matchPercentage, techAnalysis, softAnalysis, certAnalysis, educationMet, expGap, missingTech, priorityGaps, timeline } = result;
   const [selectedResource, setSelectedResource] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
 
+  // Debugging logs
+  useEffect(() => {
+    console.log("Skill Gap Result:", result);
+    console.log("User Location:", userLocation);
+  }, [result, userLocation]);
+
   return (
     <div className="max-w-3xl mx-auto space-y-5">
+
       {/* Hero Result Card */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
         className={`bg-gradient-to-br ${career.color} rounded-2xl p-6 text-white shadow-xl`}>
@@ -116,7 +128,7 @@ export default function GapAnalysisResult({ result, onReset }) {
             ))}
           </div>
           {!educationMet && (
-            <p className="text-amber-700 text-sm mt-3 font-medium">⚠️ Your current education level may not meet the requirements. Consider upgrading your qualifications.</p>
+            <p className="text-amber-700 text-sm mt-3 font-medium">⚠️ Your current education may not meet the requirements. Consider upgrading your qualifications.</p>
           )}
           {expGap > 0 && (
             <p className="text-amber-700 text-sm mt-2 font-medium">⚠️ {expGap} more year{expGap !== 1 ? 's' : ''} of experience recommended for this role.</p>
@@ -124,7 +136,7 @@ export default function GapAnalysisResult({ result, onReset }) {
         </motion.div>
       )}
 
-      {/* Tech Skills */}
+      {/* Skills & Certifications */}
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
         <CollapsibleSection title="Technical Skills" icon={Zap} iconColor="text-orange-500"
           count={techAnalysis.filter(s => s.matched).length} total={techAnalysis.length}>
@@ -132,7 +144,6 @@ export default function GapAnalysisResult({ result, onReset }) {
         </CollapsibleSection>
       </motion.div>
 
-      {/* Soft Skills */}
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}>
         <CollapsibleSection title="Soft Skills" icon={TrendingUp} iconColor="text-blue-500"
           count={softAnalysis.filter(s => s.matched).length} total={softAnalysis.length}>
@@ -140,7 +151,6 @@ export default function GapAnalysisResult({ result, onReset }) {
         </CollapsibleSection>
       </motion.div>
 
-      {/* Certifications */}
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
         <CollapsibleSection title="Recommended Certifications" icon={BookOpen} iconColor="text-purple-500"
           count={certAnalysis.filter(c => c.matched).length} total={certAnalysis.length}>
@@ -157,10 +167,12 @@ export default function GapAnalysisResult({ result, onReset }) {
             <span className="font-semibold text-slate-800">Recommended Learning Resources</span>
           </div>
         </div>
+
         {/* Location detector */}
         <div className="px-5 pt-4 pb-2">
           <LocationDetector onLocationDetected={setUserLocation} />
         </div>
+
         <div className="p-5 pt-3 grid sm:grid-cols-2 gap-3">
           {career.resources.map((r, i) => (
             <div key={i} className="flex flex-col p-3 border border-slate-100 rounded-xl hover:border-purple-200 hover:bg-purple-50 transition-all group cursor-pointer"

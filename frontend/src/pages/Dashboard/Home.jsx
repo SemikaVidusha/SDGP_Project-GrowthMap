@@ -85,6 +85,12 @@ export default function Home() {
                     Explore Careers
                   </Button>
                 </Link>
+                <Link to={createPageUrl("SkillGap")}>
+                  <Button variant="outline" size="lg" className="border-2 border-purple-300 text-purple-700 hover:bg-purple-50 px-8 py-6 text-lg rounded-xl w-full sm:w-auto">
+                    <Target className="mr-2 w-5 h-5" />
+                    Skill Gap Analyzer
+                  </Button>
+                </Link>
               </div>
 
               <div className="mt-10 flex items-center justify-center lg:justify-start gap-8 text-sm text-slate-500">
