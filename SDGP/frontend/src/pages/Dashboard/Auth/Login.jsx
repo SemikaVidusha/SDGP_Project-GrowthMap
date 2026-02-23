@@ -25,7 +25,7 @@ export default function Login() {
         </div>
 
         <h3 className="text-xl font-semibold text-center mb-6">
-          Welcome Back 👋
+          Welcome Back 
         </h3>
 
         <form onSubmit={handleLogin} className="space-y-5">

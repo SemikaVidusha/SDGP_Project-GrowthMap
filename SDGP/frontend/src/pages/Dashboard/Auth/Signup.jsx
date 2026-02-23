@@ -24,7 +24,7 @@ export default function Signup() {
         </div>
 
         <h3 className="text-xl font-semibold text-center mb-6">
-          Create Your Account 🚀
+          Create Your Account 
         </h3>
 
         <form onSubmit={handleSignup} className="space-y-5">
