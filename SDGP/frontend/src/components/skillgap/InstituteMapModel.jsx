@@ -4,6 +4,8 @@ import { X, MapPin, Navigation } from 'lucide-react';
 import { Button } from '../ui/button';
 import L from 'leaflet';
 
+import { data } from 'react-router-dom';
+
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',

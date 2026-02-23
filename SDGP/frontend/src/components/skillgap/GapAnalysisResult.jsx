@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Badge } from "../ui/badge";
 import InstituteMapModal from "./InstituteMapModel";
 import LocationDetector from "./LocationDetector";
-import { SRI_LANKAN_INSTITUTIONS } from "../data/sriLankanInstitutions";
+import { SRI_LANKAN_INSTITUTIONS } from "./sriLankanInstitutions";
 
 export default function GapAnalysisResult({ result, onReset }) {
   const [userLocation, setUserLocation] = useState(null);
