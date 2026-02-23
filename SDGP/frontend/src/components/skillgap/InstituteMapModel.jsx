@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup, Circle } from 'react-leaflet';
 import { X, MapPin, Navigation } from 'lucide-react';
 import { Button } from '../ui/button';
 import L from 'leaflet';
+import {SRILANKAN_INSTITUTES} from './SriLankanInstitutes'
 
 import { data } from 'react-router-dom';
 
