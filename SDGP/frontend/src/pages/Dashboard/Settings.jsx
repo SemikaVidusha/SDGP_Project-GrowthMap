@@ -1,0 +1,248 @@
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
+import { Button } from '@/components/ui/button';
+import {
+  ArrowLeft, Bell, Moon, Globe, Shield, Trash2, ChevronRight,
+  LogOut, Eye, EyeOff, Check, MapPin, Palette, Volume2
+} from 'lucide-react';
+
+function Toggle({ checked, onChange }) {
+  return (
+    <button
+      onClick={() => onChange(!checked)}
+      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${checked ? 'bg-purple-600' : 'bg-slate-200'}`}
+    >
+      <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform ${checked ? 'translate-x-6' : 'translate-x-1'}`} />
+    </button>
+  );
+}
+
+function SettingRow({ icon: Icon, iconColor, label, description, right, border = true }) {
+  return (
+    <div className={`flex items-center justify-between gap-4 py-4 ${border ? 'border-b border-slate-50' : ''}`}>
+      <div className="flex items-center gap-3">
+        <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${iconColor}`}>
+          <Icon className="w-4 h-4 text-white" />
+        </div>
+        <div>
+          <p className="text-sm font-medium text-slate-800">{label}</p>
+          {description && <p className="text-xs text-slate-500 mt-0.5">{description}</p>}
+        </div>
+      </div>
+      <div className="flex-shrink-0">{right}</div>
+    </div>
+  );
+}
+
+function Section({ title, children }) {
+  return (
+    <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+      className="bg-white rounded-2xl border border-slate-100 shadow-sm px-5 overflow-hidden">
+      <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider pt-4 pb-2">{title}</h3>
+      {children}
+    </motion.div>
+  );
+}
+
+export default function Settings() {
+  const [prefs, setPrefs] = useState({
+    darkMode: false,
+    emailNotifications: true,
+    quizReminders: false,
+    progressUpdates: true,
+    publicProfile: false,
+    dataSharing: false,
+    soundEffects: true,
+    language: 'en',
+  });
+
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [saved, setSaved] = useState(false);
+
+  const set = (key) => (val) => {
+    setPrefs(p => ({ ...p, [key]: val }));
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2000);
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-purple-50">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-10 px-4">
+        <div className="max-w-2xl mx-auto">
+
+          <motion.div initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/20 rounded-full text-xs font-medium mb-3">
+              <Check className="w-3 h-3" />
+              {saved ? 'Preferences saved' : 'App Settings'}
+            </div>
+            <h1 className="text-2xl font-bold">Settings</h1>
+            <p className="text-blue-100 text-sm mt-1">Manage your preferences and account</p>
+          </motion.div>
+        </div>
+      </div>
+
+      <div className="max-w-2xl mx-auto px-4 py-8 space-y-4">
+
+        {/* Appearance */}
+        <Section title="Appearance">
+          <SettingRow
+            icon={Moon} iconColor="bg-gradient-to-br from-indigo-500 to-purple-600"
+            label="Dark Mode"
+            description="Switch to a darker interface (coming soon)"
+            right={<Toggle checked={prefs.darkMode} onChange={set('darkMode')} />}
+          />
+          <SettingRow
+            icon={Palette} iconColor="bg-gradient-to-br from-pink-500 to-rose-500"
+            label="Accent Colour"
+            description="Currently: Purple/Blue gradient"
+            border={false}
+            right={
+              <div className="flex items-center gap-1.5">
+                {['from-blue-500 to-purple-500', 'from-green-500 to-teal-500', 'from-orange-500 to-amber-500'].map((g, i) => (
+                  <div key={i} className={`w-5 h-5 rounded-full bg-gradient-to-br ${g} ${i === 0 ? 'ring-2 ring-offset-1 ring-purple-400' : ''}`} />
+                ))}
+              </div>
+            }
+          />
+        </Section>
+
+        {/* Notifications */}
+        <Section title="Notifications">
+          <SettingRow
+            icon={Bell} iconColor="bg-gradient-to-br from-orange-500 to-amber-500"
+            label="Email Notifications"
+            description="Receive updates about your career progress"
+            right={<Toggle checked={prefs.emailNotifications} onChange={set('emailNotifications')} />}
+          />
+          <SettingRow
+            icon={Bell} iconColor="bg-gradient-to-br from-blue-500 to-cyan-500"
+            label="Quiz Reminders"
+            description="Remind me to retake the assessment periodically"
+            right={<Toggle checked={prefs.quizReminders} onChange={set('quizReminders')} />}
+          />
+          <SettingRow
+            icon={Bell} iconColor="bg-gradient-to-br from-purple-500 to-pink-500"
+            label="Progress Updates"
+            description="Notify me about new learning resources"
+            border={false}
+            right={<Toggle checked={prefs.progressUpdates} onChange={set('progressUpdates')} />}
+          />
+        </Section>
+
+        {/* Sound */}
+        <Section title="Sound & Experience">
+          <SettingRow
+            icon={Volume2} iconColor="bg-gradient-to-br from-teal-500 to-green-500"
+            label="Sound Effects"
+            description="Play sounds on quiz interactions"
+            border={false}
+            right={<Toggle checked={prefs.soundEffects} onChange={set('soundEffects')} />}
+          />
+        </Section>
+
+        {/* Language */}
+        <Section title="Language & Region">
+          <SettingRow
+            icon={Globe} iconColor="bg-gradient-to-br from-sky-500 to-blue-500"
+            label="Language"
+            description="Interface language for GrowthMap"
+            border={false}
+            right={
+              <select
+                value={prefs.language}
+                onChange={e => set('language')(e.target.value)}
+                className="text-sm border border-slate-200 rounded-lg px-2 py-1 text-slate-700 focus:outline-none focus:ring-2 focus:ring-purple-400 bg-white"
+              >
+                <option value="en">English</option>
+                <option value="si">Sinhala</option>
+                <option value="ta">Tamil</option>
+              </select>
+            }
+          />
+        </Section>
+
+        {/* Privacy */}
+        <Section title="Privacy">
+          <SettingRow
+            icon={Eye} iconColor="bg-gradient-to-br from-violet-500 to-purple-600"
+            label="Public Profile"
+            description="Allow others to see your career goals"
+            right={<Toggle checked={prefs.publicProfile} onChange={set('publicProfile')} />}
+          />
+          <SettingRow
+            icon={Shield} iconColor="bg-gradient-to-br from-green-500 to-emerald-500"
+            label="Anonymous Data Sharing"
+            description="Help improve GrowthMap with usage data"
+            border={false}
+            right={<Toggle checked={prefs.dataSharing} onChange={set('dataSharing')} />}
+          />
+        </Section>
+
+        {/* Account */}
+        <Section title="Account">
+          <Link to={createPageUrl("Profile")}>
+            <SettingRow
+              icon={MapPin} iconColor="bg-gradient-to-br from-blue-500 to-purple-600"
+              label="Edit Profile"
+              description="Update your name, bio, and career details"
+              right={<ChevronRight className="w-4 h-4 text-slate-400" />}
+            />
+          </Link>
+          <SettingRow
+            icon={LogOut} iconColor="bg-gradient-to-br from-slate-500 to-slate-600"
+            label="Sign Out"
+            description="Sign out of your GrowthMap account"
+            border={false}
+            right={
+              <Button onClick={() => base44?.auth?.logout?.()} size="sm" variant="outline"
+                className="text-xs rounded-xl border-slate-200 hover:border-red-300 hover:text-red-600">
+                Sign Out
+              </Button>
+            }
+          />
+        </Section>
+
+        {/* Danger Zone */}
+        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+          className="bg-white rounded-2xl border border-red-100 shadow-sm px-5 overflow-hidden">
+          <h3 className="text-xs font-semibold text-red-400 uppercase tracking-wider pt-4 pb-2">Danger Zone</h3>
+          {!showDeleteConfirm ? (
+            <div className="flex items-center justify-between gap-4 py-4">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-red-500 to-rose-600 flex items-center justify-center">
+                  <Trash2 className="w-4 h-4 text-white" />
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-slate-800">Delete Account</p>
+                  <p className="text-xs text-slate-500">Permanently remove your account and all data</p>
+                </div>
+              </div>
+              <Button onClick={() => setShowDeleteConfirm(true)} size="sm" variant="outline"
+                className="text-xs rounded-xl border-red-200 text-red-600 hover:bg-red-50 flex-shrink-0">
+                Delete
+              </Button>
+            </div>
+          ) : (
+            <div className="py-4 space-y-3">
+              <p className="text-sm text-red-700 font-medium">Are you sure? This cannot be undone.</p>
+              <div className="flex gap-2">
+                <Button size="sm" className="bg-red-600 hover:bg-red-700 text-white text-xs rounded-xl">
+                  Yes, delete my account
+                </Button>
+                <Button onClick={() => setShowDeleteConfirm(false)} size="sm" variant="outline"
+                  className="text-xs rounded-xl">
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          )}
+        </motion.div>
+
+
+      </div>
+    </div>
+  );
+}
