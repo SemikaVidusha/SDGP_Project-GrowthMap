@@ -13,6 +13,7 @@ import SkillGap from "./pages/Dashboard/SkillGap";
 
 
 
+
 export default function App() {
   const location = useLocation();
   const [loading, setLoading] = useState(false);
@@ -35,24 +36,39 @@ export default function App() {
 
   return (
     <>
-      <Preloader loading={loading} />
+      {/* <Preloader loading={loading} /> */}
 
       {/* Navbar always visible */}
       <Navbar />
 
-      {/* Page content */}
       <Routes>
         <Route path="/" element={<Home />} />
+
+        {/* Quiz */}
         <Route path="/quiz" element={<Quiz />} />
+        <Route path="/Quiz" element={<Quiz />} />
+
+        {/* Careers */}
         <Route path="/careers" element={<Careers />} />
+        <Route path="/Careers" element={<Careers />} />
+
+        {/* Results */}
         <Route path="/results" element={<Results />} />
+        <Route path="/Results" element={<Results />} />
+
+        {/* SkillGap */}
         <Route path="/skillgap" element={<SkillGap />} />
+        <Route path="/SkillGap" element={<SkillGap />} />
+
+        {/* Auth */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
       
-      <Routes>
+      {/* <Routes>
        <Route path="/login" element={<Login />} />
        <Route path="/signup" element={<Signup />} />
-      </Routes>
+      </Routes> */}
       
       
         

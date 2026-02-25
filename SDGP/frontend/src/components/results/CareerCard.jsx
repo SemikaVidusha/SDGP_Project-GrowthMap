@@ -68,24 +68,27 @@ export default function CareerCard({ career, matchScore, rank, onClick }) {
       </p>
 
       <div className="flex flex-wrap gap-2 mb-4">
-        {career.skills.slice(0, 3).map((skill, i) => (
+        {(career.skills || []).slice(0, 3).map((skill, i) => (
           <Badge key={i} variant="secondary" className="bg-slate-100 text-slate-600 text-xs">
             {skill}
           </Badge>
         ))}
-        {career.skills.length > 3 && (
+
+        {(career.skills?.length || 0) > 3 && (
           <Badge variant="secondary" className="bg-slate-100 text-slate-500 text-xs">
             +{career.skills.length - 3} more
           </Badge>
         )}
       </div>
 
+      
+
       <div className="flex items-center justify-between pt-4 border-t border-slate-100">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-1.5">
             <TrendingUp className="w-4 h-4 text-green-600" />
-            <Badge className={`${demandColors[career.demand]} text-xs`}>
-              {career.demand} Demand
+            <Badge className={`${demandColors[career.demand] || "bg-slate-100 text-slate-600"} text-xs`}>
+              {career.demand || "Market"}
             </Badge>
           </div>
         </div>
@@ -96,7 +99,7 @@ export default function CareerCard({ career, matchScore, rank, onClick }) {
       </div>
 
       <div className="mt-4 text-xs text-slate-500">
-        Salary Range: {career.salary}
+        Salary Range: {career.salary || "Varies by experience"}
       </div>
     </motion.div>
   );

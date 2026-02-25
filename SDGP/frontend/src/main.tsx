@@ -7,7 +7,6 @@ import './index.css'
 
 import { AuthProvider } from "./lib/AuthContext";
 
-// We only need ONE createRoot call
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
