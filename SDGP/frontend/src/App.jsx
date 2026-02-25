@@ -1,28 +1,21 @@
 import React from 'react'
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom'
-import { AnimatePresence } from 'framer-motion'
-import Signup from './Signup'
-import Login from './Login'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './index.css'
 
-function AnimatedRoutes() {
-  const location = useLocation();
-
+function Home() {
   return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Navigate to="/signup" />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-    </AnimatePresence>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <h1 className="text-3xl font-bold text-gray-800">GrowthMap</h1>
+    </div>
   );
 }
 
 function App() {
   return (
     <Router>
-      <AnimatedRoutes />
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
     </Router>
   )
 }
