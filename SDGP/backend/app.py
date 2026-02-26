@@ -51,8 +51,9 @@ def predict():
         probs = model.predict_proba(X)[0]
         classes = model.classes_     
 
+        # Convert probabilities to percentages (0-100)
         top_idx = np.argsort(probs)[::-1][:3]
-        topCareers = [{"career": str(classes[i]), "score": float(probs[i])} for i in top_idx]
+        topCareers = [{"career": str(classes[i]), "score": float(probs[i] * 100)} for i in top_idx]
 
         result = {
             "bestCareer": topCareers[0]["career"],

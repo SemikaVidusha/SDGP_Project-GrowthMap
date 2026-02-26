@@ -147,11 +147,12 @@ export default function Quiz() {
 
       // navigate to React results page, pass ML data in location.state
       // build a friendly structure for the Results page: traitScores & careerMatches
+      // tc.score is already a percentage (0-100) from the backend
       const careerMatches = (prediction.topCareers || []).map(tc => ({
         id: tc.career,
         title: tc.career.replace(/_/g, " "),
         description: "",
-        matchScore: Math.round((tc.score || 0) * 100),
+        matchScore: Math.round(tc.score || 0),
         rawScore: tc.score
       }));
 

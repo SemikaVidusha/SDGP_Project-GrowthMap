@@ -1,45 +1,59 @@
 from flask import Flask, Blueprint, jsonify, request
 from flask_cors import CORS
 from pymongo import MongoClient
+import traceback
 import sys
 import os
-import traceback
 
+# Fix relative path for imports
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", "dataset"))
+
+from predict import predict_career
+
+# MongoDB connection
 MONGO_URI = "mongodb+srv://sdgp_admin:Vu7rTKuA8nwuMR9K@career-prediction-clust.ohh82ug.mongodb.net/?appName=career-prediction-cluster"
 client = MongoClient(MONGO_URI)
 db = client["sdgp_db"]
 careers_col = db["careers"]
 roadmaps_col = db["roadmaps"]
 
-print("MongoDB Atlas connected successfully")
+print("MongoDB Atlas connected")
 
 ml_bp = Blueprint("ml", __name__)
 careers_bp = Blueprint("careers", __name__)
 roadmaps_bp = Blueprint("roadmaps", __name__)
 
+# ---------------- ML ROUTE ----------------
 @ml_bp.route("/predict", methods=["POST"])
 def predict():
     try:
         data = request.get_json(force=True)
-        if not data or "traits" not in data:
+        traits = data.get("traits")
+
+        if not traits:
             return jsonify({"error": "Missing traits"}), 400
-        
+
+        predictions = predict_career(traits)
+
+        best = predictions[0]
+
         return jsonify({
-            "bestCareer": "software_engineer",
-            "topCareers": [
-                {"career": "software_engineer", "score": 0.95},
-                {"career": "data_scientist", "score": 0.85},
-                {"career": "ux_designer", "score": 0.75}
-            ]
-        }), 200
-    except Exception as e:
-        print(traceback.format_exc())
+            "bestCareer": best["career"],
+            "match": best["score"],
+            "topCareers": predictions
+        })
+
+    except Exception:
+        traceback.print_exc()
         return jsonify({"error": "Prediction failed"}), 500
 
+
+# ---------------- CAREERS ----------------
 @careers_bp.route("/", methods=["GET"])
 def get_all_careers():
     careers = list(careers_col.find({}, {"_id": 0}))
     return jsonify(careers), 200
+
 
 @careers_bp.route("/<career_id>", methods=["GET"])
 def get_single_career(career_id):
@@ -48,6 +62,8 @@ def get_single_career(career_id):
         return jsonify({"error": "Career not found"}), 404
     return jsonify(career), 200
 
+
+# ---------------- ROADMAP ----------------
 @roadmaps_bp.route("/<career_id>", methods=["GET"])
 def get_roadmap(career_id):
     roadmap = roadmaps_col.find_one({"careerId": career_id}, {"_id": 0})
@@ -55,8 +71,10 @@ def get_roadmap(career_id):
         return jsonify({"error": "Roadmap not found"}), 404
     return jsonify(roadmap), 200
 
+
+# ---------------- APP ----------------
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app)
 
 app.register_blueprint(ml_bp, url_prefix="/api/ml")
 app.register_blueprint(careers_bp, url_prefix="/api/careers")
