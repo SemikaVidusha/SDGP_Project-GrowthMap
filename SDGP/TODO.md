@@ -1,48 +1,81 @@
-# ML Pipeline Fix - TODO List
+# Analysis: Backend Prediction Response → Frontend UI Display
 
-## Task: Create Complete Fixed ML Pipeline for Career Recommendation
+## Issues Found
 
-### Step 1: Rewrite dataset_generator.py (IT Careers)
-- [x] 10 IT career labels
-- [x] Uses only traits that match frontend questions.json
-- [x] Generate 6,000 balanced samples
-- [x] Clear statistical separation between careers
+### 1. CRITICAL: Backend Route Mismatch
+- **backend/app.py** exposes: `/predict` (direct route)
+- **backend/test_app.py** exposes: `/api/ml/predict` (blueprint with prefix)
+- **Frontend Quiz.jsx** calls: `http://127.0.0.1:5000/api/ml/predict`
 
-**IT Careers:**
-1. Software Engineer
-2. Data Scientist
-3. Cybersecurity Analyst
-4. Network Administrator
-5. DevOps Engineer
-6. Cloud Engineer
-7. AI/ML Engineer
-8. Full Stack Developer
-9. Mobile App Developer
-10. Data Engineer
+The frontend is calling `/api/ml/predict` which only exists in **test_app.py**.
 
-### Step 2: Rewrite train_model.py
-- [x] StandardScaler for feature scaling
-- [x] sklearn Pipeline (Scaler -> Model)
-- [x] RandomForest with CalibratedClassifierCV
-- [x] Save trained model as career_model.pkl
+### 2. CRITICAL: Feature Order Mismatch
+Training (train_model.py - SOURCE OF TRUTH):
+```
+logic, creativity, technical, empathy, leadership, social, discipline, adaptability, focus, risk
+```
 
-### Step 3: Backend Integration
-- [x] Fixed FEATURE_ORDER to match training
-- [x] Returns top 5 career predictions with percentages
+test_app.py prediction:
+```
+logic, creativity, leadership, empathy, discipline, social, technical, risk, focus, adaptability
+```
 
-### Step 4: Test and Verify
-- [x] Run dataset_generator.py - Created 6,000 samples (600 per career)
-- [x] Run train_model.py - Trained model with 62.67% accuracy
-- [x] Run predict.py - Verified varied predictions
+The **test_app.py** has WRONG feature order! This causes incorrect predictions.
 
-## Model Performance:
-- Top-1 Accuracy: 62.67%
-- Top-3 Accuracy: 91.75%
-- Top-5 Accuracy: 97.33%
+### 3. Input Normalization Issue
+- **test_app.py**: Divides input by 100 (expects 0-100, converts to 0-1)
+- **app.py**: Uses raw values directly (expects 0-1)
+- **Quiz.jsx**: Normalizes to 0-1 range
 
-## Verification Results:
-- Technical Profile → Cybersecurity Analyst (81.84%)
-- Creative Designer → Full Stack Developer (49.20%), Mobile App Developer (45.81%)
-- Research Scientist → Software Engineer (35.86%), AI/ML Engineer (25.36%), Data Scientist (21.83%)
+Quiz.jsx normalizes to 0-1, so test_app.py dividing by 100 produces incorrect (too small) values.
 
+### 4. Score Format Issue
+- **app.py**: Returns score as percentage (0-100): `probs[i] * 100`
+- **test_app.py**: Returns score as probability (0-1): raw `p`
 
+The UI expects percentage (0-100). Results.jsx uses `Math.round(tc.score)`.
+
+---
+
+## Fix Plan
+
+### Fix 1: Update test_app.py Feature Order
+Change FEATURE_ORDER in test_app.py to match train_model.py:
+```
+python
+FEATURE_ORDER = [
+    "logic", "creativity", "technical", "empathy",
+    "leadership", "social", "discipline", "adaptability",
+    "focus", "risk"
+]
+```
+
+### Fix 2: Remove Incorrect Normalization in test_app.py
+The input is already normalized (0-1) from Quiz.jsx, so remove `/ 100`:
+```
+python
+# Change from:
+X = [[traits.get(t, 0) / 100 for t in FEATURE_ORDER]]
+# To:
+X = [[traits.get(t, 0) for t in FEATURE_ORDER]]
+```
+
+### Fix 3: Convert Score to Percentage in test_app.py
+Match app.py behavior for consistent frontend parsing:
+```
+python
+# Change from:
+{"career": c, "score": float(round(p, 4))}
+# To:
+{"career": c, "score": float(p * 100)}
+```
+
+---
+
+## Status
+
+- [ ] Fix test_app.py feature order
+- [ ] Fix test_app.py input normalization  
+- [ ] Fix test_app.py score format (percentage)
+- [ ] Verify backend is running test_app.py
+- [ ] Test end-to-end prediction flow

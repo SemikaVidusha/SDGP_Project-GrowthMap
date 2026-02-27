@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
-
+// Feature order must match backend exactly
 const FEATURE_ORDER = [
-  "logic","creativity","leadership","empathy","discipline",
-  "social","technical","risk","focus","adaptability"
+  "logic", "creativity", "technical", "empathy",
+  "leadership", "social", "discipline", "adaptability",
+  "focus", "risk"
 ];
 
 export default function Quiz() {
@@ -19,6 +20,29 @@ export default function Quiz() {
     focus: 0, adaptability: 0
   });
   const [answersLog, setAnswersLog] = useState([]);
+  const [participantImageLoading, setParticipantImageLoading] = useState(true);
+  const participantImageRef = useRef(null);
+
+  // Handle image loading state
+  useEffect(() => {
+    const img = participantImageRef.current;
+    if (!img) return;
+
+    // Check if already loaded (for cached images)
+    if (img.complete && img.naturalHeight > 0) {
+      setParticipantImageLoading(false);
+      return;
+    }
+
+    // Fallback timeout in case image doesn't load
+    const timeout = setTimeout(() => {
+      setParticipantImageLoading(false);
+    }, 3000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
 
   useEffect(() => {
     // load questions from public/data/questions.json
@@ -182,6 +206,20 @@ export default function Quiz() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-purple-50 p-6">
       <div className="max-w-3xl mx-auto bg-white rounded-xl shadow p-6">
+        {/* Participant Image with Shimmer */}
+        <div className="flex justify-center mb-6">
+          {participantImageLoading && (
+            <div className="w-24 h-24 bg-gray-200 animate-pulse rounded-full"></div>
+          )}
+          <img
+            ref={participantImageRef}
+            src="/path/to/participant/image.jpg" // Replace with actual image path
+            alt="Participant"
+            className={`w-24 h-24 rounded-full object-cover ${participantImageLoading ? 'hidden' : 'block'}`}
+            onLoad={() => setParticipantImageLoading(false)}
+            onError={() => setParticipantImageLoading(false)}
+          />
+        </div>
         <h2 className="text-2xl font-bold mb-4">Career Assessment</h2>
         <div className="mb-2 text-sm text-slate-600">
           Question {currentIndex + 1} / {questions.length}

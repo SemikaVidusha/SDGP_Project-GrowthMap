@@ -63,13 +63,14 @@ export default function Results() {
         demand: meta?.demand || "Medium",
         salary: meta?.salary || "Varies",
         traits: meta?.traits || {},
-        // tc.score is already a percentage (0-100) from the backend
         matchScore: Math.round(tc.score),
         rawScore: tc.score
       };
     });
 
-    setCareerMatches(merged);
+    const sorted = [...merged].sort((a, b) => b.rawScore - a.rawScore);
+
+    setCareerMatches(sorted);
   }, [rawResult, careersMeta]);
 
   // fetch roadmap

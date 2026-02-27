@@ -53,13 +53,13 @@ def predict():
             return jsonify({"error": "Missing traits"}), 400
 
         FEATURE_ORDER = [
-            "logic", "creativity", "leadership", "empathy",
-            "discipline", "social", "technical", "risk",
-            "focus", "adaptability"
+            "logic", "creativity", "technical", "empathy",
+            "leadership", "social", "discipline", "adaptability",
+            "focus", "risk"
         ]
 
-        # Normalize: 0–100 → 0–1
-        X = [[traits.get(t, 0) / 100 for t in FEATURE_ORDER]]
+        # Input is already normalized 0-1 from frontend
+        X = [[traits.get(t, 0) for t in FEATURE_ORDER]]
 
         probs = model.predict_proba(X)[0]
 
@@ -74,7 +74,7 @@ def predict():
         )
 
         top = [
-            {"career": c, "score": float(round(p, 4))}
+            {"career": c, "score": float(p * 100)}
             for c, p in predictions[:5]
         ]
 
