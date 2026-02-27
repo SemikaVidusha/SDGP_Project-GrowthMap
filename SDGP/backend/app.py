@@ -17,10 +17,11 @@ MODEL_PATH = os.path.abspath(
 print("Loading model from:", MODEL_PATH)
 model = joblib.load(MODEL_PATH)
 
+# Feature order must match training/model exactly
 FEATURE_ORDER = [
-    "logic", "creativity", "leadership", "empathy",
-    "discipline", "social", "technical", "risk",
-    "focus", "adaptability"
+    "logic", "creativity", "technical", "empathy",
+    "leadership", "social", "discipline", "adaptability",
+    "focus", "risk"
 ]
 
 @app.route("/predict", methods=["POST"])
@@ -51,8 +52,8 @@ def predict():
         probs = model.predict_proba(X)[0]
         classes = model.classes_     
 
-        # Convert probabilities to percentages (0-100)
-        top_idx = np.argsort(probs)[::-1][:3]
+        # Convert probabilities to percentages (0-100) - return top 5
+        top_idx = np.argsort(probs)[::-1][:5]
         topCareers = [{"career": str(classes[i]), "score": float(probs[i] * 100)} for i in top_idx]
 
         result = {

@@ -2,16 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
-/*
-  Quiz.jsx
-  - loads /data/questions.json
-  - steps through questions
-  - computes raw traits same as legacy quiz.js
-  - normalizes the traits the same way as legacy normalizeTraits()
-  - POSTs normalized traits to POST /api/ml/predict
-  - stores legacy result in localStorage ("assessmentResult")
-  - navigates to /results with state containing the ML response + traits
-*/
 
 const FEATURE_ORDER = [
   "logic","creativity","leadership","empathy","discipline",
