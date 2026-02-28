@@ -6,6 +6,8 @@ import joblib
 import traceback
 import numpy as np
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATASET_DIR = os.path.abspath(os.path.join(BASE_DIR, "..", "dataset"))
@@ -19,7 +21,7 @@ encoder = joblib.load(ENCODER_PATH)
 
 print("ML Model + Encoder loaded successfully")
 
-MONGO_URI = "mongodb+srv://sdgp_admin:Vu7rTKuA8nwuMR9K@career-prediction-clust.ohh82ug.mongodb.net/?appName=career-prediction-cluster"
+MONGO_URI = os.getenv("MONGO_URI")
 client = MongoClient(MONGO_URI)
 db = client["sdgp_db"]
 careers_col = db["careers"]
