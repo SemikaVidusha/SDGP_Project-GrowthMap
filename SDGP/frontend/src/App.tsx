@@ -1,7 +1,8 @@
 import { Routes, Route, useLocation } from "react-router-dom";
-import { useEffect, useState, useRef } from "react"
-import Navbar from "./components/Navbar";
+import { useEffect, useState, useRef } from "react";
+
 import Preloader from "./components/preloader";
+import Layout from "./Layout";
 
 import Home from "./pages/Dashboard/Home";
 import Quiz from "./pages/Dashboard/Quiz";
@@ -10,8 +11,6 @@ import Results from "./pages/Dashboard/Results";
 import Login from "./pages/Dashboard/Auth/Login";
 import Signup from "./pages/Dashboard/Auth/Signup";
 import SkillGap from "./pages/Dashboard/SkillGap";
-
-
 
 export default function App() {
   const location = useLocation();
@@ -28,7 +27,7 @@ export default function App() {
 
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 5000);
+    }, 1200); // 5s is too long for UX
 
     return () => clearTimeout(timer);
   }, [location]);
@@ -37,26 +36,22 @@ export default function App() {
     <>
       <Preloader loading={loading} />
 
-      {/* Navbar always visible */}
-      <Navbar />
+      <Routes>
 
-      {/* Page content */}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/quiz" element={<Quiz />} />
-        <Route path="/careers" element={<Careers />} />
-        <Route path="/results" element={<Results />} />
-        <Route path="/skillgap" element={<SkillGap />} />
+        {/* Routes WITH Header + Footer */}
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/quiz" element={<Quiz />} />
+          <Route path="/careers" element={<Careers />} />
+          <Route path="/skillgap" element={<SkillGap />} />
+          <Route path="/results" element={<Results />} />
+        </Route>
+
+        {/* Routes WITHOUT Layout */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+
       </Routes>
-      
-      <Routes>
-       <Route path="/login" element={<Login />} />
-       <Route path="/signup" element={<Signup />} />
-      </Routes>
-      
-      
-        
     </>
-    
   );
 }
