@@ -11,6 +11,8 @@ import Results from "./pages/Dashboard/Results";
 import Login from "./pages/Dashboard/Auth/Login";
 import Signup from "./pages/Dashboard/Auth/Signup";
 import SkillGap from "./pages/Dashboard/SkillGap";
+import Settings from "./pages/Dashboard/Settings";
+import Profile from "./pages/Dashboard/Profile";
 
 export default function App() {
   const location = useLocation();
@@ -40,11 +42,14 @@ export default function App() {
 
         {/* Routes WITH Header + Footer */}
         <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/careers" element={<Careers />} />
           <Route path="/skillgap" element={<SkillGap />} />
           <Route path="/results" element={<Results />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/settings" element={<Settings />} />
         </Route>
 
         {/* Routes WITHOUT Layout */}
