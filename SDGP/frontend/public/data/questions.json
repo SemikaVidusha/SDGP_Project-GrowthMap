@@ -1,152 +1,202 @@
 [
   {
     "id": 1,
-    "question": "What kind of task do you enjoy the most?",
+    "question": "When solving a difficult problem, what excites you the most?",
     "options": [
-      { "text": "Solving logical problems", "trait": "logic", "value": 2 },
-      { "text": "Creating something new and original", "trait": "creativity", "value": 2 },
-      { "text": "Working with computers or technology", "trait": "technical", "value": 2 },
-      { "text": "Helping and understanding people", "trait": "empathy", "value": 2 }
+      { "text": "Breaking it down logically step by step", "trait": "logic", "value": 2 },
+      { "text": "Trying creative and unconventional ideas", "trait": "creativity", "value": 2 },
+      { "text": "Building or testing a technical solution", "trait": "technical", "value": 2 },
+      { "text": "Understanding how people are affected", "trait": "empathy", "value": 2 }
     ]
   },
   {
     "id": 2,
-    "question": "In a group project, what role feels most natural to you?",
+    "question": "Which activity would you enjoy the most?",
     "options": [
-      { "text": "Planning and guiding the team", "trait": "leadership", "value": 2 },
-      { "text": "Communicating and keeping everyone connected", "trait": "social", "value": 2 },
-      { "text": "Making sure tasks are done properly and on time", "trait": "discipline", "value": 2 },
-      { "text": "Adapting when plans suddenly change", "trait": "adaptability", "value": 2 }
+      { "text": "Designing a user interface or artwork", "trait": "creativity", "value": 2 },
+      { "text": "Writing or debugging code", "trait": "technical", "value": 2 },
+      { "text": "Organizing tasks and schedules", "trait": "discipline", "value": 2 },
+      { "text": "Helping others solve personal challenges", "trait": "empathy", "value": 2 }
     ]
   },
   {
     "id": 3,
-    "question": "When learning something difficult, what helps you the most?",
+    "question": "In a team, what role feels most natural to you?",
     "options": [
-      { "text": "Breaking it into logical steps", "trait": "logic", "value": 2 },
-      { "text": "Trying creative approaches", "trait": "creativity", "value": 2 },
-      { "text": "Practicing consistently", "trait": "discipline", "value": 2 },
-      { "text": "Staying deeply focused", "trait": "focus", "value": 2 }
+      { "text": "Leading and guiding decisions", "trait": "leadership", "value": 2 },
+      { "text": "Communicating and connecting everyone", "trait": "social", "value": 2 },
+      { "text": "Staying focused and ensuring accuracy", "trait": "focus", "value": 2 },
+      { "text": "Adapting quickly when plans change", "trait": "adaptability", "value": 2 }
     ]
   },
   {
     "id": 4,
-    "question": "Which situation excites you the most?",
+    "question": "How do you usually approach uncertainty?",
     "options": [
-      { "text": "Leading a team toward success", "trait": "leadership", "value": 2 },
-      { "text": "Taking risks to try new ideas", "trait": "risk", "value": 2 },
-      { "text": "Building something technical", "trait": "technical", "value": 2 },
-      { "text": "Collaborating and sharing ideas", "trait": "social", "value": 2 }
+      { "text": "Analyze all possible outcomes logically", "trait": "logic", "value": 2 },
+      { "text": "Take bold risks to explore new paths", "trait": "risk", "value": 2 },
+      { "text": "Stay flexible and adjust along the way", "trait": "adaptability", "value": 2 },
+      { "text": "Seek discussions and teamwork", "trait": "social", "value": 2 }
     ]
   },
   {
     "id": 5,
-    "question": "What describes your work style best?",
+    "question": "Which describes your work style best?",
     "options": [
-      { "text": "Highly focused and detail-oriented", "trait": "focus", "value": 2 },
-      { "text": "Structured and disciplined", "trait": "discipline", "value": 2 },
-      { "text": "Flexible and adaptable", "trait": "adaptability", "value": 2 },
+      { "text": "Highly structured and disciplined", "trait": "discipline", "value": 2 },
+      { "text": "Deeply focused and detail-oriented", "trait": "focus", "value": 2 },
+      { "text": "Flexible and open to change", "trait": "adaptability", "value": 2 },
       { "text": "Emotionally aware and supportive", "trait": "empathy", "value": 2 }
     ]
   },
   {
     "id": 6,
-    "question": "Which challenge sounds most enjoyable?",
+    "question": "Which task sounds most satisfying?",
     "options": [
-      { "text": "Solving complex puzzles", "trait": "logic", "value": 2 },
-      { "text": "Designing creative content", "trait": "creativity", "value": 2 },
-      { "text": "Configuring or fixing systems", "trait": "technical", "value": 2 },
-      { "text": "Helping someone overcome a difficulty", "trait": "empathy", "value": 2 }
+      { "text": "Optimizing system performance", "trait": "technical", "value": 2 },
+      { "text": "Creating visually appealing designs", "trait": "creativity", "value": 2 },
+      { "text": "Managing people and resources", "trait": "leadership", "value": 2 },
+      { "text": "Helping users understand a product", "trait": "social", "value": 2 }
     ]
   },
   {
     "id": 7,
-    "question": "How do you usually approach uncertainty?",
+    "question": "How do you usually make decisions?",
     "options": [
-      { "text": "Analyze all possibilities", "trait": "logic", "value": 2 },
-      { "text": "Take calculated risks", "trait": "risk", "value": 2 },
-      { "text": "Adapt quickly", "trait": "adaptability", "value": 2 },
-      { "text": "Ask others and discuss", "trait": "social", "value": 2 }
+      { "text": "Based on logical evaluation", "trait": "logic", "value": 2 },
+      { "text": "Following creative intuition", "trait": "creativity", "value": 2 },
+      { "text": "Careful planning and discipline", "trait": "discipline", "value": 2 },
+      { "text": "Taking calculated risks", "trait": "risk", "value": 2 }
     ]
   },
   {
     "id": 8,
-    "question": "What motivates you the most in your work?",
+    "question": "What motivates you the most at work?",
     "options": [
-      { "text": "Leading and inspiring others", "trait": "leadership", "value": 2 },
       { "text": "Achieving technical excellence", "trait": "technical", "value": 2 },
-      { "text": "Maintaining focus and accuracy", "trait": "focus", "value": 2 },
-      { "text": "Helping people succeed", "trait": "empathy", "value": 2 }
+      { "text": "Leading others toward success", "trait": "leadership", "value": 2 },
+      { "text": "Helping people grow", "trait": "empathy", "value": 2 },
+      { "text": "Maintaining precision and focus", "trait": "focus", "value": 2 }
     ]
   },
   {
     "id": 9,
-    "question": "Which describes your learning style best?",
+    "question": "Which environment suits you best?",
     "options": [
-      { "text": "Logical explanations and examples", "trait": "logic", "value": 2 },
-      { "text": "Visual and creative materials", "trait": "creativity", "value": 2 },
-      { "text": "Hands-on technical practice", "trait": "technical", "value": 2 },
-      { "text": "Group discussions and teamwork", "trait": "social", "value": 2 }
+      { "text": "Quiet and deeply focused", "trait": "focus", "value": 2 },
+      { "text": "Fast-changing and dynamic", "trait": "adaptability", "value": 2 },
+      { "text": "Highly collaborative", "trait": "social", "value": 2 },
+      { "text": "High-risk, high-reward", "trait": "risk", "value": 2 }
     ]
   },
   {
     "id": 10,
-    "question": "What helps you stay productive?",
+    "question": "Which role attracts you the most?",
     "options": [
-      { "text": "Strong discipline and routines", "trait": "discipline", "value": 2 },
-      { "text": "Deep concentration", "trait": "focus", "value": 2 },
-      { "text": "Flexible schedules", "trait": "adaptability", "value": 2 },
-      { "text": "Encouragement from others", "trait": "social", "value": 2 }
+      { "text": "System architect or engineer", "trait": "technical", "value": 2 },
+      { "text": "Creative designer", "trait": "creativity", "value": 2 },
+      { "text": "Team leader or manager", "trait": "leadership", "value": 2 },
+      { "text": "Client support specialist", "trait": "social", "value": 2 }
     ]
   },
   {
     "id": 11,
-    "question": "Which role appeals to you most?",
+    "question": "What gives you the most satisfaction?",
     "options": [
-      { "text": "Strategic planner", "trait": "leadership", "value": 2 },
-      { "text": "Creative designer", "trait": "creativity", "value": 2 },
-      { "text": "Technical specialist", "trait": "technical", "value": 2 },
-      { "text": "Supportive team member", "trait": "empathy", "value": 2 }
+      { "text": "Solving complex problems", "trait": "logic", "value": 2 },
+      { "text": "Building something original", "trait": "creativity", "value": 2 },
+      { "text": "Completing work with discipline", "trait": "discipline", "value": 2 },
+      { "text": "Supporting others emotionally", "trait": "empathy", "value": 2 }
     ]
   },
   {
     "id": 12,
-    "question": "How do you handle pressure?",
+    "question": "Which describes your leadership style?",
     "options": [
-      { "text": "Stay logical and calm", "trait": "logic", "value": 2 },
-      { "text": "Adapt to changes quickly", "trait": "adaptability", "value": 2 },
-      { "text": "Maintain strong focus", "trait": "focus", "value": 2 },
-      { "text": "Trust teamwork", "trait": "social", "value": 2 }
+      { "text": "Strategic and analytical", "trait": "logic", "value": 2 },
+      { "text": "Visionary and creative", "trait": "creativity", "value": 2 },
+      { "text": "People-focused and empathetic", "trait": "empathy", "value": 2 },
+      { "text": "Decisive and bold", "trait": "risk", "value": 2 }
     ]
   },
   {
     "id": 13,
-    "question": "What type of achievement feels most rewarding?",
+    "question": "How do you react when something fails?",
     "options": [
-      { "text": "Successfully leading a project", "trait": "leadership", "value": 2 },
-      { "text": "Creating something unique", "trait": "creativity", "value": 2 },
-      { "text": "Completing tasks with discipline", "trait": "discipline", "value": 2 },
-      { "text": "Helping someone grow", "trait": "empathy", "value": 2 }
+      { "text": "Debug logically and retry", "trait": "logic", "value": 2 },
+      { "text": "Find creative alternatives", "trait": "creativity", "value": 2 },
+      { "text": "Adapt and adjust strategy", "trait": "adaptability", "value": 2 },
+      { "text": "Push forward boldly", "trait": "risk", "value": 2 }
     ]
   },
   {
     "id": 14,
-    "question": "Which decision style fits you best?",
+    "question": "Which daily habit describes you best?",
     "options": [
-      { "text": "Logical evaluation", "trait": "logic", "value": 2 },
-      { "text": "Bold risk-taking", "trait": "risk", "value": 2 },
-      { "text": "Careful planning", "trait": "discipline", "value": 2 },
-      { "text": "Flexible adjustment", "trait": "adaptability", "value": 2 }
+      { "text": "Consistent structured routines", "trait": "discipline", "value": 2 },
+      { "text": "Deep focus sessions", "trait": "focus", "value": 2 },
+      { "text": "Frequent collaboration", "trait": "social", "value": 2 },
+      { "text": "Flexible working patterns", "trait": "adaptability", "value": 2 }
     ]
   },
   {
     "id": 15,
-    "question": "What do you value most in teamwork?",
+    "question": "Which situation feels most fulfilling?",
     "options": [
-      { "text": "Clear leadership", "trait": "leadership", "value": 2 },
-      { "text": "Strong communication", "trait": "social", "value": 2 },
-      { "text": "Trust and emotional support", "trait": "empathy", "value": 2 },
-      { "text": "Shared responsibility and discipline", "trait": "discipline", "value": 2 }
+      { "text": "Leading a successful team", "trait": "leadership", "value": 2 },
+      { "text": "Designing something meaningful", "trait": "creativity", "value": 2 },
+      { "text": "Building powerful systems", "trait": "technical", "value": 2 },
+      { "text": "Helping someone succeed", "trait": "empathy", "value": 2 }
+    ]
+  },
+  {
+    "id": 16,
+    "question": "How do you handle long projects?",
+    "options": [
+      { "text": "Through discipline and planning", "trait": "discipline", "value": 2 },
+      { "text": "By staying deeply focused", "trait": "focus", "value": 2 },
+      { "text": "By adapting strategies", "trait": "adaptability", "value": 2 },
+      { "text": "Through team motivation", "trait": "leadership", "value": 2 }
+    ]
+  },
+  {
+    "id": 17,
+    "question": "Which approach suits you best?",
+    "options": [
+      { "text": "Structured logic", "trait": "logic", "value": 2 },
+      { "text": "Creative exploration", "trait": "creativity", "value": 2 },
+      { "text": "Technical mastery", "trait": "technical", "value": 2 },
+      { "text": "Human connection", "trait": "social", "value": 2 }
+    ]
+  },
+  {
+    "id": 18,
+    "question": "Which challenge would excite you most?",
+    "options": [
+      { "text": "High-risk innovation", "trait": "risk", "value": 2 },
+      { "text": "Complex technical systems", "trait": "technical", "value": 2 },
+      { "text": "Leading organizational change", "trait": "leadership", "value": 2 },
+      { "text": "Helping people transform", "trait": "empathy", "value": 2 }
+    ]
+  },
+  {
+    "id": 19,
+    "question": "What kind of work environment do you prefer?",
+    "options": [
+      { "text": "Quiet and focused", "trait": "focus", "value": 2 },
+      { "text": "Highly social", "trait": "social", "value": 2 },
+      { "text": "Dynamic and flexible", "trait": "adaptability", "value": 2 },
+      { "text": "Structured and disciplined", "trait": "discipline", "value": 2 }
+    ]
+  },
+  {
+    "id": 20,
+    "question": "Which mindset describes you best?",
+    "options": [
+      { "text": "Logical thinker", "trait": "logic", "value": 2 },
+      { "text": "Creative visionary", "trait": "creativity", "value": 2 },
+      { "text": "Technical specialist", "trait": "technical", "value": 2 },
+      { "text": "People-first leader", "trait": "leadership", "value": 2 }
     ]
   }
 ]

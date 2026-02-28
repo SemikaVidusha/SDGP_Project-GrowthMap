@@ -1,3 +1,4 @@
+# backend/test_app.py
 from flask import Flask, Blueprint, jsonify, request
 from flask_cors import CORS
 from pymongo import MongoClient
@@ -6,33 +7,24 @@ import traceback
 import numpy as np
 import os
 
-# -------------------- PATH FIX --------------------
-
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATASET_DIR = os.path.abspath(os.path.join(BASE_DIR, "..", "dataset"))
 
 MODEL_PATH = os.path.join(DATASET_DIR, "career_model.pkl")
 ENCODER_PATH = os.path.join(DATASET_DIR, "career_encoder.pkl")
 
-# -------------------- LOAD MODEL --------------------
-
-model = joblib.load(MODEL_PATH)
+# load model + encoder
+model = joblib.load(MODEL_PATH)   # this is a sklearn Pipeline
 encoder = joblib.load(ENCODER_PATH)
 
 print("ML Model + Encoder loaded successfully")
 
-# -------------------- DATABASE --------------------
-
 MONGO_URI = "mongodb+srv://sdgp_admin:Vu7rTKuA8nwuMR9K@career-prediction-clust.ohh82ug.mongodb.net/?appName=career-prediction-cluster"
-
 client = MongoClient(MONGO_URI)
 db = client["sdgp_db"]
 careers_col = db["careers"]
 roadmaps_col = db["roadmaps"]
-
 print("MongoDB Atlas connected successfully")
-
-# -------------------- FLASK SETUP --------------------
 
 app = Flask(__name__)
 CORS(app)
@@ -41,14 +33,11 @@ ml_bp = Blueprint("ml", __name__)
 careers_bp = Blueprint("careers", __name__)
 roadmaps_bp = Blueprint("roadmaps", __name__)
 
-# -------------------- ML PREDICTION --------------------
-
 @ml_bp.route("/predict", methods=["POST"])
 def predict():
     try:
         data = request.get_json(force=True)
         traits = data.get("traits")
-
         if not traits:
             return jsonify({"error": "Missing traits"}), 400
 
@@ -58,36 +47,25 @@ def predict():
             "focus", "risk"
         ]
 
-        # Input is already normalized 0-1 from frontend
-        X = [[traits.get(t, 0) for t in FEATURE_ORDER]]
+        # create feature vector in same order as training
+        X = [[float(traits.get(t, 0.0)) for t in FEATURE_ORDER]]
 
-        probs = model.predict_proba(X)[0]
+        # get probabilities (order corresponds to classifier classes encoded)
+        probs = model.predict_proba(X)[0]  # numpy array
+        # get encoded class order used by classifier
+        encoded_order = model.named_steps['classifier'].classes_.astype(int)
+        # decode to string labels
+        decoded_labels = encoder.inverse_transform(encoded_order)
 
-        decoded_labels = encoder.inverse_transform(
-            np.arange(len(probs))
-        )
+        predictions = sorted(zip(decoded_labels, probs), key=lambda x: x[1], reverse=True)
 
-        predictions = sorted(
-            zip(decoded_labels, probs),
-            key=lambda x: x[1],
-            reverse=True
-        )
+        top = [{"career": c, "score": round(float(p * 100), 2)} for c, p in predictions[:5]]
 
-        top = [
-            {"career": c, "score": float(p * 100)}
-            for c, p in predictions[:5]
-        ]
-
-        return jsonify({
-            "bestCareer": top[0]["career"],
-            "topCareers": top
-        })
+        return jsonify({"bestCareer": top[0]["career"], "topCareers": top})
 
     except Exception:
         traceback.print_exc()
         return jsonify({"error": "Prediction failed"}), 500
-
-# -------------------- CAREER API --------------------
 
 @careers_bp.route("/", methods=["GET"])
 def get_all_careers():
@@ -101,8 +79,6 @@ def get_single_career(career_id):
         return jsonify({"error": "Career not found"}), 404
     return jsonify(career), 200
 
-# -------------------- ROADMAP API --------------------
-
 @roadmaps_bp.route("/<career_id>", methods=["GET"])
 def get_roadmap(career_id):
     roadmap = roadmaps_col.find_one({"careerId": career_id}, {"_id": 0})
@@ -110,13 +86,9 @@ def get_roadmap(career_id):
         return jsonify({"error": "Roadmap not found"}), 404
     return jsonify(roadmap), 200
 
-# -------------------- REGISTER ROUTES --------------------
-
 app.register_blueprint(ml_bp, url_prefix="/api/ml")
 app.register_blueprint(careers_bp, url_prefix="/api/careers")
 app.register_blueprint(roadmaps_bp, url_prefix="/api/roadmaps")
-
-# -------------------- RUN SERVER --------------------
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000, debug=True)

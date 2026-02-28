@@ -116,20 +116,11 @@ function selectOption(option) {
 }
 
 function normalizeTraits(rawTraits) {
-  const maxScores = {};
-
-  questions.forEach(q => {
-    q.options.forEach(opt => {
-      if (!maxScores[opt.trait] || opt.value > maxScores[opt.trait]) {
-        maxScores[opt.trait] = opt.value;
-      }
-    });
-  });
+  const MAX_PER_TRAIT = 4;
 
   const normalized = {};
   Object.keys(rawTraits).forEach(trait => {
-    const max = (maxScores[trait] || 1) * questions.length;
-    normalized[trait] = max === 0 ? 0 : rawTraits[trait] / max;
+    normalized[trait] = Math.min(1, rawTraits[trait] / MAX_PER_TRAIT);
   });
 
   return normalized;
