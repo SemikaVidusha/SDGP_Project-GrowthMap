@@ -239,20 +239,9 @@ export default function Careers() {
     
 
       
-      */
+      
 
-      {/* Footer */}
-      <footer className="bg-slate-900 text-white py-8 mt-16">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <MapPin className="w-6 h-6 text-purple-400" />
-            <span className="text-xl font-bold">GrowthMap</span>
-          </div>
-          <p className="text-slate-400 text-sm">
-            A career guidance platform for Sri Lankan ICT students.
-          </p>
-        </div>
-      </footer>
+      
     </div>
   );
 }
