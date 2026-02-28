@@ -1,43 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { Link, useLocation, Outlet } from "react-router-dom";
-import { MapPin, UserCircle, Settings, Menu, X } from "lucide-react";
+import React, { useState } from "react";
+import { Link, useLocation, Outlet, useNavigate } from "react-router-dom";
+import { MapPin, UserCircle, Settings, Menu, X, LogOut } from "lucide-react";
 import { createPageUrl } from "@/utils";
 import Footer from "./components/Footer";
-
-function Preloader() {
-  return (
-    <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-gradient-to-br from-purple-600 to-blue-500 animate-fadeout">
-      <div className="flex flex-col items-center gap-6">
-        <div className="w-20 h-20 rounded-2xl bg-white/20 flex items-center justify-center animate-pulse">
-          <svg width="42" height="42" viewBox="0 0 40 40" fill="none">
-            <path
-              d="M8 28 L16 18 L22 24 L30 12"
-              stroke="white"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <circle cx="30" cy="12" r="3" fill="white" />
-          </svg>
-        </div>
-
-        <span className="text-white text-2xl font-bold tracking-wide">
-          GrowthMap
-        </span>
-
-        <div className="flex gap-2">
-          {[0, 1, 2].map((i) => (
-            <div
-              key={i}
-              className="w-3 h-3 bg-white rounded-full animate-bounce"
-              style={{ animationDelay: `${i * 0.15}s` }}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
 
 const navLinks = [
   { label: "Home", page: "Home" },
@@ -48,10 +13,19 @@ const navLinks = [
 
 function Header() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const isActive = (page) =>
     location.pathname.toLowerCase().includes(page.toLowerCase());
+
+  const handleLogout = () => {
+    // Clear temporary user storage (if using localStorage fake backend)
+    localStorage.removeItem("growthmap_user");
+
+    // Redirect to login
+    navigate("/login");
+  };
 
   return (
     <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-100 shadow-sm">
@@ -68,7 +42,7 @@ function Header() {
           <span>GrowthMap</span>
         </Link>
 
-        {/* Desktop Nav */}
+        {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-2">
           {navLinks.map(({ label, page }) => (
             <Link
@@ -85,39 +59,78 @@ function Header() {
           ))}
         </nav>
 
-        {/* Right Icons */}
+        {/* Right Side Icons */}
         <div className="flex items-center gap-2">
-          <Link to={createPageUrl("Profile")} className="p-2 hover:bg-slate-100 rounded-lg">
+
+          <Link
+            to={createPageUrl("Profile")}
+            className="p-2 hover:bg-slate-100 rounded-lg"
+          >
             <UserCircle className="w-5 h-5 text-slate-600" />
           </Link>
-          <Link to={createPageUrl("Settings")} className="p-2 hover:bg-slate-100 rounded-lg">
+
+          <Link
+            to={createPageUrl("Settings")}
+            className="p-2 hover:bg-slate-100 rounded-lg"
+          >
             <Settings className="w-5 h-5 text-slate-600" />
           </Link>
 
+          {/* Logout */}
+          <button
+            onClick={handleLogout}
+            className="p-2 hover:bg-red-100 rounded-lg"
+            title="Logout"
+          >
+            <LogOut className="w-5 h-5 text-red-500" />
+          </button>
+
+          {/* Mobile Menu Button */}
           <button
             onClick={() => setMenuOpen((o) => !o)}
             className="md:hidden p-2 rounded-lg hover:bg-slate-100"
           >
-            {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {menuOpen ? (
+              <X className="w-5 h-5" />
+            ) : (
+              <Menu className="w-5 h-5" />
+            )}
           </button>
+
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      {menuOpen && (
+        <div className="md:hidden border-t border-slate-200 bg-white">
+          <div className="flex flex-col p-4 gap-2">
+            {navLinks.map(({ label, page }) => (
+              <Link
+                key={page}
+                to={createPageUrl(page)}
+                onClick={() => setMenuOpen(false)}
+                className="px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-100"
+              >
+                {label}
+              </Link>
+            ))}
+
+            <button
+              onClick={handleLogout}
+              className="mt-2 px-3 py-2 rounded-lg text-sm font-medium text-red-500 hover:bg-red-100 text-left"
+            >
+              Logout
+            </button>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
 
 export default function Layout() {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1500);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
-    <div className="min-h-screen flex flex-col">
-
-      {loading && <Preloader />}
+    <div className="min-h-screen flex flex-col bg-gray-50">
 
       <Header />
 
@@ -125,7 +138,6 @@ export default function Layout() {
         <Outlet />
       </main>
 
-      {/* Professional Footer Component */}
       <Footer />
 
     </div>
