@@ -1,0 +1,22 @@
+# Python pickle files
+*.pkl
+*.pickle
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python/
+
+# Virtual environments
+venv/
+env/
+.env/
+
+# IDE
+.vscode/
+.idea/
+
+# Node
+node_modules/
