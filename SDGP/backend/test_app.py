@@ -38,6 +38,7 @@ def predict():
     try:
         data = request.get_json(force=True)
         traits = data.get("traits")
+
         if not traits:
             return jsonify({"error": "Missing traits"}), 400
 
@@ -47,21 +48,80 @@ def predict():
             "focus", "risk"
         ]
 
-        # create feature vector in same order as training
-        X = [[float(traits.get(t, 0.0)) for t in FEATURE_ORDER]]
+        # ------------------ ML PREDICTION ------------------
 
-        # get probabilities (order corresponds to classifier classes encoded)
-        probs = model.predict_proba(X)[0]  # numpy array
-        # get encoded class order used by classifier
-        encoded_order = model.named_steps['classifier'].classes_.astype(int)
-        # decode to string labels
-        decoded_labels = encoder.inverse_transform(encoded_order)
+        X = np.array([[traits.get(t, 0) for t in FEATURE_ORDER]])
+        ml_probs = model.predict_proba(X)[0]
 
-        predictions = sorted(zip(decoded_labels, probs), key=lambda x: x[1], reverse=True)
+        labels = encoder.inverse_transform(np.arange(len(ml_probs)))
 
-        top = [{"career": c, "score": round(float(p * 100), 2)} for c, p in predictions[:5]]
+        ml_results = dict(zip(labels, ml_probs))
 
-        return jsonify({"bestCareer": top[0]["career"], "topCareers": top})
+        # ------------------ DATABASE CAREER LOGIC ------------------
+
+        careers = list(careers_col.find({}, {"_id": 0}))
+
+        trait_map = {
+            "logic": ["logic", "systems"],
+            "technical": ["systems"],
+            "focus": ["detail"],
+            "discipline": ["detail"],
+            "creativity": ["creativity"],
+            "social": ["collaboration"],
+            "empathy": ["collaboration"],
+            "leadership": ["leadership"],
+            "adaptability": ["adaptability"],
+            "risk": ["risk"]
+        }
+
+        def compute_logic_score(user_traits, career_traits):
+            score = 0
+            max_score = 0
+
+            for trait, value in user_traits.items():
+                mapped = trait_map.get(trait, [])
+                for m in mapped:
+                    max_score += 1
+                    if m in career_traits:
+                        score += value
+
+            return score / max_score if max_score > 0 else 0
+
+        logic_scores = {}
+
+        for career in careers:
+            cid = career["id"]
+            focus = career.get("focusTraits", [])
+            logic_scores[cid] = compute_logic_score(traits, focus)
+
+        # ------------------ HYBRID SCORING ------------------
+
+        final_scores = {}
+
+        for career_id in ml_results:
+            ml_score = ml_results.get(career_id, 0)
+            logic_score = logic_scores.get(career_id, 0)
+
+            final_scores[career_id] = (
+                0.65 * ml_score +
+                0.35 * logic_score
+            )
+
+        ranked = sorted(
+            final_scores.items(),
+            key=lambda x: x[1],
+            reverse=True
+        )
+
+        top = [
+            {"career": c, "score": round(float(s * 100), 2)}
+            for c, s in ranked[:5]
+        ]
+
+        return jsonify({
+            "bestCareer": top[0]["career"],
+            "topCareers": top
+        })
 
     except Exception:
         traceback.print_exc()
