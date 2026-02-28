@@ -40,7 +40,7 @@ export default function App() {
 
         {/* Routes WITH Header + Footer */}
         <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/careers" element={<Careers />} />
           <Route path="/skillgap" element={<SkillGap />} />
