@@ -214,3 +214,17 @@ export default function Results() {
     </div>
   );
 }
+
+// Example for Quiz Page submission
+const submitQuiz = async (quizData) => {
+    const response = await fetch('http://localhost:5000/api/skills/quiz', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-auth-token': localStorage.getItem('token') 
+        },
+        body: JSON.stringify({ score: 85, category: 'Technical' })
+    });
+    const data = await response.json();
+    console.log("Results Saved:", data);
+}
