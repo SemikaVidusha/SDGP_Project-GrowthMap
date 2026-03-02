@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { createPageUrl } from "@/utils";
+import { useNavigate } from "react-router-dom";
 
 import { 
   MapPin, Search, ArrowRight, TrendingUp, Briefcase,
@@ -32,6 +33,7 @@ const iconMap = {
 };
 
 export default function Careers() {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCareer, setSelectedCareer] = useState(null);
   const [showRoadmap, setShowRoadmap] = useState(false);
@@ -42,34 +44,107 @@ export default function Careers() {
     "Medium": "bg-amber-100 text-amber-700"
   };
   const careers = [
-  {
-    id: 1,
-    title: "Software Engineer",
-    description: "Design and develop software applications and systems.",
-    skills: ["JavaScript", "React", "Problem Solving", "APIs"],
-    salary: "LKR 150,000 - 300,000",
-    demand: "Very High",
-    icon: "Code"
-  },
-  {
-    id: 2,
-    title: "Data Analyst",
-    description: "Analyze data to help businesses make informed decisions.",
-    skills: ["Python", "SQL", "Excel", "Statistics"],
-    salary: "LKR 120,000 - 250,000",
-    demand: "High",
-    icon: "BarChart3"
-  },
-  {
-    id: 3,
-    title: "Cybersecurity Specialist",
-    description: "Protect systems and networks from cyber threats.",
-    skills: ["Networking", "Security", "Ethical Hacking"],
-    salary: "LKR 180,000 - 350,000",
-    demand: "Very High",
-    icon: "Shield"
-  }
-];
+    {
+      id: 1,
+      careerId: "software_engineer",
+      title: "Software Engineer",
+      description: "Design and develop software applications and systems that power modern businesses and user experiences.",
+      skills: ["JavaScript/TypeScript", "Python/Java", "Data Structures", "System Design", "APIs"],
+      salary: "LKR 150,000 - 300,000",
+      demand: "Very High",
+      icon: "Code"
+    },
+    {
+      id: 2,
+      careerId: "frontend_developer",
+      title: "Frontend Developer",
+      description: "Create beautiful, responsive web interfaces and interactive user experiences.",
+      skills: ["HTML/CSS", "JavaScript", "React/Vue", "Responsive Design", "UI/UX Basics"],
+      salary: "LKR 120,000 - 250,000",
+      demand: "High",
+      icon: "Layout"
+    },
+    {
+      id: 3,
+      careerId: "backend_developer",
+      title: "Backend Developer",
+      description: "Build and maintain server-side logic, databases, and APIs that power web applications.",
+      skills: ["Node.js/Python", "SQL/NoSQL", "API Design", "Server Management", "Security"],
+      salary: "LKR 150,000 - 280,000",
+      demand: "High",
+      icon: "Server"
+    },
+    {
+      id: 4,
+      careerId: "fullstack_developer",
+      title: "Fullstack Developer",
+      description: "Work on both frontend and backend to build complete web applications from start to finish.",
+      skills: ["Frontend Frameworks", "Backend Technologies", "Databases", "Git", "Deployment"],
+      salary: "LKR 160,000 - 320,000",
+      demand: "Very High",
+      icon: "Globe"
+    },
+    {
+      id: 5,
+      careerId: "data_scientist",
+      title: "Data Scientist",
+      description: "Analyze complex data sets and build predictive models to drive business decisions.",
+      skills: ["Python", "SQL", "Machine Learning", "Statistics", "Data Visualization"],
+      salary: "LKR 180,000 - 350,000",
+      demand: "High",
+      icon: "BarChart3"
+    },
+    {
+      id: 6,
+      careerId: "ai_ml_engineer",
+      title: "AI/ML Engineer",
+      description: "Design and implement artificial intelligence solutions and machine learning systems.",
+      skills: ["Python", "TensorFlow/PyTorch", "Deep Learning", "NLP", "MLOps"],
+      salary: "LKR 200,000 - 400,000",
+      demand: "Very High",
+      icon: "Brain"
+    },
+    {
+      id: 7,
+      careerId: "cybersecurity_analyst",
+      title: "Cybersecurity Analyst",
+      description: "Protect organizational assets by identifying vulnerabilities and responding to security threats.",
+      skills: ["Network Security", "Ethical Hacking", "Risk Assessment", "Incident Response", "Compliance"],
+      salary: "LKR 180,000 - 380,000",
+      demand: "Very High",
+      icon: "Shield"
+    },
+    {
+      id: 8,
+      careerId: "network_engineer",
+      title: "Network Engineer",
+      description: "Design, implement, and maintain computer networks that keep organizations connected.",
+      skills: ["TCP/IP", "Routing/Switching", "Firewalls", "Cloud Networking", "Network Security"],
+      salary: "LKR 140,000 - 280,000",
+      demand: "Moderate",
+      icon: "Network"
+    },
+    {
+      id: 9,
+      careerId: "devops_engineer",
+      title: "DevOps Engineer",
+      description: "Bridge development and operations to automate and streamline software delivery.",
+      skills: ["CI/CD", "Docker/Kubernetes", "Cloud (AWS/Azure)", "Infrastructure as Code", "Monitoring"],
+      salary: "LKR 200,000 - 380,000",
+      demand: "Very High",
+      icon: "GitBranch"
+    },
+    {
+      id: 10,
+      careerId: "ui_ux_designer",
+      title: "UI/UX Designer",
+      description: "Create intuitive, accessible, and visually appealing digital experiences for users.",
+      skills: ["Figma/Adobe XD", "User Research", "Wireframing", "Prototyping", "Visual Design"],
+      salary: "LKR 120,000 - 250,000",
+      demand: "High",
+      icon: "Palette"
+    }
+  ];
 
 
   const filteredCareers = careers.filter(career =>
@@ -79,8 +154,7 @@ export default function Careers() {
   );
 
   const handleViewRoadmap = (career) => {
-    setSelectedCareer(career);
-    setShowRoadmap(true);
+    navigate(`/roadmap/${career.careerId}`);
   };
 
   return (
