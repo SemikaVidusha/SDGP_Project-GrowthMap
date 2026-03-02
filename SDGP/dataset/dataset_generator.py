@@ -1,4 +1,3 @@
-# dataset/dataset_generator.py
 """
 IT-focused Career Dataset Generator (10 careers)
 - Traits match frontend: logic, creativity, technical, empathy, leadership, social,

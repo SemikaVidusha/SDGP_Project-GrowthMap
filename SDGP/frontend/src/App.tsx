@@ -10,9 +10,7 @@ import Results from "./pages/Dashboard/Results";
 import Login from "./pages/Dashboard/Auth/Login";
 import Signup from "./pages/Dashboard/Auth/Signup";
 import SkillGap from "./pages/Dashboard/SkillGap";
-
-
-
+import Roadmap from "./pages/Dashboard/Roadmap";
 
 export default function App() {
   const location = useLocation();
@@ -55,6 +53,7 @@ export default function App() {
         {/* Results */}
         <Route path="/results" element={<Results />} />
         <Route path="/Results" element={<Results />} />
+        <Route path="/roadmap/:careerId" element={<Roadmap />} />
 
         {/* SkillGap */}
         <Route path="/skillgap" element={<SkillGap />} />

@@ -1,0 +1,1084 @@
+{
+  "roadmaps": [
+    {
+      "careerId": "software_engineer",
+      "title": "Software Engineer",
+      "stages": [
+        {
+          "level": "Foundation",
+          "title": "The Logic Architect",
+          "duration": "3 Months",
+          "description": "The journey begins here. Master the building blocks of logic and learn how computers think to solve problems efficiently.",
+          "requirements": [
+            "Programming fundamentals (Python or Java)",
+            "Basic Computer Science concepts",
+            "Variable types and control structures",
+            "Introductory Logic and Math",
+            "Terminal and Command Line basics"
+          ],
+          "courses": [
+            { "name": "CS50: Introduction to Computer Science", "type": "Interactive" },
+            { "name": "Python for Everybody", "type": "Video Course" }
+          ]
+        },
+        {
+          "level": "Core Skills",
+          "title": "Algorithmic Foundations",
+          "duration": "4 Months",
+          "description": "Unlock the power of efficient coding by mastering data structures and algorithms, the heart of all great software.",
+          "requirements": [
+            "Arrays, Linked Lists, and Trees",
+            "Sorting and Searching algorithms",
+            "Time and Space complexity (Big O)",
+            "Object-Oriented Programming (OOP)",
+            "Version Control with Git"
+          ],
+          "courses": [
+            { "name": "Data Structures and Algorithms Specialization", "type": "Specialization" },
+            { "name": "The Modern C++ Challenge", "type": "Interactive" }
+          ]
+        },
+        {
+          "level": "Professional Practice",
+          "title": "The Craft of Building",
+          "duration": "6 Months",
+          "description": "Transition from code to products. Learn how to write clean, maintainable code and manage databases effectively.",
+          "requirements": [
+            "SQL and Database Management",
+            "Unit Testing and TDD",
+            "RESTful API design",
+            "Clean Code principles",
+            "Software Design Patterns"
+          ],
+          "courses": [
+            { "name": "Relational Database Design", "type": "Video Course" },
+            { "name": "Testing Strategies for Software", "type": "Interactive" }
+          ]
+        },
+        {
+          "level": "Advanced Development",
+          "title": "Systems at Scale",
+          "duration": "6 Months",
+          "description": "Explore the architecture behind massive applications, focusing on scalability, distributed systems, and performance.",
+          "requirements": [
+            "System Design fundamentals",
+            "Microservices architecture",
+            "Caching and Load Balancing",
+            "Containerization with Docker",
+            "Concurrency and Multithreading"
+          ],
+          "courses": [
+            { "name": "Distributed Systems and Cloud Computing", "type": "Specialization" },
+            { "name": "High Performance Computing", "type": "Video Course" }
+          ]
+        },
+        {
+          "level": "Industry Readiness",
+          "title": "Collaborative Engineering",
+          "duration": "4 Months",
+          "description": "Prepare for the workplace by mastering the tools of professional teams and understanding the development lifecycle.",
+          "requirements": [
+            "Agile and Scrum methodologies",
+            "CI/CD pipeline implementation",
+            "Code reviews and documentation",
+            "Cloud Deployment (AWS/Azure)",
+            "Soft skills for Engineers"
+          ],
+          "courses": [
+            { "name": "DevOps Foundations", "type": "Certification" },
+            { "name": "Agile Software Development", "type": "Video Course" }
+          ]
+        },
+        {
+          "level": "Career Mastery",
+          "title": "Strategic Technical Leadership",
+          "duration": "Ongoing",
+          "description": "Evolve into a leader who shapes technology strategy, mentors others, and drives innovation within organizations.",
+          "requirements": [
+            "Technical Mentorship",
+            "Strategic Tech Stack selection",
+            "Open Source contribution",
+            "Advanced Security practices",
+            "Software Architecture leadership"
+          ],
+          "courses": [
+            { "name": "Engineering Management Nanodegree", "type": "Specialization" },
+            { "name": "Advanced Software Architecture", "type": "Interactive" }
+          ]
+        }
+      ]
+    },
+    {
+      "careerId": "frontend_developer",
+      "title": "Frontend Developer",
+      "stages": [
+        {
+          "level": "Foundation",
+          "title": "The Web Weaver",
+          "duration": "2 Months",
+          "description": "Start your journey by crafting the visible web. Learn how to structure and style digital experiences from scratch.",
+          "requirements": [
+            "HTML5 Semantic tags",
+            "CSS3 Layouts (Flexbox/Grid)",
+            "Responsive Web Design",
+            "Browser Developer Tools",
+            "Web Accessibility basics"
+          ],
+          "courses": [
+            { "name": "Responsive Web Design Certification", "type": "Interactive" },
+            { "name": "Modern HTML & CSS From The Beginning", "type": "Video Course" }
+          ]
+        },
+        {
+          "level": "Core Skills",
+          "title": "Interactive Dynamics",
+          "duration": "3 Months",
+          "description": "Breathe life into static pages using JavaScript. Master the logic that drives modern web interactions.",
+          "requirements": [
+            "JavaScript ES6+ Syntax",
+            "DOM Manipulation",
+            "Fetch API and AJAX",
+            "Asynchronous Programming",
+            "Local Storage and State"
+          ],
+          "courses": [
+            { "name": "JavaScript: The Hard Parts", "type": "Interactive" },
+            { "name": "Eloquent JavaScript Guide", "type": "Book/Course" }
+          ]
+        },
+        {
+          "level": "Professional Practice",
+          "title": "Framework Mastery",
+          "duration": "4 Months",
+          "description": "Level up by adopting modern libraries. Build complex, single-page applications with speed and efficiency.",
+          "requirements": [
+            "React.js or Vue.js Core",
+            "Component-based architecture",
+            "State management (Redux/Zustand)",
+            "CSS Preprocessors (SASS)",
+            "Package Managers (NPM/Yarn)"
+          ],
+          "courses": [
+            { "name": "React - The Complete Guide", "type": "Video Course" },
+            { "name": "Front-End Web Development", "type": "Specialization" }
+          ]
+        },
+        {
+          "level": "Advanced Development",
+          "title": "Performance and Tooling",
+          "duration": "4 Months",
+          "description": "Optimize for the user. Learn to build lightning-fast web apps using advanced build tools and testing suites.",
+          "requirements": [
+            "TypeScript integration",
+            "Next.js or Nuxt.js (SSR/SSG)",
+            "Unit testing with Jest/Cypress",
+            "Webpack and Vite bundling",
+            "Web Performance optimization"
+          ],
+          "courses": [
+            { "name": "Testing JavaScript with Kent C. Dodds", "type": "Video Course" },
+            { "name": "Next.js Foundations", "type": "Interactive" }
+          ]
+        },
+        {
+          "level": "Industry Readiness",
+          "title": "The Production Standard",
+          "duration": "3 Months",
+          "description": "Transition to a professional environment by mastering design-to-code workflows and collaborative deployment.",
+          "requirements": [
+            "Git Flow and Collaboration",
+            "Design-to-Code (Figma/Adobe XD)",
+            "Headless CMS integration",
+            "SEO for Frontend Developers",
+            "Cloud hosting (Vercel/Netlify)"
+          ],
+          "courses": [
+            { "name": "Advanced CSS and Sass Mastery", "type": "Video Course" },
+            { "name": "Modern Frontend Workflow", "type": "Specialization" }
+          ]
+        },
+        {
+          "level": "Career Mastery",
+          "title": "Frontend Architect",
+          "duration": "Ongoing",
+          "description": "Define the visual future. Lead design systems, architect complex UI structures, and mentor the next generation.",
+          "requirements": [
+            "Design System Architecture",
+            "Micro-frontends development",
+            "WebAssembly (Wasm) exploration",
+            "Technical UI/UX Leadership",
+            "Web Security (XSS/CORS)"
+          ],
+          "courses": [
+            { "name": "Micro-frontends in Action", "type": "Specialization" },
+            { "name": "Design Systems for Developers", "type": "Interactive" }
+          ]
+        }
+      ]
+    },
+    {
+      "careerId": "backend_developer",
+      "title": "Backend Developer",
+      "stages": [
+        {
+          "level": "Foundation",
+          "title": "Server-Side Logic",
+          "duration": "3 Months",
+          "description": "Step behind the curtain to manage data and logic. Learn the languages that power the world's servers.",
+          "requirements": [
+            "Node.js, Python, or Go",
+            "HTTP Protocol and Methods",
+            "Command Line Mastery",
+            "Introduction to Servers",
+            "Basic Data Management"
+          ],
+          "courses": [
+            { "name": "The Complete Node.js Developer", "type": "Video Course" },
+            { "name": "Backend Web Development", "type": "Specialization" }
+          ]
+        },
+        {
+          "level": "Core Skills",
+          "title": "Database Mastery",
+          "duration": "3 Months",
+          "description": "Data is the gold of the internet. Learn how to store, query, and protect it with precision.",
+          "requirements": [
+            "Relational Databases (PostgreSQL)",
+            "NoSQL Databases (MongoDB)",
+            "Query Optimization and Indexing",
+            "Database Schema Design",
+            "Object-Relational Mapping (ORM)"
+          ],
+          "courses": [
+            { "name": "Database Management Systems", "type": "Interactive" },
+            { "name": "SQL Boot Camp", "type": "Video Course" }
+          ]
+        },
+        {
+          "level": "Professional Practice",
+          "title": "API Architecture",
+          "duration": "5 Months",
+          "description": "Create the connections. Build robust APIs that allow different systems to talk to each other seamlessly.",
+          "requirements": [
+            "RESTful API Development",
+            "Authentication (JWT/OAuth)",
+            "Error Handling and Middleware",
+            "API Documentation (Swagger)",
+            "Unit and Integration Testing"
+          ],
+          "courses": [
+            { "name": "API Design in Node.js", "type": "Video Course" },
+            { "name": "Server-side Development with Express", "type": "Specialization" }
+          ]
+        },
+        {
+          "level": "Advanced Development",
+          "title": "Scalable Ecosystems",
+          "duration": "6 Months",
+          "description": "Handle millions of users. Master caching, message queues, and distributed architecture for high traffic.",
+          "requirements": [
+            "Redis and In-memory Caching",
+            "Message Queues (RabbitMQ/Kafka)",
+            "Docker and Containerization",
+            "GraphQL Implementation",
+            "System Performance Monitoring"
+          ],
+          "courses": [
+            { "name": "Scalable Systems Architecture", "type": "Video Course" },
+            { "name": "GraphQL Fundamentals", "type": "Interactive" }
+          ]
+        },
+        {
+          "level": "Industry Readiness",
+          "title": "Cloud Infrastructure",
+          "duration": "4 Months",
+          "description": "Take your backend to the sky. Master cloud providers and automated deployment strategies.",
+          "requirements": [
+            "Cloud Services (AWS/Azure/GCP)",
+            "Serverless Architecture",
+            "CI/CD for Backend Services",
+            "Logging and Observability",
+            "Security Best Practices"
+          ],
+          "courses": [
+            { "name": "AWS Certified Developer", "type": "Certification" },
+            { "name": "Cloud Computing Specialization", "type": "Video Course" }
+          ]
+        },
+        {
+          "level": "Career Mastery",
+          "title": "Backend Systems Architect",
+          "duration": "Ongoing",
+          "description": "Architect the infrastructure of tomorrow. Lead large-scale migrations and define system reliability standards.",
+          "requirements": [
+            "Event-Driven Architecture",
+            "Database Sharding and Replication",
+            "SRE (Site Reliability) basics",
+            "Technical Team Leadership",
+            "Large-scale System Design"
+          ],
+          "courses": [
+            { "name": "Advanced System Design", "type": "Specialization" },
+            { "name": "SRE Fundamentals", "type": "Interactive" }
+          ]
+        }
+      ]
+    },
+    {
+      "careerId": "fullstack_developer",
+      "title": "Fullstack Developer",
+      "stages": [
+        {
+          "level": "Foundation",
+          "title": "The Digital Canvas",
+          "duration": "3 Months",
+          "description": "Build the visual shell and basic logic. Master the entry point of every web application.",
+          "requirements": [
+            "HTML5 & CSS3 Mastery",
+            "JavaScript Basics",
+            "Responsive Design",
+            "Git/GitHub Fundamentals",
+            "Web Hosting basics"
+          ],
+          "courses": [
+            { "name": "The Odin Project", "type": "Interactive" },
+            { "name": "Web Developer Bootcamp", "type": "Video Course" }
+          ]
+        },
+        {
+          "level": "Core Skills",
+          "title": "The Interaction Layer",
+          "duration": "4 Months",
+          "description": "Add depth with modern frontend frameworks and basic server logic to create dynamic content.",
+          "requirements": [
+            "React.js or Vue.js",
+            "Node.js & Express",
+            "Basic SQL Databases",
+            "Component Interaction",
+            "State Management"
+          ],
+          "courses": [
+            { "name": "Full Stack Open", "type": "Interactive" },
+            { "name": "JavaScript Frameworks", "type": "Video Course" }
+          ]
+        },
+        {
+          "level": "Professional Practice",
+          "title": "Integrated Systems",
+          "duration": "6 Months",
+          "description": "Bridge the gap. Learn how to connect front and back into a single, cohesive ecosystem with user accounts.",
+          "requirements": [
+            "Authentication Systems",
+            "Advanced API Integration",
+            "NoSQL (MongoDB) and SQL",
+            "Testing (Frontend & Backend)",
+            "Web Security Essentials"
+          ],
+          "courses": [
+            { "name": "Node.js and React: Full Stack", "type": "Video Course" },
+            { "name": "Authentication in Web Apps", "type": "Specialization" }
+          ]
+        },
+        {
+          "level": "Advanced Development",
+          "title": "The Performance Engine",
+          "duration": "6 Months",
+          "description": "Optimize the entire stack. Learn advanced patterns and performance tuning for high-speed experiences.",
+          "requirements": [
+            "TypeScript across the stack",
+            "Redis for Caching",
+            "Docker and Containers",
+            "SSR and Static Generation",
+            "Advanced UI/UX Implementation"
+          ],
+          "courses": [
+            { "name": "TypeScript Full Stack", "type": "Interactive" },
+            { "name": "Docker and Kubernetes", "type": "Specialization" }
+          ]
+        },
+        {
+          "level": "Industry Readiness",
+          "title": "Production Deployment",
+          "duration": "4 Months",
+          "description": "Launch with confidence. Master the deployment pipeline and professional team collaboration tools.",
+          "requirements": [
+            "CI/CD Pipelines",
+            "AWS/Azure Infrastructure",
+            "Project Management (Agile)",
+            "SEO and Web Analytics",
+            "Portfolio Development"
+          ],
+          "courses": [
+            { "name": "Full Stack Web Development with React", "type": "Specialization" },
+            { "name": "Cloud Deployment for Devs", "type": "Video Course" }
+          ]
+        },
+        {
+          "level": "Career Mastery",
+          "title": "Fullstack Solution Architect",
+          "duration": "Ongoing",
+          "description": "Become a holistic expert. Architect complete solutions and guide technology choices for entire projects.",
+          "requirements": [
+            "Microservices Architecture",
+            "Cloud Native Development",
+            "Tech Stack Strategy",
+            "Engineering Mentorship",
+            "Entrepreneurial Technical Skills"
+          ],
+          "courses": [
+            { "name": "Architecture of Large Systems", "type": "Interactive" },
+            { "name": "CTO Foundations", "type": "Video Course" }
+          ]
+        }
+      ]
+    },
+    {
+      "careerId": "data_scientist",
+      "title": "Data Scientist",
+      "stages": [
+        {
+          "level": "Foundation",
+          "title": "The Data Explorer",
+          "duration": "3 Months",
+          "description": "Discover the hidden patterns in numbers. Master the mathematical and programming basics of data science.",
+          "requirements": [
+            "Python Programming",
+            "Statistics & Probability",
+            "Linear Algebra and Calculus",
+            "Excel for Data Analysis",
+            "Jupyter Notebook basics"
+          ],
+          "courses": [
+            { "name": "Python for Data Science", "type": "Video Course" },
+            { "name": "Data Science Fundamentals", "type": "Specialization" }
+          ]
+        },
+        {
+          "level": "Core Skills",
+          "title": "The Storyteller",
+          "duration": "4 Months",
+          "description": "Turn raw data into visual stories. Learn to clean, manipulate, and present information effectively.",
+          "requirements": [
+            "Data Wrangling (Pandas/NumPy)",
+            "SQL for Data Retrieval",
+            "Visualization (Matplotlib/Seaborn)",
+            "Exploratory Data Analysis (EDA)",
+            "Basic Data Cleaning"
+          ],
+          "courses": [
+            { "name": "Data Analysis with Python", "type": "Interactive" },
+            { "name": "Tableau for Data Visualisation", "type": "Video Course" }
+          ]
+        },
+        {
+          "level": "Professional Practice",
+          "title": "Predictive Modeler",
+          "duration": "6 Months",
+          "description": "Teach machines to predict the future. Dive into the world of supervised and unsupervised machine learning.",
+          "requirements": [
+            "Scikit-Learn library",
+            "Regression and Classification",
+            "Clustering and Dimensionality",
+            "Feature Engineering",
+            "Model Evaluation metrics"
+          ],
+          "courses": [
+            { "name": "Machine Learning by Andrew Ng", "type": "Specialization" },
+            { "name": "Predictive Analytics", "type": "Video Course" }
+          ]
+        },
+        {
+          "level": "Advanced Development",
+          "title": "Deep Insights",
+          "duration": "6 Months",
+          "description": "Master complex data types. Learn about neural networks, natural language processing, and deep learning.",
+          "requirements": [
+            "Deep Learning (TensorFlow/PyTorch)",
+            "Natural Language Processing (NLP)",
+            "Computer Vision basics",
+            "Time Series Forecasting",
+            "Big Data tools (Spark)"
+          ],
+          "courses": [
+            { "name": "Deep Learning Specialization", "type": "Specialization" },
+            { "name": "PyTorch for Deep Learning", "type": "Interactive" }
+          ]
+        },
+        {
+          "level": "Industry Readiness",
+          "title": "Applied Intelligence",
+          "duration": "4 Months",
+          "description": "Bridge the gap between model and business. Learn to deploy models and drive real-world value.",
+          "requirements": [
+            "ML Model Deployment (Flask/FastAPI)",
+            "A/B Testing and Experimentation",
+            "Cloud ML Services (AWS SageMaker)",
+            "Business Communication",
+            "Ethics and Bias in AI"
+          ],
+          "courses": [
+            { "name": "Applied Data Science", "type": "Specialization" },
+            { "name": "Model Deployment for Data Science", "type": "Video Course" }
+          ]
+        },
+        {
+          "level": "Career Mastery",
+          "title": "Principal Data Strategist",
+          "duration": "Ongoing",
+          "description": "Lead the data revolution. Set organizational data strategy and innovate with cutting-edge research.",
+          "requirements": [
+            "Data Pipeline Engineering",
+            "Research and Publication",
+            "AI Strategy and ROI",
+            "Leadership in Data Science",
+            "Advanced Research Methods"
+          ],
+          "courses": [
+            { "name": "Executive Data Science", "type": "Certification" },
+            { "name": "Advanced AI Research", "type": "Specialization" }
+          ]
+        }
+      ]
+    },
+    {
+      "careerId": "ai_ml_engineer",
+      "title": "AI/ML Engineer",
+      "stages": [
+        {
+          "level": "Foundation",
+          "title": "Mathematics of Intelligence",
+          "duration": "3 Months",
+          "description": "AI is built on math. Build a rock-solid foundation in linear algebra, calculus, and programming.",
+          "requirements": [
+            "Python for AI development",
+            "Multivariable Calculus",
+            "Linear Algebra and Matrices",
+            "Statistical Distributions",
+            "Basic Algorithm Design"
+          ],
+          "courses": [
+            { "name": "Mathematics for Machine Learning", "type": "Specialization" },
+            { "name": "Python for Beginners", "type": "Video Course" }
+          ]
+        },
+        {
+          "level": "Core Skills",
+          "title": "Machine Learning Core",
+          "duration": "4 Months",
+          "description": "Build your first algorithms. Learn how machines learn from data through classic ML techniques.",
+          "requirements": [
+            "Supervised Learning (Regression)",
+            "Unsupervised Learning (K-Means)",
+            "Optimization Algorithms",
+            "Scikit-Learn Mastery",
+            "Feature Selection/Extraction"
+          ],
+          "courses": [
+            { "name": "Machine Learning Specialization", "type": "Interactive" },
+            { "name": "Introduction to Statistical Learning", "type": "Book/Course" }
+          ]
+        },
+        {
+          "level": "Professional Practice",
+          "title": "Neural Architectures",
+          "duration": "5 Months",
+          "description": "Mimic the human brain. Master deep learning and the frameworks used to build neural networks.",
+          "requirements": [
+            "PyTorch or TensorFlow",
+            "Neural Network Architectures",
+            "Backpropagation and Gradients",
+            "CNNs for Image Processing",
+            "RNNs and Transformers"
+          ],
+          "courses": [
+            { "name": "Deep Learning with PyTorch", "type": "Video Course" },
+            { "name": "TensorFlow Developer Certificate", "type": "Certification" }
+          ]
+        },
+        {
+          "level": "Advanced Development",
+          "title": "Specialized Intelligence",
+          "duration": "6 Months",
+          "description": "Specialize in the niche areas of AI, from understanding human language to mastering generative models.",
+          "requirements": [
+            "Large Language Models (LLMs)",
+            "Generative AI (GANs/Diffusion)",
+            "Computer Vision (Object Detection)",
+            "Reinforcement Learning",
+            "Advanced Hyperparameter Tuning"
+          ],
+          "courses": [
+            { "name": "Natural Language Processing", "type": "Specialization" },
+            { "name": "Generative AI Fundamentals", "type": "Video Course" }
+          ]
+        },
+        {
+          "level": "Industry Readiness",
+          "title": "MLOps and Deployment",
+          "duration": "4 Months",
+          "description": "Bring models to production. Learn how to manage, monitor, and scale AI systems in the real world.",
+          "requirements": [
+            "Model Versioning (DVC)",
+            "Deployment (Docker/Kubernetes)",
+            "Monitoring and Drift detection",
+            "Cloud AI Infrastructure (AWS/GCP)",
+            "Scalable Model Serving"
+          ],
+          "courses": [
+            { "name": "Machine Learning Engineering for Production", "type": "Specialization" },
+            { "name": "MLOps Fundamentals", "type": "Video Course" }
+          ]
+        },
+        {
+          "level": "Career Mastery",
+          "title": "AI Research Scientist",
+          "duration": "Ongoing",
+          "description": "Push the boundaries. Conduct original research and design the AI architectures of the next decade.",
+          "requirements": [
+            "AI Ethics and Governance",
+            "Research Paper Writing",
+            "Deep Research in LLMs",
+            "Custom Algorithm Design",
+            "Technical AI Leadership"
+          ],
+          "courses": [
+            { "name": "Advanced AI Research and Theory", "type": "Specialization" },
+            { "name": "Ethics in Artificial Intelligence", "type": "Interactive" }
+          ]
+        }
+      ]
+    },
+    {
+      "careerId": "cybersecurity_analyst",
+      "title": "Cybersecurity Analyst",
+      "stages": [
+        {
+          "level": "Foundation",
+          "title": "Digital Gatekeeper",
+          "duration": "3 Months",
+          "description": "Learn the basics of how computers and networks communicate, and how to protect them from the start.",
+          "requirements": [
+            "Network Protocols (TCP/IP)",
+            "Operating System Security",
+            "Cryptography Basics",
+            "Threat Landscape awareness",
+            "Security Mindset"
+          ],
+          "courses": [
+            { "name": "Google Cybersecurity Certificate", "type": "Certification" },
+            { "name": "Intro to Cyber Security", "type": "Video Course" }
+          ]
+        },
+        {
+          "level": "Core Skills",
+          "title": "Defense Operations",
+          "duration": "4 Months",
+          "description": "Set up the shields. Master the tools and techniques used to defend networks and monitor for threats.",
+          "requirements": [
+            "Firewall and VPN management",
+            "Intrusion Detection (IDS/IPS)",
+            "SIEM Tooling basics",
+            "Vulnerability Scanning",
+            "Endpoint Protection"
+          ],
+          "courses": [
+            { "name": "CompTIA Security+", "type": "Certification" },
+            { "name": "Network Security Fundamentals", "type": "Interactive" }
+          ]
+        },
+        {
+          "level": "Professional Practice",
+          "title": "The Ethical Hacker",
+          "duration": "5 Months",
+          "description": "To catch a hacker, you must think like one. Learn penetration testing and exploit analysis.",
+          "requirements": [
+            "Penetration Testing basics",
+            "Web Application Security",
+            "Network Reconnaissance",
+            "Exploitation Frameworks",
+            "Reporting and Remediation"
+          ],
+          "courses": [
+            { "name": "Ethical Hacking Specialization", "type": "Video Course" },
+            { "name": "TryHackMe: Offensive Path", "type": "Interactive" }
+          ]
+        },
+        {
+          "level": "Advanced Development",
+          "title": "Incident Response",
+          "duration": "6 Months",
+          "description": "React when the alarms go off. Master forensics, malware analysis, and crisis management.",
+          "requirements": [
+            "Digital Forensics",
+            "Incident Response lifecycle",
+            "Malware Reverse Engineering",
+            "Advanced Threat Hunting",
+            "Disaster Recovery planning"
+          ],
+          "courses": [
+            { "name": "Certified Incident Handler", "type": "Certification" },
+            { "name": "Forensic Analysis", "type": "Video Course" }
+          ]
+        },
+        {
+          "level": "Industry Readiness",
+          "title": "Governance & Risk",
+          "duration": "4 Months",
+          "description": "Understand the bigger picture of security within an organization, including laws and compliance.",
+          "requirements": [
+            "Compliance (GDPR/HIPAA)",
+            "Risk Assessment frameworks",
+            "Security Policy design",
+            "Security Auditing",
+            "Strategic Security Planning"
+          ],
+          "courses": [
+            { "name": "ISACA CISA/CISM", "type": "Certification" },
+            { "name": "Information Security Management", "type": "Specialization" }
+          ]
+        },
+        {
+          "level": "Career Mastery",
+          "title": "Security Architect",
+          "duration": "Ongoing",
+          "description": "Design secure systems from the ground up. Lead global security strategies and policy development.",
+          "requirements": [
+            "Enterprise Security Architecture",
+            "CISO Leadership skills",
+            "Advanced Cryptographic Design",
+            "Security in DevSecOps",
+            "Public Speaking and Mentorship"
+          ],
+          "courses": [
+            { "name": "CISSP Certification Path", "type": "Certification" },
+            { "name": "Advanced Security Architecture", "type": "Specialization" }
+          ]
+        }
+      ]
+    },
+    {
+      "careerId": "network_engineer",
+      "title": "Network Engineer",
+      "stages": [
+        {
+          "level": "Foundation",
+          "title": "Connectivity Basics",
+          "duration": "3 Months",
+          "description": "Understand the wires and waves. Learn the foundational models that make the internet possible.",
+          "requirements": [
+            "OSI and TCP/IP Models",
+            "IP Addressing & Subnetting",
+            "Basic Routing & Switching",
+            "Network Cabling & Hardware",
+            "Wireless Network basics"
+          ],
+          "courses": [
+            { "name": "Cisco CCNA Introduction", "type": "Video Course" },
+            { "name": "Networking Fundamentals", "type": "Interactive" }
+          ]
+        },
+        {
+          "level": "Core Skills",
+          "title": "Routing Mastery",
+          "duration": "4 Months",
+          "description": "Master the art of moving data across complex networks using industry-standard protocols.",
+          "requirements": [
+            "Static and Dynamic Routing",
+            "OSPF and EIGRP protocols",
+            "VLANs and Trunking",
+            "ACLs and Network Security",
+            "NAT and PAT configuration"
+          ],
+          "courses": [
+            { "name": "CCNA: Switching and Routing", "type": "Certification" },
+            { "name": "Network Administration", "type": "Video Course" }
+          ]
+        },
+        {
+          "level": "Professional Practice",
+          "title": "Enterprise Infrastructure",
+          "duration": "5 Months",
+          "description": "Build networks for large businesses. Focus on redundancy, high availability, and advanced security.",
+          "requirements": [
+            "BGP and WAN technologies",
+            "VPN and Tunneling",
+            "Quality of Service (QoS)",
+            "Network Monitoring tools",
+            "Firewall configuration"
+          ],
+          "courses": [
+            { "name": "Enterprise Networking", "type": "Specialization" },
+            { "name": "Firewall and Security Appliances", "type": "Video Course" }
+          ]
+        },
+        {
+          "level": "Advanced Development",
+          "title": "Software Defined Networking",
+          "duration": "6 Months",
+          "description": "Shift from hardware to code. Learn how to automate networks and use software-defined controllers.",
+          "requirements": [
+            "SDN Fundamentals",
+            "Network Automation (Python)",
+            "Ansible for Networks",
+            "API interaction for Switches",
+            "Virtual Networking (VXLAN)"
+          ],
+          "courses": [
+            { "name": "Network Automation with Python", "type": "Interactive" },
+            { "name": "Cisco DevNet Associate", "type": "Certification" }
+          ]
+        },
+        {
+          "level": "Industry Readiness",
+          "title": "Cloud Networking",
+          "duration": "4 Months",
+          "description": "The network is now in the cloud. Connect physical infrastructure with virtual cloud environments.",
+          "requirements": [
+            "AWS VPC and Networking",
+            "Azure Virtual Networks",
+            "Hybrid Cloud Connectivity",
+            "Direct Connect and ExpressRoute",
+            "Cloud Security Gateways"
+          ],
+          "courses": [
+            { "name": "AWS Certified Advanced Networking", "type": "Certification" },
+            { "name": "Cloud Network Engineering", "type": "Specialization" }
+          ]
+        },
+        {
+          "level": "Career Mastery",
+          "title": "Principal Network Architect",
+          "duration": "Ongoing",
+          "description": "Design global-scale infrastructures. Lead massive network migrations and set organizational standards.",
+          "requirements": [
+            "Global Backbone Architecture",
+            "ISP and IXP management",
+            "Technical Network Leadership",
+            "Disaster Recovery Architecture",
+            "Strategic Infrastructure Planning"
+          ],
+          "courses": [
+            { "name": "CCIE Enterprise Infrastructure", "type": "Certification" },
+            { "name": "Network Architecture Masterclass", "type": "Video Course" }
+          ]
+        }
+      ]
+    },
+    {
+      "careerId": "devops_engineer",
+      "title": "DevOps Engineer",
+      "stages": [
+        {
+          "level": "Foundation",
+          "title": "The Linux Specialist",
+          "duration": "3 Months",
+          "description": "The command line is your new home. Master Linux and basic scripting to automate your first tasks.",
+          "requirements": [
+            "Linux Administration",
+            "Bash or Python Scripting",
+            "Git for Infrastructure",
+            "Server Fundamentals",
+            "Networking basics for DevOps"
+          ],
+          "courses": [
+            { "name": "Linux Mastery", "type": "Interactive" },
+            { "name": "Introduction to DevOps", "type": "Video Course" }
+          ]
+        },
+        {
+          "level": "Core Skills",
+          "title": "The Pipeline Builder",
+          "duration": "4 Months",
+          "description": "Automate the flow of code from developers to servers using powerful CI/CD pipelines.",
+          "requirements": [
+            "CI/CD with Jenkins or GitHub Actions",
+            "Build Automation tools",
+            "Unit Testing in Pipelines",
+            "Artifact Management",
+            "Automated Deployment basics"
+          ],
+          "courses": [
+            { "name": "CI/CD Pipeline Specialization", "type": "Video Course" },
+            { "name": "Jenkins from Zero to Hero", "type": "Interactive" }
+          ]
+        },
+        {
+          "level": "Professional Practice",
+          "title": "Container Architect",
+          "duration": "5 Months",
+          "description": "Package applications so they run anywhere. Master Docker and the art of containerization.",
+          "requirements": [
+            "Docker Fundamentals",
+            "Container Orchestration (K8s)",
+            "Microservices connectivity",
+            "Container Security",
+            "Registry Management"
+          ],
+          "courses": [
+            { "name": "Docker and Kubernetes: The Complete Guide", "type": "Video Course" },
+            { "name": "Certified Kubernetes Administrator", "type": "Certification" }
+          ]
+        },
+        {
+          "level": "Advanced Development",
+          "title": "Infrastructure as Code",
+          "duration": "6 Months",
+          "description": "Turn your infrastructure into code that can be versioned and deployed with a single command.",
+          "requirements": [
+            "Terraform or CloudFormation",
+            "Ansible/Chef Configuration Management",
+            "Immutable Infrastructure",
+            "Cloud Architecture (AWS)",
+            "Secret Management (Vault)"
+          ],
+          "courses": [
+            { "name": "Terraform for Beginners", "type": "Interactive" },
+            { "name": "HashiCorp Certified: Terraform Associate", "type": "Certification" }
+          ]
+        },
+        {
+          "level": "Industry Readiness",
+          "title": "The SRE Mindset",
+          "duration": "4 Months",
+          "description": "Focus on reliability and observability. Learn to monitor systems and respond to incidents automatically.",
+          "requirements": [
+            "Monitoring (Prometheus/Grafana)",
+            "Logging (ELK Stack)",
+            "Site Reliability Engineering (SRE)",
+            "Incident Management",
+            "Cost Optimization"
+          ],
+          "courses": [
+            { "name": "SRE: Measuring and Managing Reliability", "type": "Specialization" },
+            { "name": "Monitoring and Observability Foundations", "type": "Video Course" }
+          ]
+        },
+        {
+          "level": "Career Mastery",
+          "title": "Platform Engineer",
+          "duration": "Ongoing",
+          "description": "Build the platform that developers love. Create internal developer platforms and lead DevOps culture.",
+          "requirements": [
+            "Internal Developer Platforms (IDP)",
+            "Service Mesh (Istio/Linkerd)",
+            "DevOps Leadership & Culture",
+            "Advanced Cloud Native patterns",
+            "Security Engineering (DevSecOps)"
+          ],
+          "courses": [
+            { "name": "Platform Engineering Fundamentals", "type": "Interactive" },
+            { "name": "Advanced Cloud Native Architecture", "type": "Specialization" }
+          ]
+        }
+      ]
+    },
+    {
+      "careerId": "ui_ux_designer",
+      "title": "UI/UX Designer",
+      "stages": [
+        {
+          "level": "Foundation",
+          "title": "Design Principles",
+          "duration": "3 Months",
+          "description": "Learn the visual rules that govern digital beauty and functionality. Master typography, color, and layout.",
+          "requirements": [
+            "Visual Design Fundamentals",
+            "Typography and Color Theory",
+            "Grid Systems and Layouts",
+            "Design History and Trends",
+            "Introduction to Figma/Adobe XD"
+          ],
+          "courses": [
+            { "name": "Google UX Design Professional Certificate", "type": "Certification" },
+            { "name": "Graphic Design Specialization", "type": "Video Course" }
+          ]
+        },
+        {
+          "level": "Core Skills",
+          "title": "The User Researcher",
+          "duration": "4 Months",
+          "description": "Step into the users' shoes. Learn how to conduct interviews, build personas, and map out user journeys.",
+          "requirements": [
+            "User Research methods",
+            "Persona Development",
+            "User Journey Mapping",
+            "Information Architecture",
+            "Wireframing basics"
+          ],
+          "courses": [
+            { "name": "UX Research Methods", "type": "Interactive" },
+            { "name": "Interaction Design Foundation", "type": "Interactive" }
+          ]
+        },
+        {
+          "level": "Professional Practice",
+          "title": "Interaction Designer",
+          "duration": "5 Months",
+          "description": "Move from static to dynamic. Design high-fidelity prototypes and learn the science of interaction.",
+          "requirements": [
+            "High-Fidelity Prototyping",
+            "Interactive Motion Design",
+            "Responsive Web Design",
+            "Usability Testing",
+            "Accessibility (WCAG) compliance"
+          ],
+          "courses": [
+            { "name": "Interaction Design Specialization", "type": "Video Course" },
+            { "name": "Advanced Prototyping in Figma", "type": "Interactive" }
+          ]
+        },
+        {
+          "level": "Advanced Development",
+          "title": "Design Systems Specialist",
+          "duration": "6 Months",
+          "description": "Build for scale. Learn to create reusable component libraries and documentation for large products.",
+          "requirements": [
+            "Design System Architecture",
+            "Component Documentation",
+            "Tokenization (Design Tokens)",
+            "Cross-team Collaboration",
+            "Advanced Figma Auto-Layout"
+          ],
+          "courses": [
+            { "name": "Creating Design Systems", "type": "Video Course" },
+            { "name": "Scalable UI Design", "type": "Interactive" }
+          ]
+        },
+        {
+          "level": "Industry Readiness",
+          "title": "Product Designer",
+          "duration": "4 Months",
+          "description": "Understand the business side of design. Learn to measure success and collaborate with engineering teams.",
+          "requirements": [
+            "Developer Handoff process",
+            "Business KPIs for Design",
+            "A/B Testing for UX",
+            "Portfolio Case Study writing",
+            "Design Ethics"
+          ],
+          "courses": [
+            { "name": "Product Design Specialization", "type": "Certification" },
+            { "name": "Handoff Mastery for Designers", "type": "Video Course" }
+          ]
+        },
+        {
+          "level": "Career Mastery",
+          "title": "Design Director",
+          "duration": "Ongoing",
+          "description": "Shape the vision of a company. Lead design teams, define brand identity, and influence product strategy.",
+          "requirements": [
+            "Design Leadership & Mentoring",
+            "Strategic Product Vision",
+            "Brand Identity Management",
+            "Operations (DesignOps)",
+            "Public Speaking in Design"
+          ],
+          "courses": [
+            { "name": "Design Leadership Masterclass", "type": "Specialization" },
+            { "name": "UX Management Specialization", "type": "Video Course" }
+          ]
+        }
+      ]
+    }
+  ]
+}

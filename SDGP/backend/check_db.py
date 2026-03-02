@@ -1,7 +1,10 @@
 from pymongo import MongoClient
 import json
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
-MONGO_URI = "mongodb+srv://sdgp_admin:Vu7rTKuA8nwuMR9K@career-prediction-clust.ohh82ug.mongodb.net/?appName=career-prediction-cluster"
+MONGO_URI = os.getenv("MONGO_URI")
 
 client = MongoClient(MONGO_URI)
 db = client["sdgp_db"]

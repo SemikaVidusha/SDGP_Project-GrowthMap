@@ -53,7 +53,7 @@ export default function Results() {
     if (!rawResult || !careersMeta.length) return;
 
     const merged = rawResult.topCareers.map(tc => {
-      const meta = careersMeta.find(c => c.careerId === tc.career);
+      const meta = careersMeta.find(c => c.careerId === tc.career || c.id === tc.career);
 
       return {
         id: tc.career,
@@ -73,12 +73,15 @@ export default function Results() {
     setCareerMatches(sorted);
   }, [rawResult, careersMeta]);
 
-  // fetch roadmap
+  // fetch roadmap (kept as optional modal fallback)
   useEffect(() => {
     if (!selectedCareer?.id) return;
 
     fetch(`http://127.0.0.1:5000/api/roadmaps/${selectedCareer.id}`)
-      .then(r => r.json())
+      .then(r => {
+        if (!r.ok) throw new Error("Roadmap not found");
+        return r.json();
+      })
       .then(setRoadmap)
       .catch(() => setRoadmap(null));
   }, [selectedCareer]);
@@ -123,7 +126,17 @@ export default function Results() {
             <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-6 text-white">
               <h2 className="text-2xl font-bold">{topCareer.title}</h2>
               <p className="text-blue-100">{topCareer.description}</p>
-              <div className="text-4xl font-bold mt-4">{topCareer.matchScore}%</div>
+              <div className="flex items-center justify-between mt-4">
+                <div className="text-4xl font-bold">{topCareer.matchScore}%</div>
+                <div>
+                  <Button
+                    onClick={() => navigate(`/roadmap/${topCareer.id}`)}
+                    className="bg-white text-purple-700 hover:bg-blue-50"
+                  >
+                    View Roadmap
+                  </Button>
+                </div>
+              </div>
             </div>
 
             <div className="grid md:grid-cols-2 gap-4">
@@ -133,10 +146,7 @@ export default function Results() {
                   career={career}
                   matchScore={career.matchScore}
                   rank={index + 1}
-                  onClick={() => {
-                    setSelectedCareer(career);
-                    setShowRoadmap(true);
-                  }}
+                  onClick={() => navigate(`/roadmap/${career.id}`)}
                 />
               ))}
             </div>
@@ -146,14 +156,15 @@ export default function Results() {
         </div>
       </main>
 
+      {/* Legacy modal kept as fallback (optional) */}
       <Dialog open={showRoadmap} onOpenChange={setShowRoadmap}>
-        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto" aria-describedby="roadmap-modal-desc">
           <DialogHeader>
             <DialogTitle>{selectedCareer?.title} Roadmap</DialogTitle>
           </DialogHeader>
 
           {roadmap ? (
-            <div className="space-y-4">
+            <div className="space-y-4 px-4 pb-6">
               {(roadmap.stages || []).map((s, i) => (
                 <div key={i} className="p-4 border rounded">
                   <h4 className="font-semibold">{s.title}</h4>

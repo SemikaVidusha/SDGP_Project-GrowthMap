@@ -1,4 +1,3 @@
-# backend/test_app.py
 from flask import Flask, Blueprint, jsonify, request
 from flask_cors import CORS
 from pymongo import MongoClient
@@ -15,8 +14,7 @@ DATASET_DIR = os.path.abspath(os.path.join(BASE_DIR, "..", "dataset"))
 MODEL_PATH = os.path.join(DATASET_DIR, "career_model.pkl")
 ENCODER_PATH = os.path.join(DATASET_DIR, "career_encoder.pkl")
 
-# load model + encoder
-model = joblib.load(MODEL_PATH)   # this is a sklearn Pipeline
+model = joblib.load(MODEL_PATH)
 encoder = joblib.load(ENCODER_PATH)
 
 print("ML Model + Encoder loaded successfully")

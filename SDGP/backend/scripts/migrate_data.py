@@ -2,16 +2,22 @@ import json
 import os
 import sys
 
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+# allow backend imports
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(BASE_DIR)
 
 from db import careers_col, roadmaps_col
 
-
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-DATA_DIR = os.path.join(BASE_DIR, "data")
+# current folder (backend/scripts)
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def migrate_careers():
-    path = os.path.join(DATA_DIR, "careers.json")
+    path = os.path.join(SCRIPT_DIR, "careers.json")
+
+    if not os.path.exists(path):
+        print("careers.json not found — skipping careers migration")
+        return
+
     with open(path, "r", encoding="utf-8") as f:
         careers = json.load(f)
 
@@ -21,13 +27,26 @@ def migrate_careers():
 
 
 def migrate_roadmaps():
-    path = os.path.join(DATA_DIR, "roadmaps.json")
+    path = os.path.join(SCRIPT_DIR, "roadmaps.json")
+    if not os.path.exists(path):
+        print("roadmaps.json not found — skipping roadmaps migration")
+        return
+
     with open(path, "r", encoding="utf-8") as f:
-        roadmaps = json.load(f)
+        data = json.load(f)
+
+    # Correct extraction
+    if isinstance(data, dict) and "roadmaps" in data:
+        roadmaps = data["roadmaps"]
+    elif isinstance(data, list):
+        roadmaps = data
+    else:
+        raise ValueError("Invalid roadmaps.json structure")
 
     roadmaps_col.delete_many({})
     roadmaps_col.insert_many(roadmaps)
-    print("Migrated roadmaps")
+
+    print(f"Migrated {len(roadmaps)} roadmaps successfully")
 
 
 if __name__ == "__main__":
