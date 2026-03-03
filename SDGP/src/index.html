@@ -1,171 +1,464 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GrowthMap - Discover Your Future</title>
-  <link rel="icon" type="image/jpeg" href="assets/logo.jpg">
-
-  <link rel="stylesheet" href="/css/Landing_page.css">
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GrowthMap - AI-Powered ICT Career Roadmap</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
-
 <body>
+    <!-- ==================== STICKY NAVBAR ==================== -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <img src="../assets/logo.jpg" alt="GrowthMap Logo">
+            </a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
 
-  <!-- NAVBAR -->
-  <nav class="navbar">
-    <div class="nav-container">
-      <div class="nav-brand">
-        <div class="logo">
-              <a href="index.html">
-                  <img src="/assets/logo.jpg" alt="Logo">
-              </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="#why-choose" class="nav-link">Why Choose</a></li>
+                <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+                <li><a href="#roadmap" class="nav-link">Roadmap</a></li>
+                <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+                <li><a href="#faq" class="nav-link">FAQ</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+
+            <a href="#assessment" class="nav-cta-btn">Start Assessment</a>
         </div>
-        <span>GrowthMap</span>
-      </div>
+    </nav>
 
-      <div class="nav-menu">
-        <a href="#home" class="nav-link">Home</a>
-        <a href="#features" class="nav-link">Features</a>
-        <a href="#how-it-works" class="nav-link">How It Works</a>
-        <a href="#contact" class="nav-link">Contact</a>
-      </div>
-
-      <div class="nav-actions">
-        <a href="#" class="btn-login">Login</a>
-        <a href="career_quiz.html" class="btn-signup">Get Started</a>
-      </div>
-    </div>
-  </nav>
-
-  <!-- HERO SECTION -->
-  <section class="hero" id="home">
-    <div class="container hero-wrapper">
-
-      <div class="hero-content">
-        <h1 class="hero-title">Find Your Perfect Career Path</h1>
-        <p class="hero-1stdescription">Take our guided assessment to discover careers that match your interests and skills.</p>
-        <p class="hero-2nddescription">Your journey starts with clarity.</p>
-
-        <div class="hero-cta">
-          <a href="#" class="btn-primary">
-            <i class="fas fa-rocket"></i> Start Assessment
-          </a>
-
-          <a href="#how-it-works" class="btn-secondary">
-            <i class="fas fa-circle-info"></i> How it Works
-          </a>
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="hero" id="home">
+        <div class="hero-background">
+            <div class="gradient-blob blob-1"></div>
+            <div class="gradient-blob blob-2"></div>
+            <div class="gradient-blob blob-3"></div>
         </div>
-      </div>
+        
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Discover Your Perfect ICT Career - And <span class="gradient-text">Own Your Future</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Stop guessing. Start building. Get a clear, personalized roadmap to your dream ICT career - from beginning to your first job - in just 5 minutes.
+                </p>
+                
+                <div class="hero-buttons">
+                    <a href="#assessment" class="btn btn-primary">
+                        <span>Start Assessment</span>
+                        <svg class="btn-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                    <a href="#features" class="btn btn-secondary">Explore Careers</a>
+                </div>
 
-      <div class="hero-image">
-        <img src="/assets/career.jpg" alt="Career Illustration">
-      </div>
+                <div class="hero-features">
+                    <div class="feature-badge">
+                        <span class="badge-icon">📝</span>
+                        <span>20 Questions</span>
+                    </div>
+                    <div class="feature-badge">
+                        <span class="badge-icon">💼</span>
+                        <span>Latest ICT Careers</span>
+                    </div>
+                    <div class="feature-badge">
+                        <span class="badge-icon">🎉</span>
+                        <span>Free to Use</span>
+                    </div>
+                </div>
+            </div>
 
-    </div>
-  </section>
-
-  <!-- FEATURES SECTION -->
-  <section class="features" id="features">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Platform Features</h2>
-        <p class="section-description">Tools to help you make smart career decisions</p>
-      </div>
-
-      <div class="features-grid">
-
-        <div class="feature-card">
-          <img src="/assets/personality.jpg" class="feature-img">
-          <h3>Personality Test</h3>
-          <p>Identify your strengths and ideal career direction.</p><br>
-          <a href="#" class="feature-btn">Learn More</a>
+            <div class="hero-visual">
+                <div class="floating-cards">
+                    <div class="match-card card-1">
+                        <div class="card-badge">92% Match</div>
+                        <div class="card-content">
+                            <span class="card-icon">💻</span>
+                            <span class="card-title">Software Engineer</span>
+                        </div>
+                    </div>
+                    <div class="match-card card-2">
+                        <div class="card-badge success">85% Match</div>
+                        <div class="card-content">
+                            <span class="card-icon">🎨</span>
+                            <span class="card-title">UI/UX Designer</span>
+                        </div>
+                    </div>
+                    <div class="match-card card-3">
+                        <div class="card-badge">78% Match</div>
+                        <div class="card-content">
+                            <span class="card-icon">📊</span>
+                            <span class="card-title">Data Analyst</span>
+                        </div>
+                    </div>
+                    <div class="match-card card-4">
+                        <div class="card-badge success">88% Match</div>
+                        <div class="card-content">
+                            <span class="card-icon">🔒</span>
+                            <span class="card-title">Cyber Security</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="feature-card">
-          <img src="/assets/matching.jpg" class="feature-img">
-          <h3>Career Matching</h3>
-          <p>Get matched with ICT careers tailored to your skills.</p><br>
-          <a href="#" class="feature-btn">Learn More</a>
+    <!-- ==================== PROBLEM SECTION ==================== -->
+    <section class="problem-section" id="problem">
+        <div class="section-container">
+            <h2 class="section-title">Why Sri Lankan Students Feel Stuck</h2>
+            <p class="section-subtitle">You're not alone. Thousands of students face these same challenges every year.</p>
+            
+            <div class="problem-cards">
+                <div class="problem-card reveal">
+                    <div class="problem-icon">😰</div>
+                    <h3>"I Have No Idea What to Do"</h3>
+                    <p>With dozens of ICT careers to choose from - from Software Engineering to Data Science - it's easy to feel lost and worry you'll make the wrong choice.</p>
+                </div>
+                <div class="problem-card reveal">
+                    <div class="problem-icon">🧩</div>
+                    <h3>Qualifications Feel Like a Maze</h3>
+                    <p>NVQ Levels 4-7, Diplomas, Degrees - figuring out which path leads where and what's right for you seems impossibly complicated.</p>
+                </div>
+                <div class="problem-card reveal">
+                    <div class="problem-icon">🤷</div>
+                    <h3>No One Understands My Situation</h3>
+                    <p>Generic career advice from the internet doesn't account for your unique strengths, our local education system, or what actually leads to jobs in Sri Lanka.</p>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="feature-card">
-          <img src="/assets/qualifications.png" class="feature-img">
-          <h3>Qualification Guide</h3>
-          <p>Understand what NVQs, Diplomas or Degrees you need.</p>
-          <a href="#" class="feature-btn">Learn More</a>
+    <!-- ==================== FEATURES SECTION ==================== -->
+    <section class="features-section" id="features">
+        <div class="section-container">
+            <h2 class="section-title">Everything You Need to Succeed</h2>
+            <p class="section-subtitle">Powerful tools designed specifically for Sri Lankan ICT aspirants</p>
+            
+            <div class="features-grid">
+                <div class="feature-card reveal">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Know What Fits You</h3>
+                    <p>Stop guessing what career suits you. Our smart assessment reveals careers that match your unique strengths and passions.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI That Actually Understands You</h3>
+                    <p>Our intelligent matching system analyzes your profile to recommend ICT careers with the highest success potential for you.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon">🎓</div>
+                    <h3>Clear Path Forward</h3>
+                    <p>No more confusion about qualifications. See exactly which NVQ, Diploma, or Degree gets you to your dream role.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon">🗺️</div>
+                    <h3>Your Personal Roadmap</h3>
+                    <p>Get a step-by-step plan customized to your goals - from where you are now to landing your first ICT job.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon">📈</div>
+                    <h3>Track Your Progress</h3>
+                    <p>Stay motivated with an user friendly dashboard that shows how far you've come and what's next.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon">💡</div>
+                    <h3>Know Your Worth</h3>
+                    <p>Get real insights into salary expectations and growth opportunities in the Sri Lankan ICT job market.</p>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="feature-card">
-          <img src="/assets/roadmap.jpg" class="feature-img">
-          <h3>Career Roadmap</h3>
-          <p>See the steps to reach your desired ICT profession.</p><br>
-          <a href="#" class="feature-btn">Learn More</a>
+    <!-- ==================== WHY CHOOSE SECTION ==================== -->
+    <section class="why-choose-section" id="why-choose">
+        <div class="section-container">
+            <h2 class="section-title">Why Choose GrowthMap?</h2>
+            <p class="section-subtitle">We're launch specifically for Sri Lankan students - not generic career advice</p>
+            
+            <div class="why-choose-grid">
+                <div class="why-choose-card reveal">
+                    <div class="why-choose-icon">🎯</div>
+                    <h3>Built for Sri Lanka</h3>
+                    <p>Every qualification path, job market insight, and recommendation is tailored to the Sri Lankan context  no generic advice.</p>
+                </div>
+                <div class="why-choose-card reveal">
+                    <div class="why-choose-icon">🤖</div>
+                    <h3>Smart AI Matching</h3>
+                    <p>Our AI doesn't just list careers, it analyzes your unique profile to find paths you might never have considered.</p>
+                </div>
+                <div class="why-choose-card reveal">
+                    <div class="why-choose-icon">🗺️</div>
+                    <h3>Clear Roadmap</h3>
+                    <p>No more guessing. See exactly what qualifications you need, in what order, to reach your dream ICT role.</p>
+                </div>
+                <div class="why-choose-card reveal">
+                    <div class="why-choose-icon">💻</div>
+                    <h3>Beginner-Friendly</h3>
+                    <p>No prior knowledge needed. We explain everything in simple terms, even if you're just starting out.</p>
+                </div>
+            </div>
         </div>
+    </section>
 
-      </div>
-    </div>
-  </section>
-
-  <!-- HOW IT WORKS -->
-  <section class="how-it-works" id="how-it-works">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">How It Works</h2>
-        <p class="section-description">Your journey in four simple steps</p>
-      </div>
-
-      <div class="process-steps">
-
-        <div class="process-step">
-          <div class="step-number">1</div>
-          <div class="step-content">
-            <h3>Create Account</h3>
-            <p>Sign up to save your progress and results.</p>
-          </div>
+    <!-- ==================== HOW IT WORKS SECTION ==================== -->
+    <section class="how-it-works-section" id="how-it-works">
+        <div class="section-container">
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">Your journey to the perfect ICT career in 5 simple steps</p>
+            
+            <div class="timeline">
+                <div class="timeline-line"></div>
+                
+                <div class="timeline-step reveal">
+                    <div class="step-number">01</div>
+                    <div class="step-icon">👨‍💻</div>
+                    <h3>Create Account</h3>
+                    <p>Sign up for free and get instant access to our platform</p>
+                </div>
+                
+                <div class="timeline-step reveal">
+                    <div class="step-number">02</div>
+                    <div class="step-icon">📝</div>
+                    <h3>Take Assessment</h3>
+                    <p>Complete our 15-question smart assessment quiz</p>
+                </div>
+                
+                <div class="timeline-step reveal">
+                    <div class="step-number">03</div>
+                    <div class="step-icon">🎯</div>
+                    <h3>View Career Matches</h3>
+                    <p>See your personalized career recommendations</p>
+                </div>
+                
+                <div class="timeline-step reveal">
+                    <div class="step-number">04</div>
+                    <div class="step-icon">🗺️</div>
+                    <h3>Get Your Roadmap</h3>
+                    <p>Receive your qualification pathway plan</p>
+                </div>
+                
+                <div class="timeline-step reveal">
+                    <div class="step-number">05</div>
+                    <div class="step-icon">🚀</div>
+                    <h3>Plan Your Future</h3>
+                    <p>Start your journey with clear goals</p>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="process-step">
-          <div class="step-number">2</div>
-          <div class="step-content">
-            <h3>Take Assessment</h3>
-            <p>Complete our skills & interest-based questionnaire.</p>
-          </div>
+    <!-- ==================== ROADMAP PREVIEW SECTION ==================== -->
+    <section class="roadmap-section" id="roadmap">
+        <div class="section-container">
+            <h2 class="section-title">See Your Future Clearly</h2>
+            <p class="section-subtitle">A sample roadmap for becoming a Software Engineer in Sri Lanka</p>
+            
+            <div class="roadmap-preview reveal">
+                <div class="roadmap-header">
+                    <span class="roadmap-icon">💻</span>
+                    <h3>Software Engineer</h3>
+                </div>
+                
+                <div class="roadmap-path">
+                    <div class="path-step">
+                        <div class="step-circle nvq">NVQ 4</div>
+                        <span class="step-label">Foundation</span>
+                    </div>
+                    <div class="path-arrow">→</div>
+                    <div class="path-step">
+                        <div class="step-circle nvq">NVQ 5</div>
+                        <span class="step-label">Advanced</span>
+                    </div>
+                    <div class="path-arrow">→</div>
+                    <div class="path-step">
+                        <div class="step-circle diploma">Diploma</div>
+                        <span class="step-label">Specialized</span>
+                    </div>
+                    <div class="path-arrow">→</div>
+                    <div class="path-step">
+                        <div class="step-circle degree">Degree</div>
+                        <span class="step-label">Bachelor's</span>
+                    </div>
+                    <div class="path-arrow">→</div>
+                    <div class="path-step">
+                        <div class="step-circle internship">Internship</div>
+                        <span class="step-label">Experience</span>
+                    </div>
+                    <div class="path-arrow">→</div>
+                    <div class="path-step">
+                        <div class="step-circle job">Junior Dev</div>
+                        <span class="step-label">Career Start</span>
+                    </div>
+                </div>
+                
+                <div class="roadmap-note">
+                    <span class="note-icon">✨</span>
+                    <span>Your path may vary based on your starting qualifications and preferences</span>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="process-step">
-          <div class="step-number">3</div>
-          <div class="step-content">
-            <h3>View Career Matches</h3>
-            <p>We recommend ICT fields that suit your profile.</p>
-          </div>
+    <!-- ==================== TESTIMONIALS SECTION ==================== -->
+    <section class="testimonials-section" id="testimonials">
+        <div class="section-container">
+            <h2 class="section-title">What Students Say</h2>
+            <p class="section-subtitle">Hear from Sri Lankan students who found their career path</p>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-avatar">
+                        <span>TP</span>
+                    </div>
+                    <p class="testimonial-text">"I spent months wondering if I should go for Engineering or Design. GrowthMap's assessment revealed that UX Design was my perfect match - something I hadn't even considered before. Now I'm building apps that people love to use!"</p>
+                    <div class="testimonial-author">
+                        <h4>Tharusha Perera</h4>
+                        <span>2nd Year, Colombo</span>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-avatar gradient-2">
+                        <span>KE</span>
+                    </div>
+                    <p class="testimonial-text">"Coming from a small town in Kandy, I had no idea what IT courses were available or which one would lead to a job. GrowthMap showed me exactly what to study and in what order. Now I'm in my 2nd year and already had an intern at a tech company!"</p>
+                    <div class="testimonial-author">
+                        <h4>Kethmi Edirisinhe</h4>
+                        <span>Undergraduate, Kandy</span>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-avatar gradient-3">
+                        <span>NW</span>
+                    </div>
+                    <p class="testimonial-text">"As a student, I always thought a Degree was my only option. GrowthMap helped me see different paths - and now I'm on a clear route from NVQ Level 4 to becoming a Cyber Security professional. It changed everything for me."</p>
+                    <div class="testimonial-author">
+                        <h4>Nikitha Wadhisinhe</h4>
+                        <span>Student, Gampaha</span>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="process-step">
-          <div class="step-number">4</div>
-          <div class="step-content">
-            <h3>Get Your Roadmap</h3>
-            <p>See NVQ, diploma or degree requirements clearly.</p>
-          </div>
+    <!-- ==================== FAQ SECTION ==================== -->
+    <section class="faq-section" id="faq">
+        <div class="section-container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <p class="section-subtitle">Got questions? We've got answers.</p>
+            
+            <div class="faq-grid">
+                <div class="faq-item reveal">
+                    <h3>How does GrowthMap work?</h3>
+                    <p>Simply create an account, take our 20-question assessment, and our AI will analyze your interests and skills to recommend the best ICT careers for you - complete with a personalized qualification roadmap.</p>
+                </div>
+                <div class="faq-item reveal">
+                    <h3>Is this really free?</h3>
+                    <p>Yes! GrowthMap is completely free for all Sri Lankan students. We believe everyone deserves access to quality career guidance, regardless of their background.</p>
+                </div>
+                <div class="faq-item reveal">
+                    <h3>How long does the assessment take?</h3>
+                    <p>Most students complete the assessment in just 5 minutes. It's quick, easy, and gives you instant results with your personalized career roadmap.</p>
+                </div>
+                <div class="faq-item reveal">
+                    <h3>What qualifications do you support?</h3>
+                    <p>We cover all major Sri Lankan qualifications including NVQ Levels 4-7, Diplomas, and Degrees from recognized institutions across the country.</p>
+                </div>
+                <div class="faq-item reveal">
+                    <h3>Can I change my career path later?</h3>
+                    <p>Absolutely! Your roadmap is a living document. As your interests evolve, you can retake the assessment and get updated recommendations anytime.</p>
+                </div>
+                <div class="faq-item reveal">
+                    <h3>Do I need prior ICT experience?</h3>
+                    <p>Not at all! GrowthMap is designed for complete beginners. We explain everything in simple terms and help you discover paths you might not have known existed.</p>
+                </div>
+            </div>
         </div>
+    </section>
 
-      </div>
-    </div>
-  </section>
+    <!-- ==================== CALL TO ACTION SECTION ==================== -->
+    <section class="cta-section" id="assessment">
+        <div class="cta-background">
+            <div class="cta-blob blob-1"></div>
+            <div class="cta-blob blob-2"></div>
+        </div>
+        
+        <div class="cta-container reveal">
+            <h2 class="cta-title">Your Future Starts Here - Take the First Step</h2>
+            <p class="cta-subtitle">Join thousands of Sri Lankan students who've already discovered their path. Your dream ICT career is waiting.</p>
+            <a href="#" class="btn btn-cta">
+                <span><b>Comming Soon</b></span>
+                <svg class="btn-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+            <p class="cta-note">🎯 5-minute assessment • 📊 Instant results • 💯 Free forever</p>
+        </div>
+    </section>
 
-  <footer class="footer">
-    <div class="container footer-content">
-      <div class="footer-brand">
-        GrowthMap - Project 2025
-      </div>
-      <p class="footer-info">
-        Designed by Students from SDGP Group CS-74
-      </p>
-    </div>
-  </footer>
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer" id="contact">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="footer-logo">
+                        <img src="../assets/logo.jpg" alt="GrowthMap Logo">
+                    </a>
+                    <p>AI-powered ICT career roadmap system designed for Sri Lankan students. Find your path to success.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#roadmap">Roadmap</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Career Guide</a></li>
+                        <li><a href="#">Qualification Info</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>Contact</h4>
+                    <p>📧 semika.20231793@iit.ac.lk</p>
+                    <p>📧 kethmi.20232355@iit.ac.lk</p>
+                    <p>📍 Colombo, Sri Lanka</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 GrowthMap. All rights reserved.</p>
+                <p class="built-by">Built by SDGP CS-74 | 2025</p>
+            </div>
+        </div>
+    </footer>
 
+    <script src="../js/script.js"></script>
 </body>
 </html>
+
