@@ -3,6 +3,7 @@ import { Link, useLocation, Outlet, useNavigate } from "react-router-dom";
 import { MapPin, UserCircle, Settings, Menu, X, LogOut } from "lucide-react";
 import { createPageUrl } from "@/utils";
 import Footer from "./components/Footer";
+import logo from '@/assets/logo.png';
 
 const navLinks = [
   { label: "Home", page: "Home" },
@@ -36,8 +37,12 @@ function Header() {
           to={createPageUrl("Home")}
           className="flex items-center gap-2 font-bold text-slate-800 hover:text-purple-700"
         >
-          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-            <MapPin className="w-4 h-4 text-white" />
+          <div className="w-15 h-15 rounded-lg bg-gradient-to-br  flex items-center justify-center">
+            <img 
+            src={logo} 
+            alt="GrowthMap Logo"
+            className="h-10 w-auto object-contain hover:scale-105 transition-transform duration-200"
+            />
           </div>
           <span>GrowthMap</span>
         </Link>
