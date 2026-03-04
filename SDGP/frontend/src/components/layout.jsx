@@ -140,7 +140,11 @@ function Footer() {
           <div className="text-center md:text-left">
             <div className="flex items-center justify-center md:justify-start gap-2 mb-2">
               <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-                <MapPin className="w-4 h-4 text-white" />
+              <img 
+                src={logo} 
+                alt="GrowthMap Logo"
+                className="h-10 w-auto object-contain"
+              />
               </div>
               <span className="text-lg font-bold">GrowthMap</span>
             </div>
