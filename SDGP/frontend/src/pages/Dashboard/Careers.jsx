@@ -92,8 +92,8 @@ export default function Careers() {
             to={createPageUrl('Home')}
             className="flex items-center gap-2 text-slate-600 hover:text-slate-800 transition-colors"
           >
-            <MapPin className="w-5 h-5 text-purple-600" />
-            <span className="font-semibold">GrowthMap</span>
+          
+          
           </Link>
           <Link to={createPageUrl('Quiz')}>
             <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
