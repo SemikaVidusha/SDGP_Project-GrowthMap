@@ -11,11 +11,11 @@ const careerRequirements = {
     color: "from-blue-500 to-cyan-500",
     timeline: "6–18 months",
     resources: [
-      { name: "freeCodeCamp", url: "https://www.freecodecamp.org", type: "Free", skill: "Programming", institute: { name: "freeCodeCamp (Online)", address: "San Francisco, CA, USA", lat: 37.7749, lng: -122.4194 } },
-      { name: "LeetCode", url: "https://leetcode.com", type: "Free", skill: "Algorithms", institute: { name: "LeetCode (Online)", address: "Mountain View, CA, USA", lat: 37.3861, lng: -122.0839 } },
-      { name: "CS50 by Harvard", url: "https://cs50.harvard.edu", type: "Free", skill: "Computer Science", institute: { name: "Harvard University", address: "Cambridge, MA 02138, USA", lat: 42.3770, lng: -71.1167 } },
-      { name: "The Odin Project", url: "https://www.theodinproject.com", type: "Free", skill: "Full Stack", institute: { name: "The Odin Project (Online)", address: "New York, NY, USA", lat: 40.7128, lng: -74.0060 } },
-      { name: "Coursera – Google IT Automation", url: "https://coursera.org", type: "Paid", skill: "Automation", institute: { name: "Coursera HQ", address: "Mountain View, CA 94043, USA", lat: 37.4030, lng: -122.1130 } },
+      { name: "IJSE – Java & Programming", url: "https://ijse.lk", type: "Paid", skill: "Programming", institute: { name: "IJSE (Institute of Java & Software Engineering)", address: "No. 374, Galle Road, Colombo 03, Sri Lanka", lat: 6.8962, lng: 79.8553, isLocal: true } },
+      { name: "SLIIT – BSc IT", url: "https://sliit.lk", type: "Paid", skill: "Computer Science", institute: { name: "SLIIT", address: "New Kandy Road, Malabe, Sri Lanka", lat: 6.9157, lng: 79.9747, isLocal: true } },
+      { name: "freeCodeCamp (Online)", url: "https://www.freecodecamp.org", type: "Free", skill: "Programming", institute: null },
+      { name: "LeetCode (Online)", url: "https://leetcode.com", type: "Free", skill: "Algorithms", institute: null },
+      { name: "ESOFT – Diploma in Software Engineering", url: "https://esoft.lk", type: "Paid", skill: "Full Stack", institute: { name: "ESOFT Metro Campus", address: "No. 388, Galle Road, Colombo 03, Sri Lanka", lat: 6.8938, lng: 79.8567, isLocal: true } },
     ]
   },
   "data-analyst": {
@@ -28,10 +28,10 @@ const careerRequirements = {
     color: "from-orange-500 to-amber-500",
     timeline: "3–12 months",
     resources: [
-      { name: "Google Data Analytics Certificate", url: "https://coursera.org", type: "Paid", skill: "Data Analytics", institute: { name: "Coursera HQ", address: "Mountain View, CA 94043, USA", lat: 37.4030, lng: -122.1130 } },
-      { name: "Mode Analytics SQL Tutorial", url: "https://mode.com", type: "Free", skill: "SQL", institute: { name: "Mode Analytics (Online)", address: "San Francisco, CA, USA", lat: 37.7749, lng: -122.4194 } },
-      { name: "Kaggle Learn", url: "https://kaggle.com/learn", type: "Free", skill: "Python/ML", institute: { name: "Kaggle (Google)", address: "San Francisco, CA, USA", lat: 37.7937, lng: -122.3965 } },
-      { name: "StatQuest with Josh Starmer", url: "https://youtube.com", type: "Free", skill: "Statistics", institute: { name: "YouTube (Online)", address: "San Bruno, CA, USA", lat: 37.6304, lng: -122.4118 } },
+      { name: "NSBM – BSc Data Science", url: "https://nsbm.ac.lk", type: "Paid", skill: "Data Analytics", institute: { name: "NSBM Green University", address: "Pitipana, Homagama, Sri Lanka", lat: 6.8399, lng: 80.0286, isLocal: true } },
+      { name: "Kaggle Learn (Online)", url: "https://kaggle.com/learn", type: "Free", skill: "Python/ML", institute: null },
+      { name: "NIBM – Diploma in Data Analytics", url: "https://nibm.lk", type: "Paid", skill: "SQL & BI", institute: { name: "NIBM", address: "No. 75, Vincent Perera Mawatha, Colombo 02, Sri Lanka", lat: 6.9204, lng: 79.8537, isLocal: true } },
+      { name: "Google Data Analytics Certificate (Online)", url: "https://coursera.org", type: "Paid", skill: "Data Analytics", institute: null },
     ]
   },
   "ui-ux-designer": {
@@ -44,10 +44,10 @@ const careerRequirements = {
     color: "from-purple-500 to-pink-500",
     timeline: "3–9 months",
     resources: [
-      { name: "Google UX Design Certificate", url: "https://coursera.org", type: "Paid", skill: "UX Design", institute: { name: "Coursera HQ", address: "Mountain View, CA 94043, USA", lat: 37.4030, lng: -122.1130 } },
-      { name: "Figma Tutorial (YouTube)", url: "https://youtube.com", type: "Free", skill: "Figma", institute: { name: "YouTube (Online)", address: "San Bruno, CA, USA", lat: 37.6304, lng: -122.4118 } },
-      { name: "Interaction Design Foundation", url: "https://interaction-design.org", type: "Paid", skill: "UX Theory", institute: { name: "Interaction Design Foundation", address: "Aarhus, Denmark", lat: 56.1629, lng: 10.2039 } },
-      { name: "Dribbble", url: "https://dribbble.com", type: "Free", skill: "Portfolio Inspiration", institute: { name: "Dribbble (Online)", address: "Enfield, NH, USA", lat: 43.6422, lng: -72.1470 } },
+      { name: "ESOFT – Diploma in UI/UX Design", url: "https://esoft.lk", type: "Paid", skill: "UX Design", institute: { name: "ESOFT Metro Campus", address: "No. 388, Galle Road, Colombo 03, Sri Lanka", lat: 6.8938, lng: 79.8567, isLocal: true } },
+      { name: "IIT – Creative & Digital Design", url: "https://iit.ac.lk", type: "Paid", skill: "Visual Design", institute: { name: "Informatics Institute of Technology (IIT)", address: "57, Ramakrishna Road, Colombo 06, Sri Lanka", lat: 6.8867, lng: 79.8624, isLocal: true } },
+      { name: "Google UX Design Certificate (Online)", url: "https://coursera.org", type: "Paid", skill: "UX Design", institute: null },
+      { name: "Figma Tutorial (Online – YouTube)", url: "https://youtube.com", type: "Free", skill: "Figma", institute: null },
     ]
   },
   "cybersecurity-specialist": {
@@ -60,10 +60,10 @@ const careerRequirements = {
     color: "from-green-500 to-emerald-500",
     timeline: "6–24 months",
     resources: [
-      { name: "TryHackMe", url: "https://tryhackme.com", type: "Freemium", skill: "Ethical Hacking", institute: { name: "TryHackMe (Online)", address: "London, UK", lat: 51.5074, lng: -0.1278 } },
-      { name: "Hack The Box", url: "https://hackthebox.com", type: "Freemium", skill: "Penetration Testing", institute: { name: "Hack The Box HQ", address: "Athens, Greece", lat: 37.9838, lng: 23.7275 } },
-      { name: "Cybrary", url: "https://cybrary.it", type: "Freemium", skill: "Security Concepts", institute: { name: "Cybrary HQ", address: "College Park, MD, USA", lat: 38.9807, lng: -76.9369 } },
-      { name: "CompTIA Security+ Study Guide", url: "https://comptia.org", type: "Paid", skill: "Certification Prep", institute: { name: "CompTIA HQ", address: "Downers Grove, IL, USA", lat: 41.8081, lng: -88.0112 } },
+      { name: "SLIIT – BSc Cybersecurity", url: "https://sliit.lk", type: "Paid", skill: "Cybersecurity", institute: { name: "SLIIT", address: "New Kandy Road, Malabe, Sri Lanka", lat: 6.9157, lng: 79.9747, isLocal: true } },
+      { name: "University of Colombo – Cyber Security", url: "https://ucsc.cmb.ac.lk", type: "Paid", skill: "Networking & Security", institute: { name: "University of Colombo School of Computing (UCSC)", address: "35, Reid Avenue, Colombo 07, Sri Lanka", lat: 6.9022, lng: 79.8607, isLocal: true } },
+      { name: "TryHackMe (Online)", url: "https://tryhackme.com", type: "Freemium", skill: "Ethical Hacking", institute: null },
+      { name: "Cybrary (Online)", url: "https://cybrary.it", type: "Freemium", skill: "Security Concepts", institute: null },
     ]
   },
   "web-developer": {
@@ -76,10 +76,10 @@ const careerRequirements = {
     color: "from-cyan-500 to-blue-500",
     timeline: "3–12 months",
     resources: [
-      { name: "The Odin Project", url: "https://theodinproject.com", type: "Free", skill: "Full Stack", institute: { name: "The Odin Project (Online)", address: "New York, NY, USA", lat: 40.7128, lng: -74.0060 } },
-      { name: "freeCodeCamp", url: "https://freecodecamp.org", type: "Free", skill: "HTML/CSS/JS", institute: { name: "freeCodeCamp (Online)", address: "San Francisco, CA, USA", lat: 37.7749, lng: -122.4194 } },
-      { name: "Full Stack Open", url: "https://fullstackopen.com", type: "Free", skill: "React/Node", institute: { name: "University of Helsinki", address: "Helsinki, Finland", lat: 60.1699, lng: 24.9384 } },
-      { name: "Scrimba", url: "https://scrimba.com", type: "Freemium", skill: "Interactive Coding", institute: { name: "Scrimba (Online)", address: "Oslo, Norway", lat: 59.9139, lng: 10.7522 } },
+      { name: "IJSE – Web Development", url: "https://ijse.lk", type: "Paid", skill: "Full Stack", institute: { name: "IJSE", address: "No. 374, Galle Road, Colombo 03, Sri Lanka", lat: 6.8962, lng: 79.8553, isLocal: true } },
+      { name: "ESOFT – Diploma in Web Design", url: "https://esoft.lk", type: "Paid", skill: "HTML/CSS/JS", institute: { name: "ESOFT Metro Campus", address: "No. 388, Galle Road, Colombo 03, Sri Lanka", lat: 6.8938, lng: 79.8567, isLocal: true } },
+      { name: "freeCodeCamp (Online)", url: "https://freecodecamp.org", type: "Free", skill: "HTML/CSS/JS", institute: null },
+      { name: "Full Stack Open (Online)", url: "https://fullstackopen.com", type: "Free", skill: "React/Node", institute: null },
     ]
   },
   "network-technician": {
@@ -92,9 +92,9 @@ const careerRequirements = {
     color: "from-indigo-500 to-purple-500",
     timeline: "6–12 months",
     resources: [
-      { name: "Cisco Networking Academy", url: "https://netacad.com", type: "Free", skill: "Networking Fundamentals", institute: { name: "Cisco Systems HQ", address: "San Jose, CA 95134, USA", lat: 37.4108, lng: -121.9340 } },
-      { name: "Professor Messer", url: "https://professormesser.com", type: "Free", skill: "CompTIA Network+", institute: { name: "Professor Messer (Online)", address: "Nashville, TN, USA", lat: 36.1627, lng: -86.7816 } },
-      { name: "CBT Nuggets", url: "https://cbtnuggets.com", type: "Paid", skill: "CCNA Prep", institute: { name: "CBT Nuggets HQ", address: "Eugene, OR, USA", lat: 44.0521, lng: -123.0868 } },
+      { name: "NIBM – Diploma in Networking", url: "https://nibm.lk", type: "Paid", skill: "Networking Fundamentals", institute: { name: "NIBM", address: "No. 75, Vincent Perera Mawatha, Colombo 02, Sri Lanka", lat: 6.9204, lng: 79.8537, isLocal: true } },
+      { name: "ACBT – CCNA Training", url: "https://acbt.lk", type: "Paid", skill: "CCNA Prep", institute: { name: "ACBT Sri Lanka", address: "No. 3, Alfred Place, Colombo 03, Sri Lanka", lat: 6.9044, lng: 79.8543, isLocal: true } },
+      { name: "Cisco Networking Academy (Online)", url: "https://netacad.com", type: "Free", skill: "Networking Fundamentals", institute: null },
     ]
   },
   "mobile-developer": {
@@ -107,9 +107,9 @@ const careerRequirements = {
     color: "from-rose-500 to-orange-500",
     timeline: "6–18 months",
     resources: [
-      { name: "Android Basics by Google", url: "https://developer.android.com", type: "Free", skill: "Android Dev", institute: { name: "Google HQ", address: "1600 Amphitheatre Pkwy, Mountain View, CA, USA", lat: 37.4220, lng: -122.0841 } },
-      { name: "Flutter Documentation", url: "https://flutter.dev", type: "Free", skill: "Flutter", institute: { name: "Google (Flutter Team)", address: "1600 Amphitheatre Pkwy, Mountain View, CA, USA", lat: 37.4220, lng: -122.0841 } },
-      { name: "Meta Android Developer", url: "https://coursera.org", type: "Paid", skill: "Certification", institute: { name: "Coursera HQ", address: "Mountain View, CA 94043, USA", lat: 37.4030, lng: -122.1130 } },
+      { name: "ESOFT – Diploma in Mobile App Development", url: "https://esoft.lk", type: "Paid", skill: "Android Dev", institute: { name: "ESOFT Metro Campus", address: "No. 388, Galle Road, Colombo 03, Sri Lanka", lat: 6.8938, lng: 79.8567, isLocal: true } },
+      { name: "IJSE – Flutter & Mobile Dev", url: "https://ijse.lk", type: "Paid", skill: "Flutter", institute: { name: "IJSE", address: "No. 374, Galle Road, Colombo 03, Sri Lanka", lat: 6.8962, lng: 79.8553, isLocal: true } },
+      { name: "Android Basics by Google (Online)", url: "https://developer.android.com", type: "Free", skill: "Android Dev", institute: null },
     ]
   },
   "database-administrator": {
@@ -122,9 +122,9 @@ const careerRequirements = {
     color: "from-teal-500 to-cyan-500",
     timeline: "6–18 months",
     resources: [
-      { name: "SQLZoo", url: "https://sqlzoo.net", type: "Free", skill: "SQL", institute: { name: "SQLZoo (Online)", address: "Edinburgh, Scotland, UK", lat: 55.9533, lng: -3.1883 } },
-      { name: "Oracle Academy", url: "https://academy.oracle.com", type: "Free", skill: "Oracle DB", institute: { name: "Oracle HQ", address: "Austin, TX 78741, USA", lat: 30.2311, lng: -97.7437 } },
-      { name: "AWS Database Specialty Prep", url: "https://aws.amazon.com/training", type: "Paid", skill: "Cloud DBs", institute: { name: "Amazon Web Services HQ", address: "Seattle, WA 98108, USA", lat: 47.6062, lng: -122.3321 } },
+      { name: "University of Moratuwa – BSc IT (Database)", url: "https://uom.lk", type: "Free", skill: "SQL & Database Design", institute: { name: "University of Moratuwa", address: "Bandaranayake Mawatha, Moratuwa, Sri Lanka", lat: 6.7964, lng: 79.9001, isLocal: true } },
+      { name: "NIBM – Diploma in Database Management", url: "https://nibm.lk", type: "Paid", skill: "Oracle DB", institute: { name: "NIBM", address: "No. 75, Vincent Perera Mawatha, Colombo 02, Sri Lanka", lat: 6.9204, lng: 79.8537, isLocal: true } },
+      { name: "SQLZoo (Online)", url: "https://sqlzoo.net", type: "Free", skill: "SQL", institute: null },
     ]
   },
   "project-manager": {
@@ -137,9 +137,10 @@ const careerRequirements = {
     color: "from-violet-500 to-purple-600",
     timeline: "6–24 months",
     resources: [
-      { name: "Google Project Management Certificate", url: "https://coursera.org", type: "Paid", skill: "PM Fundamentals", institute: { name: "Coursera HQ", address: "Mountain View, CA 94043, USA", lat: 37.4030, lng: -122.1130 } },
-      { name: "PMI Learning Resources", url: "https://pmi.org", type: "Paid", skill: "PMP Prep", institute: { name: "Project Management Institute", address: "Newtown Square, PA 19073, USA", lat: 39.9837, lng: -75.4024 } },
-      { name: "Scrum.org Free Resources", url: "https://scrum.org", type: "Free", skill: "Scrum/Agile", institute: { name: "Scrum.org (Online)", address: "Boston, MA, USA", lat: 42.3601, lng: -71.0589 } },
+      { name: "SLIIT – MSc IT Management", url: "https://sliit.lk", type: "Paid", skill: "PM Fundamentals", institute: { name: "SLIIT", address: "New Kandy Road, Malabe, Sri Lanka", lat: 6.9157, lng: 79.9747, isLocal: true } },
+      { name: "CINEC Campus – IT Project Management", url: "https://cinec.edu", type: "Paid", skill: "Scrum/Agile", institute: { name: "CINEC Campus", address: "Millennium Drive, Malabe, Sri Lanka", lat: 6.9108, lng: 79.9697, isLocal: true } },
+      { name: "Google Project Management Certificate (Online)", url: "https://coursera.org", type: "Paid", skill: "PM Fundamentals", institute: null },
+      { name: "Scrum.org (Online)", url: "https://scrum.org", type: "Free", skill: "Scrum/Agile", institute: null },
     ]
   },
   "qa-engineer": {
@@ -152,9 +153,9 @@ const careerRequirements = {
     color: "from-sky-500 to-blue-600",
     timeline: "3–9 months",
     resources: [
-      { name: "ISTQB Preparation", url: "https://istqb.org", type: "Paid", skill: "Testing Foundations", institute: { name: "ISTQB (International Software Testing)", address: "Vienna, Austria", lat: 48.2082, lng: 16.3738 } },
-      { name: "Selenium with Java (Udemy)", url: "https://udemy.com", type: "Paid", skill: "Test Automation", institute: { name: "Udemy HQ", address: "San Francisco, CA 94103, USA", lat: 37.7749, lng: -122.4194 } },
-      { name: "Postman Learning Center", url: "https://learning.postman.com", type: "Free", skill: "API Testing", institute: { name: "Postman HQ", address: "San Francisco, CA 94107, USA", lat: 37.7785, lng: -122.3948 } },
+      { name: "ESOFT – Diploma in Software Testing", url: "https://esoft.lk", type: "Paid", skill: "Testing Foundations", institute: { name: "ESOFT Metro Campus", address: "No. 388, Galle Road, Colombo 03, Sri Lanka", lat: 6.8938, lng: 79.8567, isLocal: true } },
+      { name: "IJSE – QA & Automation", url: "https://ijse.lk", type: "Paid", skill: "Test Automation", institute: { name: "IJSE", address: "No. 374, Galle Road, Colombo 03, Sri Lanka", lat: 6.8962, lng: 79.8553, isLocal: true } },
+      { name: "Postman Learning Center (Online)", url: "https://learning.postman.com", type: "Free", skill: "API Testing", institute: null },
     ]
   }
 };
@@ -227,6 +228,7 @@ export function analyzeSkillGap(formData) {
 
   return {
     career,
+    careerKey: targetCareer,
     matchPercentage,
     techAnalysis,
     softAnalysis,
