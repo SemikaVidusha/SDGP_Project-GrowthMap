@@ -6,21 +6,6 @@ import { CheckCircle2, XCircle, AlertCircle, RotateCcw, BookOpen, Clock, Trendin
 import InstituteMapModal from "./InstituteMapModel";
 import LocationDetector from './LocationDetector';
 
-const isInSriLanka = (lat, lng) => {
-  const SRI_LANKA_BOUNDS = {
-    minLat: 5.9,
-    maxLat: 9.9,
-    minLng: 79.5,
-    maxLng: 81.9,
-  };
-
-  return (
-    lat >= SRI_LANKA_BOUNDS.minLat &&
-    lat <= SRI_LANKA_BOUNDS.maxLat &&
-    lng >= SRI_LANKA_BOUNDS.minLng &&
-    lng <= SRI_LANKA_BOUNDS.maxLng
-  );
-};
 function MatchMeter({ percent }) {
   const color = percent >= 75 ? '#22c55e' : percent >= 50 ? '#f59e0b' : percent >= 25 ? '#f97316' : '#ef4444';
   const label = percent >= 75 ? 'Career Ready' : percent >= 50 ? 'Almost There' : percent >= 25 ? 'Developing' : 'Beginner';
@@ -172,32 +157,41 @@ export default function GapAnalysisResult({ result, onReset }) {
           <LocationDetector onLocationDetected={setUserLocation} />
         </div>
         <div className="p-5 pt-3 grid sm:grid-cols-2 gap-3">
-          {career.resources
-            .filter(r =>
-            r.institute?.lat &&
-            r.institute?.lng &&
-            isInSriLanka(r.institute.lat, r.institute.lng)
-          )
-            .map((r, i) => (
-            <div key={i} className="flex flex-col p-3 border border-slate-100 rounded-xl hover:border-purple-200 hover:bg-purple-50 transition-all group cursor-pointer"
-              onClick={() => setSelectedResource(r)}>
-              <div className="flex items-start justify-between gap-2">
-                <div className="flex-1">
-                  <p className="font-medium text-sm text-slate-800 group-hover:text-purple-700">{r.name}</p>
-                  <p className="text-xs text-slate-500 mt-0.5">{r.skill}</p>
+          {career.resources.map((r, i) => {
+            const isLocal = r.institute?.isLocal;
+            return (
+              <div key={i}
+                className={`flex flex-col p-3 border rounded-xl transition-all group ${isLocal ? 'border-slate-100 hover:border-purple-200 hover:bg-purple-50 cursor-pointer' : 'border-slate-100 hover:border-blue-200 hover:bg-blue-50'}`}
+                onClick={() => isLocal && setSelectedResource(r)}>
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex-1">
+                    <p className={`font-medium text-sm text-slate-800 ${isLocal ? 'group-hover:text-purple-700' : 'group-hover:text-blue-700'}`}>{r.name}</p>
+                    <p className="text-xs text-slate-500 mt-0.5">{r.skill}</p>
+                  </div>
+                  <div className="flex flex-col items-end gap-1 flex-shrink-0">
+                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${r.type === 'Free' ? 'bg-green-100 text-green-700' : r.type === 'Freemium' ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-slate-600'}`}>
+                      {r.type}
+                    </span>
+                    {!isLocal && (
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-sky-100 text-sky-600 font-medium">Online</span>
+                    )}
+                  </div>
                 </div>
-                <span className={`text-xs px-2 py-0.5 rounded-full font-medium flex-shrink-0 ${r.type === 'Free' ? 'bg-green-100 text-green-700' : r.type === 'Freemium' ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-slate-600'}`}>
-                  {r.type}
-                </span>
+                {isLocal ? (
+                  <div className="flex items-center gap-1 mt-2 text-xs text-purple-600 group-hover:text-purple-800">
+                    <MapPin className="w-3 h-3 flex-shrink-0" />
+                    <span className="truncate">{r.institute.name} · Sri Lanka</span>
+                  </div>
+                ) : (
+                  <a href={r.url} target="_blank" rel="noopener noreferrer"
+                    className="text-xs text-blue-500 hover:underline mt-2 truncate"
+                    onClick={e => e.stopPropagation()}>
+                    {r.url}
+                  </a>
+                )}
               </div>
-              {r.institute && (
-                <div className="flex items-center gap-1 mt-2 text-xs text-purple-600 group-hover:text-purple-800">
-                  <MapPin className="w-3 h-3 flex-shrink-0" />
-                  <span className="truncate">{r.institute.name}</span>
-                </div>
-              )}
-            </div>
-          ))}
+            );
+          })}
         </div>
       </motion.div>
 
@@ -235,12 +229,8 @@ export default function GapAnalysisResult({ result, onReset }) {
         <p className="mt-4 text-sm text-blue-100 font-medium">⏱ Estimated time to career readiness: <strong className="text-white">{timeline}</strong></p>
       </motion.div>
 
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
-        <Button onClick={onReset} variant="outline" size="lg"
-          className="w-full border-2 border-slate-200 hover:border-purple-400 hover:text-purple-600 rounded-2xl py-5 font-medium">
-          <RotateCcw className="w-4 h-4 mr-2" /> Analyze a Different Career
-        </Button>
-      </motion.div>
+   
+      
     </div>
   );
 }
