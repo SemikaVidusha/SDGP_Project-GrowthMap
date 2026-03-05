@@ -5,6 +5,7 @@ import { Badge } from '../ui/badge';
 import { CheckCircle2, XCircle, AlertCircle, RotateCcw, BookOpen, Clock, TrendingUp, Zap, ChevronDown, ChevronUp, ExternalLink, MapPin } from 'lucide-react';
 import InstituteMapModal from "./InstituteMapModel";
 import LocationDetector from './LocationDetector';
+import BudgetPathwayAnalyzer from "../budget/BudgetPathwayAnalyzer";
 
 function MatchMeter({ percent }) {
   const color = percent >= 75 ? '#22c55e' : percent >= 50 ? '#f59e0b' : percent >= 25 ? '#f97316' : '#ef4444';
@@ -229,7 +230,16 @@ export default function GapAnalysisResult({ result, onReset }) {
         <p className="mt-4 text-sm text-blue-100 font-medium">⏱ Estimated time to career readiness: <strong className="text-white">{timeline}</strong></p>
       </motion.div>
 
-   
+          {/* Budget Pathway Analyzer */}
+      <BudgetPathwayAnalyzer careerId={result.careerKey} />
+
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
+        <Button onClick={onReset} variant="outline" size="lg"
+          className="w-full border-2 border-slate-200 hover:border-purple-400 hover:text-purple-600 rounded-2xl py-5 font-medium">
+          <RotateCcw className="w-4 h-4 mr-2" /> Analyze a Different Career
+        </Button>
+      </motion.div>
+    
       
     </div>
   );
