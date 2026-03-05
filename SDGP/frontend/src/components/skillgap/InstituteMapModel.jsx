@@ -3,9 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup, Circle } from 'react-leaflet';
 import { X, MapPin, Navigation } from 'lucide-react';
 import { Button } from '../ui/button';
 import L from 'leaflet';
-import {SRILANKAN_INSTITUTES} from './SriLankanInstitutes'
-
-import { data } from 'react-router-dom';
+import 'leaflet/dist/leaflet.css';
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -26,14 +24,11 @@ export default function InstituteMapModal({ resource, userLocation, onClose }) {
   const hasInstCoords = inst?.lat && inst?.lng;
   const hasUserCoords = userLocation?.lat && userLocation?.lng;
 
-  const SRI_LANKA_CENTER = [7.8731, 80.7718];
-
   const mapCenter = hasInstCoords
-     ? [inst.lat, inst.lng]
+    ? [inst.lat, inst.lng]
     : hasUserCoords
     ? [userLocation.lat, userLocation.lng]
-    : SRI_LANKA_CENTER;
-
+    : [20, 0];
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" onClick={onClose}>
@@ -66,7 +61,7 @@ export default function InstituteMapModal({ resource, userLocation, onClose }) {
         {/* Map */}
         <div className="h-72 sm:h-96 w-full">
           {hasInstCoords ? (
-            <MapContainer center={mapCenter} zoom={hasInstCoords ? 13 : 8} style={{ height: '100%', width: '100%' }}>
+            <MapContainer center={mapCenter} zoom={13} style={{ height: '100%', width: '100%' }}>
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -102,21 +97,17 @@ export default function InstituteMapModal({ resource, userLocation, onClose }) {
           </div>
           <div className="flex gap-2">
             {hasInstCoords && (
-              <a
-                href={`https://www.google.com/maps/dir/?api=1&destination=${inst.lat},${inst.lng}&travelmode=driving`}
-                target="_blank"
-                rel="noopener noreferrer"
-                >
-                <Button
-                size="sm"
-                className="bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs"
-                >
-                Open in Google Maps
+              <a href={`https://www.google.com/maps/search/?api=1&query=${inst.lat},${inst.lng}`} target="_blank" rel="noopener noreferrer">
+                <Button size="sm" className="bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs">
+                  Open in Google Maps
                 </Button>
-            </a>
-
+              </a>
             )}
-            
+            <a href={resource.url} target="_blank" rel="noopener noreferrer">
+              <Button size="sm" variant="outline" className="rounded-xl text-xs border-purple-200 text-purple-700 hover:bg-purple-50">
+                Visit Website
+              </Button>
+            </a>
           </div>
         </div>
       </div>
