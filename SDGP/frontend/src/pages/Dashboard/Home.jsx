@@ -14,7 +14,7 @@ export default function Home() {
     {
       icon: Brain,
       title: "Smart Assessment",
-      description: "15 carefully crafted questions that analyze your thinking style and preferences"
+      description: "20 carefully crafted questions that analyze your thinking style and preferences"
     },
     {
       icon: Target,
@@ -96,7 +96,7 @@ export default function Home() {
               <div className="mt-10 flex items-center justify-center lg:justify-start gap-8 text-sm text-slate-500">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-green-500" />
-                  15 Questions
+                  20 Questions
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-blue-500" />
@@ -274,21 +274,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-slate-900 text-white py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <MapPin className="w-6 h-6 text-purple-400" />
-            <span className="text-xl font-bold">GrowthMap</span>
-          </div>
-          <p className="text-slate-400 text-sm">
-            A career guidance platform for Sri Lankan ICT students.
-          </p>
-          <p className="text-slate-500 text-xs mt-4">
-            Final Year Project Prototype • 2024
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }

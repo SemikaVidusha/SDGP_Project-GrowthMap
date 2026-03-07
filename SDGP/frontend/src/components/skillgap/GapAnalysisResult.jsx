@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '../ui/button';
-import { Badge } from "../ui/badge";
-import {
-  CheckCircle2, XCircle, AlertCircle, RotateCcw, BookOpen,
-  Clock, TrendingUp, Zap, ChevronDown, ChevronUp, MapPin
-} from 'lucide-react';
-import UserInputForm from "./UserInputForm.jsx";
+import { Badge } from '../ui/badge';
+import { CheckCircle2, XCircle, AlertCircle, RotateCcw, BookOpen, Clock, TrendingUp, Zap, ChevronDown, ChevronUp, ExternalLink, MapPin } from 'lucide-react';
 import InstituteMapModal from "./InstituteMapModel";
-import LocationDetector from "./LocationDetector";
+import LocationDetector from './LocationDetector';
+import BudgetPathwayAnalyzer from "../budget/BudgetPathwayAnalyzer";
 
 function MatchMeter({ percent }) {
   const color = percent >= 75 ? '#22c55e' : percent >= 50 ? '#f59e0b' : percent >= 25 ? '#f97316' : '#ef4444';
@@ -21,17 +18,11 @@ function MatchMeter({ percent }) {
       <div className="relative w-36 h-36">
         <svg className="w-full h-full -rotate-90" viewBox="0 0 120 120">
           <circle cx="60" cy="60" r="50" fill="none" stroke="#f1f5f9" strokeWidth="12" />
-          <motion.circle
-            cx="60" cy="60" r="50"
-            fill="none"
-            stroke={color}
-            strokeWidth="12"
-            strokeLinecap="round"
-            strokeDasharray={`${2 * Math.PI * 50}`}
+          <motion.circle cx="60" cy="60" r="50" fill="none" stroke={color} strokeWidth="12"
+            strokeLinecap="round" strokeDasharray={`${2 * Math.PI * 50}`}
             initial={{ strokeDashoffset: 2 * Math.PI * 50 }}
             animate={{ strokeDashoffset: 2 * Math.PI * 50 * (1 - percent / 100) }}
-            transition={{ duration: 1.5, ease: "easeOut" }}
-          />
+            transition={{ duration: 1.5, ease: "easeOut" }} />
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
           <motion.span className="text-3xl font-bold text-slate-800" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
@@ -45,7 +36,7 @@ function MatchMeter({ percent }) {
   );
 }
 
-function SkillRow({ skill, matched }) {
+function SkillRow({ skill, matched, type }) {
   return (
     <div className={`flex items-center justify-between py-2 px-3 rounded-lg ${matched ? 'bg-green-50' : 'bg-red-50'}`}>
       <span className="text-sm text-slate-700 font-medium">{skill}</span>
@@ -77,19 +68,12 @@ function CollapsibleSection({ title, icon: Icon, iconColor, count, total, childr
 }
 
 export default function GapAnalysisResult({ result, onReset }) {
-  const { career, matchPercentage, techAnalysis, softAnalysis, certAnalysis, educationMet, expGap, missingTech, priorityGaps, timeline } = result;
+  const { career, matchPercentage, techAnalysis, softAnalysis, certAnalysis, educationMet, expGap, missingTech, missingSoft, priorityGaps, timeline } = result;
   const [selectedResource, setSelectedResource] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
 
-  // Debugging logs
-  useEffect(() => {
-    console.log("Skill Gap Result:", result);
-    console.log("User Location:", userLocation);
-  }, [result, userLocation]);
-
   return (
     <div className="max-w-3xl mx-auto space-y-5">
-
       {/* Hero Result Card */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
         className={`bg-gradient-to-br ${career.color} rounded-2xl p-6 text-white shadow-xl`}>
@@ -128,7 +112,7 @@ export default function GapAnalysisResult({ result, onReset }) {
             ))}
           </div>
           {!educationMet && (
-            <p className="text-amber-700 text-sm mt-3 font-medium">⚠️ Your current education may not meet the requirements. Consider upgrading your qualifications.</p>
+            <p className="text-amber-700 text-sm mt-3 font-medium">⚠️ Your current education level may not meet the requirements. Consider upgrading your qualifications.</p>
           )}
           {expGap > 0 && (
             <p className="text-amber-700 text-sm mt-2 font-medium">⚠️ {expGap} more year{expGap !== 1 ? 's' : ''} of experience recommended for this role.</p>
@@ -136,7 +120,7 @@ export default function GapAnalysisResult({ result, onReset }) {
         </motion.div>
       )}
 
-      {/* Skills & Certifications */}
+      {/* Tech Skills */}
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
         <CollapsibleSection title="Technical Skills" icon={Zap} iconColor="text-orange-500"
           count={techAnalysis.filter(s => s.matched).length} total={techAnalysis.length}>
@@ -144,6 +128,7 @@ export default function GapAnalysisResult({ result, onReset }) {
         </CollapsibleSection>
       </motion.div>
 
+      {/* Soft Skills */}
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}>
         <CollapsibleSection title="Soft Skills" icon={TrendingUp} iconColor="text-blue-500"
           count={softAnalysis.filter(s => s.matched).length} total={softAnalysis.length}>
@@ -151,6 +136,7 @@ export default function GapAnalysisResult({ result, onReset }) {
         </CollapsibleSection>
       </motion.div>
 
+      {/* Certifications */}
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
         <CollapsibleSection title="Recommended Certifications" icon={BookOpen} iconColor="text-purple-500"
           count={certAnalysis.filter(c => c.matched).length} total={certAnalysis.length}>
@@ -167,33 +153,46 @@ export default function GapAnalysisResult({ result, onReset }) {
             <span className="font-semibold text-slate-800">Recommended Learning Resources</span>
           </div>
         </div>
-
         {/* Location detector */}
         <div className="px-5 pt-4 pb-2">
           <LocationDetector onLocationDetected={setUserLocation} />
         </div>
-
         <div className="p-5 pt-3 grid sm:grid-cols-2 gap-3">
-          {career.resources.map((r, i) => (
-            <div key={i} className="flex flex-col p-3 border border-slate-100 rounded-xl hover:border-purple-200 hover:bg-purple-50 transition-all group cursor-pointer"
-              onClick={() => setSelectedResource(r)}>
-              <div className="flex items-start justify-between gap-2">
-                <div className="flex-1">
-                  <p className="font-medium text-sm text-slate-800 group-hover:text-purple-700">{r.name}</p>
-                  <p className="text-xs text-slate-500 mt-0.5">{r.skill}</p>
+          {career.resources.map((r, i) => {
+            const isLocal = r.institute?.isLocal;
+            return (
+              <div key={i}
+                className={`flex flex-col p-3 border rounded-xl transition-all group ${isLocal ? 'border-slate-100 hover:border-purple-200 hover:bg-purple-50 cursor-pointer' : 'border-slate-100 hover:border-blue-200 hover:bg-blue-50'}`}
+                onClick={() => isLocal && setSelectedResource(r)}>
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex-1">
+                    <p className={`font-medium text-sm text-slate-800 ${isLocal ? 'group-hover:text-purple-700' : 'group-hover:text-blue-700'}`}>{r.name}</p>
+                    <p className="text-xs text-slate-500 mt-0.5">{r.skill}</p>
+                  </div>
+                  <div className="flex flex-col items-end gap-1 flex-shrink-0">
+                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${r.type === 'Free' ? 'bg-green-100 text-green-700' : r.type === 'Freemium' ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-slate-600'}`}>
+                      {r.type}
+                    </span>
+                    {!isLocal && (
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-sky-100 text-sky-600 font-medium">Online</span>
+                    )}
+                  </div>
                 </div>
-                <span className={`text-xs px-2 py-0.5 rounded-full font-medium flex-shrink-0 ${r.type === 'Free' ? 'bg-green-100 text-green-700' : r.type === 'Freemium' ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-slate-600'}`}>
-                  {r.type}
-                </span>
+                {isLocal ? (
+                  <div className="flex items-center gap-1 mt-2 text-xs text-purple-600 group-hover:text-purple-800">
+                    <MapPin className="w-3 h-3 flex-shrink-0" />
+                    <span className="truncate">{r.institute.name} · Sri Lanka</span>
+                  </div>
+                ) : (
+                  <a href={r.url} target="_blank" rel="noopener noreferrer"
+                    className="text-xs text-blue-500 hover:underline mt-2 truncate"
+                    onClick={e => e.stopPropagation()}>
+                    {r.url}
+                  </a>
+                )}
               </div>
-              {r.institute && (
-                <div className="flex items-center gap-1 mt-2 text-xs text-purple-600 group-hover:text-purple-800">
-                  <MapPin className="w-3 h-3 flex-shrink-0" />
-                  <span className="truncate">{r.institute.name}</span>
-                </div>
-              )}
-            </div>
-          ))}
+            );
+          })}
         </div>
       </motion.div>
 
@@ -231,12 +230,17 @@ export default function GapAnalysisResult({ result, onReset }) {
         <p className="mt-4 text-sm text-blue-100 font-medium">⏱ Estimated time to career readiness: <strong className="text-white">{timeline}</strong></p>
       </motion.div>
 
+          {/* Budget Pathway Analyzer */}
+      <BudgetPathwayAnalyzer careerId={result.careerKey} />
+
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
         <Button onClick={onReset} variant="outline" size="lg"
           className="w-full border-2 border-slate-200 hover:border-purple-400 hover:text-purple-600 rounded-2xl py-5 font-medium">
           <RotateCcw className="w-4 h-4 mr-2" /> Analyze a Different Career
         </Button>
       </motion.div>
+    
+      
     </div>
   );
 }

@@ -78,7 +78,33 @@ const loginUser = async (req, res) => {
     }
 };
 
+// @desc    Update user password
+// @route   PUT /api/auth/update-password
+// @access  Private
+const updatePassword = async (req, res) => {
+    try {
+        const { oldPassword, newPassword } = req.body;
+        const user = await User.findById(req.user.id);
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        const isMatch = await bcrypt.compare(oldPassword, user.password);
+        if (!isMatch) return res.status(400).json({ message: 'Old password is incorrect' });
+
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(newPassword, salt);
+        await user.save();
+
+        res.json({ message: 'Password updated successfully' });
+    } catch (err) {
+        res.status(500).send('Server Error');
+    }
+};
+
 module.exports = {
     registerUser,
     loginUser,
+    updatePassword,
 };

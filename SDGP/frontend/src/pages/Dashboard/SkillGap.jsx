@@ -4,20 +4,15 @@ import UserInputForm from "../../components/skillgap/UserInputForm";
 import GapAnalysisResult from "../../components/skillgap/GapAnalysisResult";
 import { analyzeSkillGap } from "../../components/skillgap/GapEngine";
 
-
-
-
 export default function SkillGap() {
   const [step, setStep] = useState('input'); // 'input' | 'result'
   const [analysisResult, setAnalysisResult] = useState(null);
-  const handleAnalyze = (formData) => {
-  const result = analyzeSkillGap(formData);
-  console.log("ANALYSIS RESULT:", result);
-  setAnalysisResult(result);
-  setStep('result');
-  };
 
-  
+  const handleAnalyze = (formData) => {
+    const result = analyzeSkillGap(formData);
+    setAnalysisResult(result);
+    setStep('result');
+  };
 
   const handleReset = () => {
     setAnalysisResult(null);

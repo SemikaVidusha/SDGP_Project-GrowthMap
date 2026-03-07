@@ -10,14 +10,8 @@ import { useNavigate } from "react-router-dom";
 import { 
   MapPin, Search, ArrowRight, TrendingUp, Briefcase,
   Code, Network, Palette, BarChart3, Shield, Globe, 
-  Database, Users, CheckCircle, Smartphone, X
+  Database, Users, CheckCircle, Smartphone
 } from 'lucide-react';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 
 const iconMap = {
   Code: Code,
@@ -41,8 +35,11 @@ export default function Careers() {
   const demandColors = {
     "Very High": "bg-green-100 text-green-700",
     "High": "bg-blue-100 text-blue-700",
-    "Medium": "bg-amber-100 text-amber-700"
+    "Medium": "bg-amber-100 text-amber-700",
+    "Moderate": "bg-gray-100 text-gray-700"
   };
+
+  // Combined careers from both branches
   const careers = [
     {
       id: 1,
@@ -62,7 +59,7 @@ export default function Careers() {
       skills: ["HTML/CSS", "JavaScript", "React/Vue", "Responsive Design", "UI/UX Basics"],
       salary: "LKR 120,000 - 250,000",
       demand: "High",
-      icon: "Layout"
+      icon: "Code"
     },
     {
       id: 3,
@@ -72,7 +69,7 @@ export default function Careers() {
       skills: ["Node.js/Python", "SQL/NoSQL", "API Design", "Server Management", "Security"],
       salary: "LKR 150,000 - 280,000",
       demand: "High",
-      icon: "Server"
+      icon: "Globe"
     },
     {
       id: 4,
@@ -102,7 +99,7 @@ export default function Careers() {
       skills: ["Python", "TensorFlow/PyTorch", "Deep Learning", "NLP", "MLOps"],
       salary: "LKR 200,000 - 400,000",
       demand: "Very High",
-      icon: "Brain"
+      icon: "BarChart3"
     },
     {
       id: 7,
@@ -132,7 +129,7 @@ export default function Careers() {
       skills: ["CI/CD", "Docker/Kubernetes", "Cloud (AWS/Azure)", "Infrastructure as Code", "Monitoring"],
       salary: "LKR 200,000 - 380,000",
       demand: "Very High",
-      icon: "GitBranch"
+      icon: "Network"
     },
     {
       id: 10,
@@ -143,9 +140,48 @@ export default function Careers() {
       salary: "LKR 120,000 - 250,000",
       demand: "High",
       icon: "Palette"
+    },
+    {
+      id: 11,
+      careerId: "data_analyst",
+      title: "Data Analyst",
+      description: "Analyze data to help businesses make informed decisions.",
+      skills: ["Python", "SQL", "Excel", "Statistics"],
+      salary: "LKR 120,000 - 250,000",
+      demand: "High",
+      icon: "BarChart3"
+    },
+    {
+      id: 12,
+      careerId: "database_admin",
+      title: "Database Administrator",
+      description: "Managing and optimizing database systems.",
+      skills: ["SQL", "Oracle", "Data Modelling"],
+      salary: "LKR 61,000 - 180,000",
+      demand: "High",
+      icon: "Database"
+    },
+    {
+      id: 13,
+      careerId: "ethical_hacker",
+      title: "Ethical Hacker",
+      description: "Simulates attacks to find security vulnerabilities.",
+      skills: ["Networking", "Programming", "Database Management"],
+      salary: "LKR 180,000 - 300,000",
+      demand: "Very High",
+      icon: "Shield"
+    },
+    {
+      id: 14,
+      careerId: "mobile_developer",
+      title: "Mobile App Developer",
+      description: "Specializes in creating apps for iOS and Android.",
+      skills: ["Flutter", "React Native", "Swift", "Kotlin"],
+      salary: "LKR 66,000 - 300,000",
+      demand: "Very High",
+      icon: "Smartphone"
     }
   ];
-
 
   const filteredCareers = careers.filter(career =>
     career.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -166,8 +202,6 @@ export default function Careers() {
             to={createPageUrl('Home')}
             className="flex items-center gap-2 text-slate-600 hover:text-slate-800 transition-colors"
           >
-            <MapPin className="w-5 h-5 text-purple-600" />
-            <span className="font-semibold">GrowthMap</span>
           </Link>
           <Link to={createPageUrl('Quiz')}>
             <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
@@ -201,14 +235,6 @@ export default function Careers() {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-12 py-6 rounded-xl border-slate-200 focus:border-purple-300 focus:ring-purple-200"
             />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery('')}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            )}
           </div>
         </motion.div>
 
@@ -310,23 +336,6 @@ export default function Careers() {
           </Link>
         </motion.div>
       </main>
-    
-
-      
-      */
-
-      {/* Footer */}
-      <footer className="bg-slate-900 text-white py-8 mt-16">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <MapPin className="w-6 h-6 text-purple-400" />
-            <span className="text-xl font-bold">GrowthMap</span>
-          </div>
-          <p className="text-slate-400 text-sm">
-            A career guidance platform for Sri Lankan ICT students.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }
