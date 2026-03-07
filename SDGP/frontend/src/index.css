@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -85,4 +86,11 @@
   body {
     @apply bg-background text-foreground;
   }
+=======
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", sans-serif;
+  --font-serif: "Playfair Display", serif;
+>>>>>>> Login
 }
