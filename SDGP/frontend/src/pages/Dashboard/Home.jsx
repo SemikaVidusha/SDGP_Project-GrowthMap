@@ -14,7 +14,7 @@ export default function Home() {
     {
       icon: Brain,
       title: "Smart Assessment",
-      description: "15 carefully crafted questions that analyze your thinking style and preferences"
+      description: "20 carefully crafted questions that analyze your thinking style and preferences"
     },
     {
       icon: Target,
@@ -96,7 +96,7 @@ export default function Home() {
               <div className="mt-10 flex items-center justify-center lg:justify-start gap-8 text-sm text-slate-500">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-green-500" />
-                  15 Questions
+                  20 Questions
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-blue-500" />
