@@ -18,6 +18,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
+
 const iconMap = {
   Code: Code,
   Network: Network,
@@ -68,7 +69,36 @@ export default function Careers() {
     salary: "LKR 180,000 - 350,000",
     demand: "Very High",
     icon: "Shield"
-  }
+  },
+  {
+    id: 4,
+    title: "Database Adminstrator",
+    description: "Managing and optimizing database systems.",
+    skills: ["SQL", "Oracle", "Data Modelling"],
+    salary: "LKR 61,000 - 180,000",
+    demand: "High",
+    icon: "Database"
+  },
+  {
+    id: 5,
+    title: "Ethical Hacker",
+    description: "Simulates attacks to find security vulnerabilities.",
+    skills: ["Networking","Programming","Database Management"],
+    salary: "LKR 180,000 - 300,000",
+    demand: "Very High",
+    icon: "Network"
+  },
+  {
+    id: 5,
+    title: "Mobile App Developer",
+    description: "Specializes in creating apps for iOS and Android.",
+    skills: ["Flutter","React","Javascript"],
+    salary: "LKR 66,000 - 300,000 ",
+    demand: "Very High",
+    icon: "Smartphone"
+  },
+
+
 ];
 
 
