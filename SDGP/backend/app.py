@@ -17,7 +17,6 @@ print(f".env file path being loaded: {os.path.join(BASE_DIR, '.env')}")
 print(f".env file exists: {os.path.exists(os.path.join(BASE_DIR, '.env'))}")
 print(f"After load_dotenv - MONGO_URI: {os.getenv('MONGO_URI')}")
 print(f"After load_dotenv - JWT_SECRET: {os.getenv('JWT_SECRET')}")
-# =======================================================
 
 DATASET_DIR = os.path.abspath(os.path.join(BASE_DIR, "..", "dataset"))
 
