@@ -7,11 +7,9 @@ import numpy as np
 import os
 from dotenv import load_dotenv
 
-# Load .env from the same directory as this file
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 load_dotenv(os.path.join(BASE_DIR, ".env"))
 
-# ============ DEBUG: Environment Variables ============
 print(f"Current Working Directory: {os.getcwd()}")
 print(f".env file path being loaded: {os.path.join(BASE_DIR, '.env')}")
 print(f".env file exists: {os.path.exists(os.path.join(BASE_DIR, '.env'))}")
@@ -28,7 +26,6 @@ encoder = joblib.load(ENCODER_PATH)
 
 print("ML Model + Encoder loaded successfully")
 
-# Try to connect to MongoDB with timeout
 mongo_available = False
 careers_col = None
 roadmaps_col = None
@@ -38,7 +35,6 @@ try:
     print(f"MONGO_URI found: {MONGO_URI[:30] if MONGO_URI else 'None'}...")
     
     if MONGO_URI and MONGO_URI.strip():
-        # Use a short timeout to avoid hanging
         client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=5000, connectTimeoutMS=5000)
         # Test connection
         client.server_info()
@@ -58,7 +54,7 @@ except Exception as e:
 
 cached_careers = []
 cached_roadmaps = {}
-cached_logic_scores = {}  # Pre-computed logic scores for each career
+cached_logic_scores = {}  
 
 # ==================== FALLBACK DATA ====================
 
@@ -124,7 +120,7 @@ def precompute_logic_scores():
     for career in cached_careers:
         career_id = career.get("id") or career.get("careerId")
         focus = career.get("focusTraits", [])
-        cached_logic_scores[career_id] = focus  # Store focus traits for later use
+        cached_logic_scores[career_id] = focus  
 
 def load_careers_and_roadmaps():
     """Load careers and roadmaps from database or fallback at startup"""
@@ -225,14 +221,13 @@ def predict():
             for c, s in ranked[:5]
         ]
 
-        # Get best career's roadmap (cached, no database query)
         best_career_id = top[0]["career"]
         roadmap = cached_roadmaps.get(best_career_id)
 
         return jsonify({
             "bestCareer": top[0]["career"],
             "topCareers": top,
-            "roadmap": roadmap  # Include roadmap in response for frontend
+            "roadmap": roadmap 
         })
 
     except Exception:
