@@ -22,19 +22,19 @@ export default function SkillGap() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-purple-50">
       {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-12 px-4">
+      <div className="text-grey py-12 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 rounded-full text-sm font-medium mb-4">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-grey/20 rounded-full text-sm font-medium mb-4">
               <span className="w-2 h-2 rounded-full bg-green-300 animate-pulse inline-block" />
-              AI-Powered Analysis
+              AI-Engine Ready
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold mb-3">Skill Gap Analyzer</h1>
-            <p className="text-blue-100 text-lg max-w-2xl mx-auto">
+            <h1 className="text-3xl md:text-4xl font-bold mb-3">AI-Powered Skill Gap Analyzer</h1>
+            <p className="text-grey-100 text-lg max-w-2xl mx-auto">
               Discover exactly what skills you need to reach your dream ICT career — and get a personalized roadmap to get there.
             </p>
           </motion.div>
