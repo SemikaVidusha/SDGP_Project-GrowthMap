@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <footer className="bg-slate-900 text-gray-300 mt-20">
-      <div className="max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-3 gap-10">
+      <div className="max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-3 gap-20">
 
         <div>
           <h3 className="text-white text-lg font-semibold mb-4">
@@ -30,7 +30,7 @@ export default function Footer() {
             Contact
           </h3>
           <p className="text-sm text-gray-400">Sri Lanka</p>
-          <p className="text-sm text-gray-400">info@growthmap.lk</p>
+          <p className="text-sm text-gray-400">linkedin.com/company/growthmap-ai/</p>
         </div>
 
       </div>
