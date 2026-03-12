@@ -28,10 +28,25 @@ const SOFT_SUGGESTIONS = [
   "Critical Thinking","Adaptability","Collaboration"
 ];
 
+import { useRef, useEffect } from "react";
+
 function TagInput({ value, onChange, suggestions, placeholder }) {
 
   const [inputVal, setInputVal] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
+  const wrapperRef = useRef(null);
+
+  // close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const addTag = (tag) => {
     const trimmed = tag.trim();
@@ -55,12 +70,15 @@ function TagInput({ value, onChange, suggestions, placeholder }) {
   );
 
   return (
-    <div className="space-y-2 relative">
+    <div ref={wrapperRef} className="space-y-2 relative">
 
-      <div className="flex flex-wrap gap-2 min-h-10 p-2 border border-slate-200 rounded-lg bg-white focus-within:ring-2 focus-within:ring-purple-300">
+      <div className="flex flex-wrap gap-2 min-h-10 p-3 border-2 border-slate-200 rounded-xl bg-white focus-within:ring-2 focus-within:ring-purple-300 transition">
 
         {value.map(tag => (
-          <span key={tag} className="flex items-center gap-1 px-2.5 py-1 bg-purple-100 text-purple-700 rounded-full text-sm">
+          <span
+            key={tag}
+            className="flex items-center gap-1 px-2.5 py-1 bg-purple-100 text-purple-700 rounded-full text-sm"
+          >
             {tag}
             <button onClick={() => removeTag(tag)}>
               <X className="w-3 h-3" />
@@ -87,7 +105,7 @@ function TagInput({ value, onChange, suggestions, placeholder }) {
       </div>
 
       {showDropdown && unusedSuggestions.length > 0 && (
-        <div className="absolute z-10 w-full bg-white border border-slate-200 rounded-lg shadow-md max-h-40 overflow-y-auto">
+        <div className="absolute z-10 w-full bg-white border-2 border-slate-200 rounded-xl shadow-md max-h-40 overflow-y-auto">
           {unusedSuggestions.map(s => (
             <button
               key={s}
@@ -139,8 +157,8 @@ export default function UserInputForm({ onAnalyze }) {
 
       {/* Target Career */}
       <div className="bg-white rounded-2xl border border-slate-100 shadow-sm">
-        <div className="flex items-center gap-3 px-5 py-4 bg-purple-50 border-b">
-          <Target className="w-4 h-4 text-purple-600" />
+        <div className="flex items-center gap-3 px-5 py-4 bg-gradient-to-br from-teal-300 to-purple-400  border-b">
+          <Target className="w-4 h-4 text-black-600" />
           <h3 className="font-semibold text-slate-800">Target Career</h3>
         </div>
 
@@ -163,8 +181,8 @@ export default function UserInputForm({ onAnalyze }) {
 
       {/* Education */}
       <div className="bg-white rounded-2xl border border-slate-100 shadow-sm">
-        <div className="flex items-center gap-3 px-5 py-4 bg-blue-50 border-b">
-          <GraduationCap className="w-4 h-4 text-blue-600" />
+        <div className="flex items-center gap-3 px-5 py-4 bg-gradient-to-br from-teal-300 to-purple-400  border-b">
+          <GraduationCap className="w-4 h-4 text-black-600" />
           <h3 className="font-semibold text-slate-800">Education Level</h3>
         </div>
 
@@ -181,8 +199,8 @@ export default function UserInputForm({ onAnalyze }) {
               onClick={() => setForm(f => ({ ...f, currentEducation: e.id }))}
               className={`p-3 text-sm font-medium rounded-xl border-2 text-left transition-all ${
                 form.currentEducation === e.id
-                  ? 'border-blue-500 bg-blue-50'
-                  : 'border-slate-200 hover:border-blue-300'
+                  ? 'border-purple-500 bg-purple-50'
+                  : 'border-slate-200 hover:border-purple-300'
               }`}
             >
               {e.label}
@@ -193,8 +211,8 @@ export default function UserInputForm({ onAnalyze }) {
 
       {/* Experience */}
       <div className="bg-white rounded-2xl border border-slate-100 shadow-sm">
-        <div className="flex items-center gap-3 px-5 py-4 bg-green-50 border-b">
-          <Briefcase className="w-4 h-4 text-green-600" />
+        <div className="flex items-center gap-3 px-5 py-4 bg-gradient-to-br from-teal-300 to-purple-400  border-b">
+          <Briefcase className="w-4 h-4 text-black-600" />
           <h3 className="font-semibold text-slate-800">Years of Experience</h3>
         </div>
 
@@ -205,7 +223,7 @@ export default function UserInputForm({ onAnalyze }) {
               onClick={() => setForm(f => ({ ...f, yearsExperience: y }))}
               className={`px-5 py-2 rounded-xl border-2 text-sm ${
                 form.yearsExperience === y
-                  ? 'border-green-500 bg-green-50'
+                  ? 'border-purple-500 bg-purple-50'
                   : 'border-slate-200'
               }`}
             >
@@ -216,10 +234,10 @@ export default function UserInputForm({ onAnalyze }) {
       </div>
 
       {/* Technical Skills */}
-      <div className="bg-white rounded-2xl border shadow-sm p-5">
-        <div className="flex items-center gap-2 mb-2">
-          <Code2 className="w-4 h-4 text-orange-600" />
-          <h3 className="font-semibold">Technical Skills</h3>
+      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm">
+        <div className="flex items-center gap-3 px-5 py-4 bg-gradient-to-br from-teal-300 to-purple-400  border-b ">
+          <Code2 className="w-4 h-4 text-black-600" />
+          <h3 className="font-semibold text-slate-800">Technical Skills</h3>
         </div>
 
         <TagInput
@@ -230,14 +248,14 @@ export default function UserInputForm({ onAnalyze }) {
         />
 
         {errors.technicalSkills && (
-          <p className="text-red-500 text-xs mt-1">{errors.technicalSkills}</p>
+          <p className="text-purple-500 text-xs mt-1">{errors.technicalSkills}</p>
         )}
       </div>
 
       {/* Soft Skills */}
-      <div className="bg-white rounded-2xl border shadow-sm p-5">
-        <div className="flex items-center gap-2 mb-2">
-          <Users className="w-4 h-4 text-pink-600" />
+      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm">
+        <div className="flex items-center gap-3 px-5 py-4 bg-gradient-to-br from-teal-300 to-purple-400 border-b">
+          <Users className="w-4 h-4 text-black-600" />
           <h3 className="font-semibold">Soft Skills</h3>
         </div>
 
@@ -250,9 +268,9 @@ export default function UserInputForm({ onAnalyze }) {
       </div>
 
       {/* Certifications */}
-      <div className="bg-white rounded-2xl border shadow-sm p-5">
-        <div className="flex items-center gap-2 mb-2">
-          <Award className="w-4 h-4 text-teal-600" />
+      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm">
+        <div className="flex items-center gap-3 px-5 py-4 bg-gradient-to-br from-teal-300 to-purple-400  border-b">
+          <Award className="w-4 h-4 text-black-600" />
           <h3 className="font-semibold">Certifications</h3>
         </div>
 
