@@ -71,15 +71,15 @@ export default function Settings() {
     <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-purple-50">
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-10 px-4">
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-xl mx-auto text-center">
 
           <motion.div initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/20 rounded-full text-xs font-medium mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/20 rounded-full text-m font-medium mb-3">
               <Check className="w-3 h-3" />
               {saved ? 'Preferences saved' : 'App Settings'}
             </div>
-            <h1 className="text-2xl font-bold">Settings</h1>
-            <p className="text-blue-100 text-sm mt-1">Manage your preferences and account</p>
+            <h1 className="text-4xl font-bold">Settings</h1>
+            <p className="text-blue-100 text-m mt-1">Manage your preferences and account</p>
           </motion.div>
         </div>
       </div>
@@ -109,29 +109,7 @@ export default function Settings() {
           />
         </Section>
 
-        {/* Notifications */}
-        <Section title="Notifications">
-          <SettingRow
-            icon={Bell} iconColor="bg-gradient-to-br from-orange-500 to-amber-500"
-            label="Email Notifications"
-            description="Receive updates about your career progress"
-            right={<Toggle checked={prefs.emailNotifications} onChange={set('emailNotifications')} />}
-          />
-          <SettingRow
-            icon={Bell} iconColor="bg-gradient-to-br from-blue-500 to-cyan-500"
-            label="Quiz Reminders"
-            description="Remind me to retake the assessment periodically"
-            right={<Toggle checked={prefs.quizReminders} onChange={set('quizReminders')} />}
-          />
-          <SettingRow
-            icon={Bell} iconColor="bg-gradient-to-br from-purple-500 to-pink-500"
-            label="Progress Updates"
-            description="Notify me about new learning resources"
-            border={false}
-            right={<Toggle checked={prefs.progressUpdates} onChange={set('progressUpdates')} />}
-          />
-        </Section>
-
+        
         {/* Sound */}
         <Section title="Sound & Experience">
           <SettingRow
@@ -164,22 +142,7 @@ export default function Settings() {
           />
         </Section>
 
-        {/* Privacy */}
-        <Section title="Privacy">
-          <SettingRow
-            icon={Eye} iconColor="bg-gradient-to-br from-violet-500 to-purple-600"
-            label="Public Profile"
-            description="Allow others to see your career goals"
-            right={<Toggle checked={prefs.publicProfile} onChange={set('publicProfile')} />}
-          />
-          <SettingRow
-            icon={Shield} iconColor="bg-gradient-to-br from-green-500 to-emerald-500"
-            label="Anonymous Data Sharing"
-            description="Help improve GrowthMap with usage data"
-            border={false}
-            right={<Toggle checked={prefs.dataSharing} onChange={set('dataSharing')} />}
-          />
-        </Section>
+        
 
         {/* Account */}
         <Section title="Account">
@@ -205,10 +168,9 @@ export default function Settings() {
           />
         </Section>
 
-        {/* Danger Zone */}
+        {/* Delete account */}
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
           className="bg-white rounded-2xl border border-red-100 shadow-sm px-5 overflow-hidden">
-          <h3 className="text-xs font-semibold text-red-400 uppercase tracking-wider pt-4 pb-2">Danger Zone</h3>
           {!showDeleteConfirm ? (
             <div className="flex items-center justify-between gap-4 py-4">
               <div className="flex items-center gap-3">
