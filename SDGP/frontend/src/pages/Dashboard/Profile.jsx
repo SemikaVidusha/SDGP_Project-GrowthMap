@@ -96,7 +96,7 @@ export default function Profile() {
     <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-purple-50">
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-10 px-4">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-3xl mx-auto text-center">
 
           <motion.div initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
             className="flex flex-col sm:flex-row items-center sm:items-end gap-5">
@@ -120,7 +120,7 @@ export default function Profile() {
                   <Edit3 className="w-4 h-4 mr-1.5" /> Edit Profile
                 </Button>
               ) : (
-                <div className="flex gap-2">
+                <div className="flex gap-2 justify-center">
                   <Button onClick={handleSave} disabled={saving} size="sm"
                     className="bg-white text-purple-700 hover:bg-blue-50 rounded-xl">
                     <Save className="w-4 h-4 mr-1.5" /> {saving ? 'Saving…' : 'Save'}
