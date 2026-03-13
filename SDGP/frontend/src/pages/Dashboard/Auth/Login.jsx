@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../../../components/ui/button";
 import { Input } from "../../../components/ui/input";
 import { Mail, Lock } from "lucide-react";
@@ -8,10 +8,46 @@ import GrowthMapLogo from "../../../assets/logo.png"; // adjust name if differen
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleLogin = (e) => {
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("Login:", { email, password });
+    setError("");
+    setIsLoading(true);
+
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Failed to login");
+      }
+
+      // Store the JWT token and user info in localStorage
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify({
+        _id: data._id,
+        name: data.name,
+        email: data.email
+      }));
+
+      // Redirect to the main dashboard/home page
+      navigate("/");
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -39,9 +75,16 @@ export default function Login() {
         </div>
 
         {/* Heading */}
-        <h3 className="text-lg font-semibold text-center text-slate-700 mb-6">
+        <h3 className="text-lg font-semibold text-center text-slate-700 mb-4">
           Welcome Back
         </h3>
+
+        {/* Error Message */}
+        {error && (
+          <div className="mb-4 p-3 bg-red-50 text-red-600 text-sm rounded-lg text-center border border-red-100">
+            {error}
+          </div>
+        )}
 
         <form onSubmit={handleLogin} className="space-y-5">
 
@@ -54,6 +97,7 @@ export default function Login() {
               className="pl-10 rounded-lg"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </div>
 
@@ -66,12 +110,16 @@ export default function Login() {
               className="pl-10 rounded-lg"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </div>
 
           {/* Login Button */}
-          <Button className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 rounded-lg">
-            Login
+          <Button 
+            disabled={isLoading}
+            className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 rounded-lg disabled:opacity-70"
+          >
+            {isLoading ? "Logging in..." : "Login"}
           </Button>
         </form>
 
