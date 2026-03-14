@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../../../components/ui/button";
 import { Input } from "../../../components/ui/input";
 import { Mail, ArrowLeft, Send } from "lucide-react";
@@ -10,6 +10,8 @@ export default function ForgotPassword() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  
+  const navigate = useNavigate();
 
   const handleReset = async (e) => {
     e.preventDefault();
@@ -28,12 +30,10 @@ export default function ForgotPassword() {
       
       setMessage(data.message);
       
-      // Auto redirect to reset-password with token
-      if (data.resetToken) {
-        setTimeout(() => {
-          window.location.href = `/reset-password?token=${data.resetToken}`;
-        }, 1500);
-      }
+      // Auto redirect to verify-code with email
+      setTimeout(() => {
+        navigate(`/verify-code?email=${encodeURIComponent(email)}`);
+      }, 1500);
       
     } catch (err) {
       setError(err.message);

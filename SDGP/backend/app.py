@@ -1,6 +1,11 @@
 from flask import Flask, Blueprint, jsonify, request
 import jwt
 import datetime
+import random
+import string
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_cors import CORS
 from pymongo import MongoClient
@@ -45,6 +50,7 @@ try:
         careers_col = db["careers"]
         roadmaps_col = db["roadmaps"]
         users_col = db["users"]
+        otps_col = db["otps"]
         print("MongoDB Atlas connected successfully")
         mongo_available = True
     else:
@@ -357,20 +363,92 @@ def forgot_password():
     
     user = users_col.find_one({"email": email})
     if not user:
-        # In production this should not tell the user the email doesn't exist, to prevent email enumeration,
-        # but returning it here for easier demonstration/debugging.
-        return jsonify({"message": "If an account with that email exists, we sent a reset link to it."}), 200
+        return jsonify({"message": "If an account with that email exists, we sent a reset code to it."}), 200
 
+    # Generate 6-digit code
+    otp_code = ''.join(random.choices(string.digits, k=6))
+    print(f"=====================================")
+    print(f"OTP FOR {email}: {otp_code}")
+    print(f"=====================================")
+    
+    # Save code to DB (Expires in 10 minutes)
+    expires_at = datetime.datetime.utcnow() + datetime.timedelta(minutes=10)
+    otps_col.delete_many({"email": email}) # remove existing codes
+    otps_col.insert_one({
+        "email": email,
+        "code": otp_code,
+        "expires_at": expires_at
+    })
+    
+    # Send Email (Fallback to console if credentials missing)
+    smtp_email = os.getenv("SMTP_EMAIL")
+    smtp_password = os.getenv("SMTP_PASSWORD")
+    
+    try:
+        if smtp_email and smtp_password:
+            msg = MIMEMultipart()
+            msg['From'] = smtp_email
+            msg['To'] = email
+            msg['Subject'] = "GrowthMap - Password Reset Code"
+            
+            body = f"Your password reset code is: {otp_code}\n\nThis code will expire in 10 minutes."
+            msg.attach(MIMEText(body, 'plain'))
+            
+            server = smtplib.SMTP('smtp.gmail.com', 587)
+            server.starttls()
+            server.login(smtp_email, smtp_password)
+            server.send_message(msg)
+            server.quit()
+            print("OTP Email sent successfully")
+        else:
+            print("No SMTP credentials found in .env, skipping real email dispatch.")
+    except Exception as e:
+        print(f"Failed to send email: {e}")
+        # We don't fail the request here so the user isn't stuck if email fails
+        # but they still need to read the console for the code
+        
+    return jsonify({
+        "message": "Reset code successfully sent"
+    }), 200
+
+@auth_bp.route("/verify-reset-code", methods=["POST"])
+def verify_reset_code():
+    if not mongo_available or otps_col is None:
+        return jsonify({"message": "Database not available"}), 500
+        
+    data = request.get_json(force=True)
+    email = data.get("email")
+    code = data.get("code")
+    
+    if not email or not code:
+        return jsonify({"message": "Email and code required"}), 400
+        
+    otp_record = otps_col.find_one({"email": email, "code": str(code)})
+    
+    if not otp_record:
+        return jsonify({"message": "Invalid verification code"}), 400
+        
+    if datetime.datetime.utcnow() > otp_record["expires_at"]:
+        otps_col.delete_one({"_id": otp_record["_id"]})
+        return jsonify({"message": "Verification code expired"}), 400
+        
+    # Valid code - delete it and issue short-lived token
+    otps_col.delete_one({"_id": otp_record["_id"]})
+    
+    user_record = users_col.find_one({"email": email})
+    if not user_record:
+        return jsonify({"message": "User not found"}), 404
+        
     secret = os.getenv("JWT_SECRET", "fallback_secret")
     payload = {
-        "id": str(user["_id"]),
+        "id": str(user_record["_id"]),
         "type": "reset",
-        "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=15)
+        "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=10) # 10 mins to change password
     }
     reset_token = jwt.encode(payload, secret, algorithm="HS256")
     
     return jsonify({
-        "message": "Reset link successfully sent",
+        "message": "Code verified",
         "resetToken": reset_token
     }), 200
 
