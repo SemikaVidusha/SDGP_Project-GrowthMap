@@ -66,7 +66,7 @@ export default function ForgotPassword() {
           Reset Your Password
         </h3>
         <p className="text-sm text-center text-slate-500 mb-6">
-          Enter your email address and we'll send you a link to reset your password.
+          Enter your email address and we'll send you a code to reset your password.
         </p>
 
         {/* Message / Error */}
@@ -102,7 +102,7 @@ export default function ForgotPassword() {
           >
             {isLoading ? "Sending..." : (
               <>
-                <Send className="w-4 h-4" /> Send Reset Link
+                <Send className="w-4 h-4" /> Send Reset Code
               </>
             )}
           </Button>

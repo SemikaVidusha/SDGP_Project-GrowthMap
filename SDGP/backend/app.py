@@ -303,17 +303,14 @@ def signup():
     data = request.get_json(force=True)
     name = data.get("name")
     email = data.get("email")
-    password = data.get("password")
     
-    if not name or not email or not password:
+    if not name or not email:
         return jsonify({"message": "Please add all fields"}), 400
         
     user_exists = users_col.find_one({"email": email})
     if user_exists:
         return jsonify({"message": "User already exists"}), 400
         
-    hashed_password = generate_password_hash(password)
-    
     # Generate 6-digit code
     otp_code = ''.join(random.choices(string.digits, k=6))
     print(f"=====================================")
@@ -322,14 +319,14 @@ def signup():
     
     expires_at = datetime.datetime.utcnow() + datetime.timedelta(minutes=10)
     
-    # Save to pending_users collection instead of creating immediately
+    # Save to pending_users collection
     pending_users_col.delete_many({"email": email}) # clear previous attempts
     pending_users_col.insert_one({
         "name": name,
         "email": email,
-        "password": hashed_password,
         "code": otp_code,
         "expires_at": expires_at,
+        "verified": False,
         "createdAt": datetime.datetime.utcnow()
     })
     
@@ -359,9 +356,9 @@ def signup():
         "message": "Verification code sent to email"
     }), 201
 
-@auth_bp.route("/verify-signup", methods=["POST"])
-def verify_signup():
-    if not mongo_available or users_col is None or pending_users_col is None:
+@auth_bp.route("/verify-signup-code", methods=["POST"])
+def verify_signup_code():
+    if not mongo_available or pending_users_col is None:
         return jsonify({"message": "Database not available"}), 500
         
     data = request.get_json(force=True)
@@ -378,13 +375,40 @@ def verify_signup():
         
     if datetime.datetime.utcnow() > pending_user["expires_at"]:
         pending_users_col.delete_one({"_id": pending_user["_id"]})
-        return jsonify({"message": "Verification code expired. Please sign up again."}), 400
+        return jsonify({"message": "Verification code expired. Please request a new one."}), 400
         
+    # Mark as verified
+    pending_users_col.update_one(
+        {"_id": pending_user["_id"]},
+        {"$set": {"verified": True}}
+    )
+    
+    return jsonify({"message": "Email verified successfully"}), 200
+
+@auth_bp.route("/finalize-signup", methods=["POST"])
+def finalize_signup():
+    if not mongo_available or users_col is None or pending_users_col is None:
+        return jsonify({"message": "Database not available"}), 500
+        
+    data = request.get_json(force=True)
+    email = data.get("email")
+    password = data.get("password")
+    
+    if not email or not password:
+        return jsonify({"message": "Email and password required"}), 400
+        
+    pending_user = pending_users_col.find_one({"email": email, "verified": True})
+    
+    if not pending_user:
+        return jsonify({"message": "Session expired or email not verified."}), 400
+        
+    hashed_password = generate_password_hash(password)
+    
     # Valid code - move to real users collection
     new_user = {
         "name": pending_user["name"],
         "email": pending_user["email"],
-        "password": pending_user["password"],
+        "password": hashed_password,
         "createdAt": pending_user["createdAt"]
     }
     
@@ -429,7 +453,7 @@ def forgot_password():
     
     user = users_col.find_one({"email": email})
     if not user:
-        return jsonify({"message": "If an account with that email exists, we sent a reset code to it."}), 200
+        return jsonify({"message": "User not registered"}), 404
 
     # Generate 6-digit code
     otp_code = ''.join(random.choices(string.digits, k=6))
