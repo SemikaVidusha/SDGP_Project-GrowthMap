@@ -1,4 +1,7 @@
 from flask import Flask, Blueprint, jsonify, request
+import jwt
+import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask_cors import CORS
 from pymongo import MongoClient
 import joblib
@@ -41,6 +44,7 @@ try:
         db = client["sdgp_db"]
         careers_col = db["careers"]
         roadmaps_col = db["roadmaps"]
+        users_col = db["users"]
         print("MongoDB Atlas connected successfully")
         mongo_available = True
     else:
@@ -272,9 +276,81 @@ def get_roadmap(career_id):
         return jsonify(roadmap), 200
     return jsonify({"error": "Roadmap not found"}), 404
 
+# ==================== AUTH ROUTES ====================
+
+auth_bp = Blueprint("auth", __name__)
+
+def generate_token(user_id):
+    secret = os.getenv("JWT_SECRET", "fallback_secret")
+    payload = {
+        "id": str(user_id),
+        "exp": datetime.datetime.utcnow() + datetime.timedelta(days=30)
+    }
+    return jwt.encode(payload, secret, algorithm="HS256")
+
+@auth_bp.route("/signup", methods=["POST"])
+def signup():
+    if not mongo_available or users_col is None:
+        return jsonify({"message": "Database not available"}), 500
+        
+    data = request.get_json(force=True)
+    name = data.get("name")
+    email = data.get("email")
+    password = data.get("password")
+    
+    if not name or not email or not password:
+        return jsonify({"message": "Please add all fields"}), 400
+        
+    user_exists = users_col.find_one({"email": email})
+    if user_exists:
+        return jsonify({"message": "User already exists"}), 400
+        
+    hashed_password = generate_password_hash(password)
+    
+    new_user = {
+        "name": name,
+        "email": email,
+        "password": hashed_password,
+        "createdAt": datetime.datetime.utcnow()
+    }
+    
+    result = users_col.insert_one(new_user)
+    
+    if result.inserted_id:
+        return jsonify({
+            "_id": str(result.inserted_id),
+            "name": name,
+            "email": email,
+            "token": generate_token(result.inserted_id)
+        }), 201
+    else:
+        return jsonify({"message": "Invalid user data"}), 400
+
+@auth_bp.route("/login", methods=["POST"])
+def login():
+    if not mongo_available or users_col is None:
+        return jsonify({"message": "Database not available"}), 500
+        
+    data = request.get_json(force=True)
+    email = data.get("email")
+    password = data.get("password")
+    
+    user = users_col.find_one({"email": email})
+    
+    if user and check_password_hash(user["password"], password):
+        return jsonify({
+            "_id": str(user["_id"]),
+            "name": user["name"],
+            "email": user["email"],
+            "token": generate_token(user["_id"])
+        }), 200
+    else:
+        return jsonify({"message": "Invalid credentials"}), 400
+
 app.register_blueprint(ml_bp, url_prefix="/api/ml")
 app.register_blueprint(careers_bp, url_prefix="/api/careers")
 app.register_blueprint(roadmaps_bp, url_prefix="/api/roadmaps")
+app.register_blueprint(auth_bp, url_prefix="/api/auth")
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000, debug=True)
