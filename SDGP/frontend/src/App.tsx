@@ -11,6 +11,7 @@ import Results from "./pages/Dashboard/Results";
 import Login from "./pages/Dashboard/Auth/Login";
 import Signup from "./pages/Dashboard/Auth/Signup";
 import ForgotPassword from "./pages/Dashboard/Auth/ForgotPassword";
+import ResetPassword from "./pages/Dashboard/Auth/ResetPassword";
 import SkillGap from "./pages/Dashboard/SkillGap";
 import Roadmap from "./pages/Dashboard/Roadmap";
 import Settings from "./pages/Dashboard/Settings";
@@ -62,6 +63,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
       </Routes>
     </>
   );

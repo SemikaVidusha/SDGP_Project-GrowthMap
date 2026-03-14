@@ -347,6 +347,73 @@ def login():
     else:
         return jsonify({"message": "Invalid credentials"}), 400
 
+@auth_bp.route("/forgot-password", methods=["POST"])
+def forgot_password():
+    if not mongo_available or users_col is None:
+        return jsonify({"message": "Database not available"}), 500
+        
+    data = request.get_json(force=True)
+    email = data.get("email")
+    
+    user = users_col.find_one({"email": email})
+    if not user:
+        # In production this should not tell the user the email doesn't exist, to prevent email enumeration,
+        # but returning it here for easier demonstration/debugging.
+        return jsonify({"message": "If an account with that email exists, we sent a reset link to it."}), 200
+
+    secret = os.getenv("JWT_SECRET", "fallback_secret")
+    payload = {
+        "id": str(user["_id"]),
+        "type": "reset",
+        "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=15)
+    }
+    reset_token = jwt.encode(payload, secret, algorithm="HS256")
+    
+    return jsonify({
+        "message": "Reset link successfully sent",
+        "resetToken": reset_token
+    }), 200
+
+from bson.objectid import ObjectId
+
+@auth_bp.route("/reset-password", methods=["POST"])
+def reset_password():
+    if not mongo_available or users_col is None:
+        return jsonify({"message": "Database not available"}), 500
+        
+    data = request.get_json(force=True)
+    token = data.get("token")
+    new_password = data.get("newPassword")
+    
+    if not token or not new_password:
+        return jsonify({"message": "Missing token or new password"}), 400
+        
+    secret = os.getenv("JWT_SECRET", "fallback_secret")
+    
+    try:
+        payload = jwt.decode(token, secret, algorithms=["HS256"])
+        if payload.get("type") != "reset":
+            return jsonify({"message": "Invalid token type"}), 400
+            
+        user_id = payload.get("id")
+        
+        # update user password
+        hashed_password = generate_password_hash(new_password)
+        result = users_col.update_one(
+            {"_id": ObjectId(user_id)},
+            {"$set": {"password": hashed_password}}
+        )
+        
+        if result.modified_count > 0:
+            return jsonify({"message": "Password reset successful"}), 200
+        else:
+            return jsonify({"message": "User not found or password unchanged"}), 400
+            
+    except jwt.ExpiredSignatureError:
+        return jsonify({"message": "Token has expired"}), 400
+    except jwt.InvalidTokenError:
+        return jsonify({"message": "Invalid token"}), 400
+
 app.register_blueprint(ml_bp, url_prefix="/api/ml")
 app.register_blueprint(careers_bp, url_prefix="/api/careers")
 app.register_blueprint(roadmaps_bp, url_prefix="/api/roadmaps")

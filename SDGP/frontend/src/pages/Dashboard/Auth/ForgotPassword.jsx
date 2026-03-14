@@ -18,8 +18,6 @@ export default function ForgotPassword() {
     setIsLoading(true);
 
     try {
-      // Future API call to actual reset endpoint
-      /*
       const res = await fetch("http://localhost:5000/api/auth/forgot-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -27,11 +25,15 @@ export default function ForgotPassword() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Something went wrong");
-      */
       
-      // Simulating a network request
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      setMessage("If an account exists with that email, we have sent a password reset link.");
+      setMessage(data.message);
+      
+      // Auto redirect to reset-password with token
+      if (data.resetToken) {
+        setTimeout(() => {
+          window.location.href = `/reset-password?token=${data.resetToken}`;
+        }, 1500);
+      }
       
     } catch (err) {
       setError(err.message);
