@@ -50,6 +50,7 @@ try:
         careers_col = db["careers"]
         roadmaps_col = db["roadmaps"]
         users_col = db["users"]
+        pending_users_col = db["pending_users"]
         otps_col = db["otps"]
         print("MongoDB Atlas connected successfully")
         mongo_available = True
@@ -296,7 +297,7 @@ def generate_token(user_id):
 
 @auth_bp.route("/signup", methods=["POST"])
 def signup():
-    if not mongo_available or users_col is None:
+    if not mongo_available or users_col is None or pending_users_col is None:
         return jsonify({"message": "Database not available"}), 500
         
     data = request.get_json(force=True)
@@ -313,24 +314,89 @@ def signup():
         
     hashed_password = generate_password_hash(password)
     
-    new_user = {
+    # Generate 6-digit code
+    otp_code = ''.join(random.choices(string.digits, k=6))
+    print(f"=====================================")
+    print(f"SIGNUP OTP FOR {email}: {otp_code}")
+    print(f"=====================================")
+    
+    expires_at = datetime.datetime.utcnow() + datetime.timedelta(minutes=10)
+    
+    # Save to pending_users collection instead of creating immediately
+    pending_users_col.delete_many({"email": email}) # clear previous attempts
+    pending_users_col.insert_one({
         "name": name,
         "email": email,
         "password": hashed_password,
+        "code": otp_code,
+        "expires_at": expires_at,
         "createdAt": datetime.datetime.utcnow()
+    })
+    
+    # Try sending the email
+    smtp_email = os.getenv("SMTP_EMAIL")
+    smtp_password = os.getenv("SMTP_PASSWORD")
+    
+    try:
+        if smtp_email and smtp_password:
+            msg = MIMEMultipart()
+            msg['From'] = smtp_email
+            msg['To'] = email
+            msg['Subject'] = "GrowthMap - Verify Your Email"
+            
+            body = f"Welcome to GrowthMap!\n\nYour 6-digit verification code is: {otp_code}\n\nThis code will expire in 10 minutes."
+            msg.attach(MIMEText(body, 'plain'))
+            
+            server = smtplib.SMTP('smtp.gmail.com', 587)
+            server.starttls()
+            server.login(smtp_email, smtp_password)
+            server.send_message(msg)
+            server.quit()
+    except Exception as e:
+        print(f"Failed to send email: {e}")
+
+    return jsonify({
+        "message": "Verification code sent to email"
+    }), 201
+
+@auth_bp.route("/verify-signup", methods=["POST"])
+def verify_signup():
+    if not mongo_available or users_col is None or pending_users_col is None:
+        return jsonify({"message": "Database not available"}), 500
+        
+    data = request.get_json(force=True)
+    email = data.get("email")
+    code = data.get("code")
+    
+    if not email or not code:
+        return jsonify({"message": "Email and code required"}), 400
+        
+    pending_user = pending_users_col.find_one({"email": email, "code": str(code)})
+    
+    if not pending_user:
+        return jsonify({"message": "Invalid verification code"}), 400
+        
+    if datetime.datetime.utcnow() > pending_user["expires_at"]:
+        pending_users_col.delete_one({"_id": pending_user["_id"]})
+        return jsonify({"message": "Verification code expired. Please sign up again."}), 400
+        
+    # Valid code - move to real users collection
+    new_user = {
+        "name": pending_user["name"],
+        "email": pending_user["email"],
+        "password": pending_user["password"],
+        "createdAt": pending_user["createdAt"]
     }
     
     result = users_col.insert_one(new_user)
+    pending_users_col.delete_many({"email": email}) # clean up
     
-    if result.inserted_id:
-        return jsonify({
-            "_id": str(result.inserted_id),
-            "name": name,
-            "email": email,
-            "token": generate_token(result.inserted_id)
-        }), 201
-    else:
-        return jsonify({"message": "Invalid user data"}), 400
+    return jsonify({
+        "_id": str(result.inserted_id),
+        "name": pending_user["name"],
+        "email": pending_user["email"],
+        "token": generate_token(result.inserted_id)
+    }), 201
 
 @auth_bp.route("/login", methods=["POST"])
 def login():

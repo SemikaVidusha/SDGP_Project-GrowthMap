@@ -12,6 +12,7 @@ import Login from "./pages/Dashboard/Auth/Login";
 import Signup from "./pages/Dashboard/Auth/Signup";
 import ForgotPassword from "./pages/Dashboard/Auth/ForgotPassword";
 import VerifyCode from "./pages/Dashboard/Auth/VerifyCode";
+import VerifySignup from "./pages/Dashboard/Auth/VerifySignup";
 import ResetPassword from "./pages/Dashboard/Auth/ResetPassword";
 import SkillGap from "./pages/Dashboard/SkillGap";
 import Roadmap from "./pages/Dashboard/Roadmap";
@@ -63,6 +64,7 @@ export default function App() {
         {/* Routes WITHOUT Layout - Auth */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/verify-signup" element={<VerifySignup />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/verify-code" element={<VerifyCode />} />
         <Route path="/reset-password" element={<ResetPassword />} />
