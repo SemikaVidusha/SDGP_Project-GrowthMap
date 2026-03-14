@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import ProgressIndicator from "@/components/ui/progress-indicator"
 
 // Feature order must match backend exactly
 const FEATURE_ORDER = [
@@ -22,6 +23,7 @@ export default function Quiz() {
   const [answersLog, setAnswersLog] = useState([]);
   const [participantImageLoading, setParticipantImageLoading] = useState(true);
   const participantImageRef = useRef(null);
+  const [selectedOption, setSelectedOption] = useState(null);
 
   // Handle image loading state
   useEffect(() => {
@@ -87,40 +89,51 @@ export default function Quiz() {
     return normalized;
   }
 
-  const selectOption = (option) => {
-    // guard
-    if (!questions || questions.length === 0) return;
+const selectOption = (option) => {
+  setSelectedOption(option);
+};
 
-    // update traits
-    setTraits(prev => {
-      if (!Object.prototype.hasOwnProperty.call(prev, option.trait)) {
-        console.warn("Unknown trait:", option.trait);
-        return prev;
-      }
-      return { ...prev, [option.trait]: prev[option.trait] + option.value };
-    });
+  const goNext = () => {
+  if (!selectedOption) return;
 
-    // log answer
-    const q = questions[currentIndex];
-    setAnswersLog(prev => ([
-      ...prev,
-      {
-        questionId: q.id,
-        question: q.question,
-        selected: option.text,
-        trait: option.trait,
-        value: option.value
-      }
-    ]));
+  const option = selectedOption;
 
-    // next
-    const next = currentIndex + 1;
-    if (next < questions.length) {
-      setCurrentIndex(next);
-    } else {
-      finishQuiz();
+  // update traits
+  setTraits(prev => ({
+    ...prev,
+    [option.trait]: prev[option.trait] + option.value
+  }));
+
+  const q = questions[currentIndex];
+
+  // log answer
+  setAnswersLog(prev => ([
+    ...prev,
+    {
+      questionId: q.id,
+      question: q.question,
+      selected: option.text,
+      trait: option.trait,
+      value: option.value
     }
-  };
+  ]));
+
+  setSelectedOption(null);
+
+  const next = currentIndex + 1;
+
+  if (next < questions.length) {
+    setCurrentIndex(next);
+  } else {
+    finishQuiz();
+  }
+};
+
+const goBack = () => {
+  if (currentIndex > 0) {
+    setCurrentIndex(currentIndex - 1);
+  }
+};
 
   const finishQuiz = async () => {
     // compute normalized traits with same logic
@@ -206,24 +219,12 @@ export default function Quiz() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-purple-50 p-6">
       <div className="max-w-3xl mx-auto bg-white rounded-xl shadow p-6">
-        {/* Participant Image with Shimmer */}
-        <div className="flex justify-center mb-6">
-          {participantImageLoading && (
-            <div className="w-24 h-24 bg-gray-200 animate-pulse rounded-full"></div>
-          )}
-          <img
-            ref={participantImageRef}
-            src="/path/to/participant/image.jpg" // Replace with actual image path
-            alt="Participant"
-            className={`w-24 h-24 rounded-full object-cover ${participantImageLoading ? 'hidden' : 'block'}`}
-            onLoad={() => setParticipantImageLoading(false)}
-            onError={() => setParticipantImageLoading(false)}
-          />
-        </div>
+        {/* Participant image removed - placeholder fixed */}
         <h2 className="text-2xl font-bold mb-4">Career Assessment</h2>
-        <div className="mb-2 text-sm text-slate-600">
-          Question {currentIndex + 1} / {questions.length}
-        </div>
+        <ProgressIndicator
+          current={currentIndex + 1}
+          total={questions.length}
+        />
 
         <div className="mb-6">
           <div className="text-lg font-semibold mb-3">{currentQuestion.question}</div>
@@ -232,7 +233,11 @@ export default function Quiz() {
               <button
                 key={i}
                 onClick={() => selectOption(opt)}
-                className="p-3 border rounded hover:bg-slate-50 text-left"
+                className={`p-4 border rounded-lg text-left transition transform
+                          ${selectedOption === opt
+                            ? "border-purple-500 bg-purple-50"
+                            : "hover:bg-slate-50 hover:-translate-y-0.5"
+                          }`}
               >
                 {opt.text}
               </button>
@@ -240,10 +245,29 @@ export default function Quiz() {
           </div>
         </div>
 
-        <div className="flex items-center justify-between">
-          <div className="text-sm text-slate-500">Your progress will be saved locally.</div>
-          <div>
-            <Button onClick={finishQuiz} className="ml-2">Finish Now</Button>
+        <div className="flex items-center justify-between mt-6">
+          <div className="text-sm text-slate-500">
+            Your progress will be saved locally.
+          </div>
+
+          <div className="flex gap-2">
+
+            {currentIndex > 0 && (
+              <Button variant="outline" onClick={goBack}>
+                Back
+              </Button>
+            )}
+
+            {currentIndex < questions.length - 1 ? (
+              <Button className="h-full bg-gradient-to-r from-blue-500 to-purple-500" onClick={goNext} disabled={!selectedOption}>
+                Next
+              </Button>
+            ) : (
+              <Button className="h-full bg-gradient-to-r from-blue-500 to-purple-500" onClick={goNext} disabled={!selectedOption}>
+                Finish
+              </Button>
+            )}
+
           </div>
         </div>
       </div>
