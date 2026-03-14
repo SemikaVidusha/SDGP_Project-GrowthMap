@@ -114,6 +114,15 @@ export default function Login() {
             />
           </div>
 
+          <div className="flex justify-end mt-2">
+            <Link
+              to="/forgot-password"
+              className="text-sm text-indigo-600 font-medium hover:text-indigo-700 transition-colors"
+            >
+              Forgot password?
+            </Link>
+          </div>
+
           {/* Login Button */}
           <Button 
             disabled={isLoading}
