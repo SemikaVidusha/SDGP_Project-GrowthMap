@@ -91,8 +91,26 @@ export default function Settings() {
     fetchSettings();
   }, [navigate]);
 
-  const set = (key) => (val) => {
-    setPrefs(p => ({ ...p, [key]: val }));
+  const set = (key) => async (val) => {
+    const newPrefs = { ...prefs, [key]: val };
+    setPrefs(newPrefs);
+
+    try {
+      const token = localStorage.getItem("token");
+      if (token) {
+        await fetch("http://localhost:5000/api/users/settings", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "x-auth-token": token
+          },
+          body: JSON.stringify(newPrefs)
+        });
+      }
+    } catch (error) {
+      console.error("Failed to save settings:", error);
+    }
+
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
   };
