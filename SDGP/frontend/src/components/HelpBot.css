@@ -10,8 +10,8 @@
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background-color: hsl(var(--primary));
-  color: hsl(var(--primary-foreground));
+  background-color: hsl(221, 83%, 53%); /* Tailwind blue-600 */
+  color: white;
   border: none;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   cursor: pointer;
@@ -54,8 +54,8 @@
 }
 
 .help-bot-header {
-  background-color: hsl(var(--primary));
-  color: hsl(var(--primary-foreground));
+  background-color: hsl(221, 83%, 53%); /* Tailwind blue-600 */
+  color: white;
   padding: 16px;
   display: flex;
   justify-content: space-between;
@@ -71,7 +71,7 @@
 .close-btn {
   background: none;
   border: none;
-  color: hsl(var(--primary-foreground));
+  color: white;
   font-size: 24px;
   cursor: pointer;
   padding: 0;
