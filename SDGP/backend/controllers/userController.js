@@ -35,3 +35,16 @@ exports.updateSettings = async (req, res) => {
         res.status(500).send('Server Error');
     }
 };
+
+exports.deleteProfile = async (req, res) => {
+    try {
+        const user = await User.findByIdAndDelete(req.user.id);
+        if (!user) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+        res.json({ msg: 'User deleted successfully' });
+    } catch (err) {
+        console.error("Error deleting user:", err.message);
+        res.status(500).send('Server Error');
+    }
+};
