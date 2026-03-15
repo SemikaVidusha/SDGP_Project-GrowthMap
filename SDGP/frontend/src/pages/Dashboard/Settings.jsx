@@ -62,6 +62,27 @@ export default function Settings() {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [saved, setSaved] = useState(false);
 
+  const handleDeleteAccount = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (token) {
+        const res = await fetch("http://localhost:5000/api/users/profile", {
+          method: "DELETE",
+          headers: {
+            "x-auth-token": token
+          }
+        });
+        if (res.ok) {
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          navigate("/login");
+        }
+      }
+    } catch (error) {
+      console.error("Failed to delete account:", error);
+    }
+  };
+
   useEffect(() => {
     const fetchSettings = async () => {
       try {
@@ -230,7 +251,7 @@ export default function Settings() {
             <div className="py-4 space-y-3">
               <p className="text-sm text-red-700 font-medium">Are you sure? This cannot be undone.</p>
               <div className="flex gap-2">
-                <Button size="sm" className="bg-red-600 hover:bg-red-700 text-white text-xs rounded-xl">
+                <Button onClick={handleDeleteAccount} size="sm" className="bg-red-600 hover:bg-red-700 text-white text-xs rounded-xl">
                   Yes, delete my account
                 </Button>
                 <Button onClick={() => setShowDeleteConfirm(false)} size="sm" variant="outline"
