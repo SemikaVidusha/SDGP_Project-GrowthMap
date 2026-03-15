@@ -608,10 +608,34 @@ def reset_password():
     except jwt.InvalidTokenError:
         return jsonify({"message": "Invalid token"}), 400
 
+# ==================== USERS ROUTES ====================
+
+users_bp = Blueprint("users", __name__)
+
+@users_bp.route("/settings", methods=["GET"])
+@token_required
+def get_settings(current_user):
+    settings = current_user.get("settings", {})
+    return jsonify(settings), 200
+
+@users_bp.route("/settings", methods=["PUT"])
+@token_required
+def update_settings(current_user):
+    data = request.get_json(force=True)
+    if not mongo_available or users_col is None:
+        return jsonify({"message": "Database not available"}), 500
+        
+    users_col.update_one(
+        {"_id": current_user["_id"]},
+        {"$set": {"settings": data}}
+    )
+    return jsonify({"message": "Settings updated", "settings": data}), 200
+
 app.register_blueprint(ml_bp, url_prefix="/api/ml")
 app.register_blueprint(careers_bp, url_prefix="/api/careers")
 app.register_blueprint(roadmaps_bp, url_prefix="/api/roadmaps")
 app.register_blueprint(auth_bp, url_prefix="/api/auth")
+app.register_blueprint(users_bp, url_prefix="/api/users")
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000, debug=True)
