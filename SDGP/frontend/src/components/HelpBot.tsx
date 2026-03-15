@@ -21,6 +21,16 @@ const faqs = [
     id: 4,
     question: "I forgot my password, what should I do?",
     answer: "Go to the Login page and click on 'Forgot Password'. You will receive an OTP in your email to reset it."
+  },
+  {
+    id: 5,
+    question: "Can I edit my profile information?",
+    answer: "Yes, you can navigate to the 'Profile' section from the dashboard to update your personal details and skills."
+  },
+  {
+    id: 6,
+    question: "What should I do if my skill gap is too large?",
+    answer: "Don't worry! GrowthMap provides targeted course recommendations based on your gap analysis to help you upskill."
   }
 ];
 
