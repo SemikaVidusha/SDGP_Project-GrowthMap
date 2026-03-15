@@ -5,12 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { createPageUrl } from "@/utils";
-import { useNavigate } from "react-router-dom";
 
 import { 
-  MapPin, Search, ArrowRight, TrendingUp, Briefcase,
+  Search, ArrowRight, TrendingUp, Briefcase,
   Code, Network, Palette, BarChart3, Shield, Globe, 
-  Database, Users, CheckCircle, Smartphone
+  Database, Users, CheckCircle, Smartphone, X
 } from 'lucide-react';
 
 const iconMap = {
@@ -27,123 +26,26 @@ const iconMap = {
 };
 
 export default function Careers() {
-  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCareer, setSelectedCareer] = useState(null);
-  const [showRoadmap, setShowRoadmap] = useState(false);
 
   const demandColors = {
     "Very High": "bg-green-100 text-green-700",
     "High": "bg-blue-100 text-blue-700",
-    "Medium": "bg-amber-100 text-amber-700",
-    "Moderate": "bg-gray-100 text-gray-700"
+    "Medium": "bg-amber-100 text-amber-700"
   };
 
-  // Combined careers from both branches
   const careers = [
     {
       id: 1,
-      careerId: "software_engineer",
       title: "Software Engineer",
-      description: "Design and develop software applications and systems that power modern businesses and user experiences.",
-      skills: ["JavaScript/TypeScript", "Python/Java", "Data Structures", "System Design", "APIs"],
+      description: "Design and develop software applications and systems.",
+      skills: ["JavaScript", "React", "Problem Solving", "APIs"],
       salary: "LKR 150,000 - 300,000",
       demand: "Very High",
       icon: "Code"
     },
     {
       id: 2,
-      careerId: "frontend_developer",
-      title: "Frontend Developer",
-      description: "Create beautiful, responsive web interfaces and interactive user experiences.",
-      skills: ["HTML/CSS", "JavaScript", "React/Vue", "Responsive Design", "UI/UX Basics"],
-      salary: "LKR 120,000 - 250,000",
-      demand: "High",
-      icon: "Code"
-    },
-    {
-      id: 3,
-      careerId: "backend_developer",
-      title: "Backend Developer",
-      description: "Build and maintain server-side logic, databases, and APIs that power web applications.",
-      skills: ["Node.js/Python", "SQL/NoSQL", "API Design", "Server Management", "Security"],
-      salary: "LKR 150,000 - 280,000",
-      demand: "High",
-      icon: "Globe"
-    },
-    {
-      id: 4,
-      careerId: "fullstack_developer",
-      title: "Fullstack Developer",
-      description: "Work on both frontend and backend to build complete web applications from start to finish.",
-      skills: ["Frontend Frameworks", "Backend Technologies", "Databases", "Git", "Deployment"],
-      salary: "LKR 160,000 - 320,000",
-      demand: "Very High",
-      icon: "Globe"
-    },
-    {
-      id: 5,
-      careerId: "data_scientist",
-      title: "Data Scientist",
-      description: "Analyze complex data sets and build predictive models to drive business decisions.",
-      skills: ["Python", "SQL", "Machine Learning", "Statistics", "Data Visualization"],
-      salary: "LKR 180,000 - 350,000",
-      demand: "High",
-      icon: "BarChart3"
-    },
-    {
-      id: 6,
-      careerId: "ai_ml_engineer",
-      title: "AI/ML Engineer",
-      description: "Design and implement artificial intelligence solutions and machine learning systems.",
-      skills: ["Python", "TensorFlow/PyTorch", "Deep Learning", "NLP", "MLOps"],
-      salary: "LKR 200,000 - 400,000",
-      demand: "Very High",
-      icon: "BarChart3"
-    },
-    {
-      id: 7,
-      careerId: "cybersecurity_analyst",
-      title: "Cybersecurity Analyst",
-      description: "Protect organizational assets by identifying vulnerabilities and responding to security threats.",
-      skills: ["Network Security", "Ethical Hacking", "Risk Assessment", "Incident Response", "Compliance"],
-      salary: "LKR 180,000 - 380,000",
-      demand: "Very High",
-      icon: "Shield"
-    },
-    {
-      id: 8,
-      careerId: "network_engineer",
-      title: "Network Engineer",
-      description: "Design, implement, and maintain computer networks that keep organizations connected.",
-      skills: ["TCP/IP", "Routing/Switching", "Firewalls", "Cloud Networking", "Network Security"],
-      salary: "LKR 140,000 - 280,000",
-      demand: "Moderate",
-      icon: "Network"
-    },
-    {
-      id: 9,
-      careerId: "devops_engineer",
-      title: "DevOps Engineer",
-      description: "Bridge development and operations to automate and streamline software delivery.",
-      skills: ["CI/CD", "Docker/Kubernetes", "Cloud (AWS/Azure)", "Infrastructure as Code", "Monitoring"],
-      salary: "LKR 200,000 - 380,000",
-      demand: "Very High",
-      icon: "Network"
-    },
-    {
-      id: 10,
-      careerId: "ui_ux_designer",
-      title: "UI/UX Designer",
-      description: "Create intuitive, accessible, and visually appealing digital experiences for users.",
-      skills: ["Figma/Adobe XD", "User Research", "Wireframing", "Prototyping", "Visual Design"],
-      salary: "LKR 120,000 - 250,000",
-      demand: "High",
-      icon: "Palette"
-    },
-    {
-      id: 11,
-      careerId: "data_analyst",
       title: "Data Analyst",
       description: "Analyze data to help businesses make informed decisions.",
       skills: ["Python", "SQL", "Excel", "Statistics"],
@@ -152,8 +54,16 @@ export default function Careers() {
       icon: "BarChart3"
     },
     {
-      id: 12,
-      careerId: "database_admin",
+      id: 3,
+      title: "Cybersecurity Specialist",
+      description: "Protect systems and networks from cyber threats.",
+      skills: ["Networking", "Security", "Ethical Hacking"],
+      salary: "LKR 180,000 - 350,000",
+      demand: "Very High",
+      icon: "Shield"
+    },
+    {
+      id: 4,
       title: "Database Administrator",
       description: "Managing and optimizing database systems.",
       skills: ["SQL", "Oracle", "Data Modelling"],
@@ -162,21 +72,19 @@ export default function Careers() {
       icon: "Database"
     },
     {
-      id: 13,
-      careerId: "ethical_hacker",
+      id: 5,
       title: "Ethical Hacker",
       description: "Simulates attacks to find security vulnerabilities.",
       skills: ["Networking", "Programming", "Database Management"],
       salary: "LKR 180,000 - 300,000",
       demand: "Very High",
-      icon: "Shield"
+      icon: "Network"
     },
     {
-      id: 14,
-      careerId: "mobile_developer",
+      id: 6,
       title: "Mobile App Developer",
       description: "Specializes in creating apps for iOS and Android.",
-      skills: ["Flutter", "React Native", "Swift", "Kotlin"],
+      skills: ["Flutter", "React", "JavaScript"],
       salary: "LKR 66,000 - 300,000",
       demand: "Very High",
       icon: "Smartphone"
@@ -186,118 +94,159 @@ export default function Careers() {
   const filteredCareers = careers.filter(career =>
     career.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     career.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    career.skills.some(skill => skill.toLowerCase().includes(searchQuery.toLowerCase()))
+    career.skills.some(skill =>
+      skill.toLowerCase().includes(searchQuery.toLowerCase())
+    )
   );
 
-  const handleViewRoadmap = (career) => {
-    navigate(`/roadmap/${career.careerId}`);
-  };
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 dark:from-slate-950 via-white dark:via-slate-900 to-purple-50 dark:to-slate-950">
+
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-sm border-b border-slate-100 sticky top-0 z-50">
+      <header className="bg-white dark:bg-slate-900/80 dark:bg-slate-900/80 backdrop-blur-sm border-b border-slate-100 dark:border-slate-800 sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link 
+
+          <Link
             to={createPageUrl('Home')}
-            className="flex items-center gap-2 text-slate-600 hover:text-slate-800 transition-colors"
+            className="flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:text-slate-100 transition-colors"
           >
           </Link>
+
           <Link to={createPageUrl('Quiz')}>
             <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
               Take Assessment
             </Button>
           </Link>
+
         </div>
       </header>
 
       <main className="max-w-6xl mx-auto px-4 py-8 md:py-12">
+
         {/* Page Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-12"
         >
+
           <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
             Explore ICT Careers
           </h1>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto mb-8">
-            Discover the diverse world of ICT careers and find the path that matches 
-            your interests and skills.
+
+          <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-8">
+            Discover the diverse world of ICT careers and find the path that
+            matches your interests and skills.
           </p>
 
           {/* Search */}
           <div className="max-w-md mx-auto relative">
+
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+
             <Input
               placeholder="Search careers, skills..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-12 py-6 rounded-xl border-slate-200 focus:border-purple-300 focus:ring-purple-200"
+              className="pl-12 py-6 rounded-xl border-slate-200 dark:border-slate-700 focus:border-purple-300 focus:ring-purple-200"
             />
+
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:text-slate-300"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            )}
+
           </div>
         </motion.div>
 
         {/* Career Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
           {filteredCareers.map((career, index) => {
+
             const Icon = iconMap[career.icon] || Briefcase;
-            
+
             return (
               <motion.div
                 key={career.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
-                className="bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg hover:border-purple-200 transition-all overflow-hidden group"
+                className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-lg hover:border-purple-200 transition-all overflow-hidden group flex flex-col h-full"
               >
-                <div className="p-6">
+
+                {/* Card Content */}
+                <div className="p-6 flex-grow">
+
                   <div className="flex items-start justify-between mb-4">
+
                     <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg shadow-purple-200 group-hover:scale-105 transition-transform">
                       <Icon className="w-7 h-7 text-white" />
                     </div>
-                    <Badge className={`${demandColors[career.demand]}`}>
+
+                    <Badge className={demandColors[career.demand]}>
                       <TrendingUp className="w-3 h-3 mr-1" />
                       {career.demand}
                     </Badge>
+
                   </div>
 
-                  <h3 className="text-xl font-semibold text-slate-800 mb-2">
+                  <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-2">
                     {career.title}
                   </h3>
-                  <p className="text-slate-600 text-sm mb-4 line-clamp-2">
+
+                  <p className="text-slate-600 dark:text-slate-300 text-sm mb-4 line-clamp-2">
                     {career.description}
                   </p>
 
                   {/* Skills */}
                   <div className="flex flex-wrap gap-2 mb-4">
                     {career.skills.slice(0, 3).map((skill, i) => (
-                      <Badge key={i} variant="secondary" className="bg-slate-100 text-slate-600 text-xs">
+                      <Badge
+                        key={i}
+                        variant="secondary"
+                        className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs"
+                      >
                         {skill}
                       </Badge>
                     ))}
+
                     {career.skills.length > 3 && (
-                      <Badge variant="secondary" className="bg-slate-100 text-slate-500 text-xs">
+                      <Badge
+                        variant="secondary"
+                        className="bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-xs"
+                      >
                         +{career.skills.length - 3}
                       </Badge>
                     )}
                   </div>
 
                   {/* Salary */}
-                  <div className="text-sm text-slate-500 mb-4">
-                    <span className="font-medium text-slate-700">Salary:</span> {career.salary}
+                  <div className="text-sm text-slate-500 dark:text-slate-400">
+                    <span className="font-medium text-slate-700 dark:text-slate-200">
+                      Salary:
+                    </span>{" "}
+                    {career.salary}
                   </div>
+
                 </div>
 
-                <div className="border-t border-slate-100 p-4 bg-slate-50/50">
-                  <Button 
-                    onClick={() => handleViewRoadmap(career)}
+                {/* Button */}
+                <div className="border-t border-slate-100 dark:border-slate-800 p-4 bg-slate-50 dark:bg-slate-950/50 mt-auto">
+
+                  <Button
                     className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 gap-2"
                   >
                     View Career Roadmap
                     <ArrowRight className="w-4 h-4" />
                   </Button>
+
                 </div>
+
               </motion.div>
             );
           })}
@@ -306,36 +255,53 @@ export default function Careers() {
         {/* No Results */}
         {filteredCareers.length === 0 && (
           <div className="text-center py-16">
-            <div className="w-16 h-16 mx-auto mb-4 bg-slate-100 rounded-full flex items-center justify-center">
+
+            <div className="w-16 h-16 mx-auto mb-4 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center">
               <Search className="w-8 h-8 text-slate-400" />
             </div>
-            <h3 className="text-lg font-semibold text-slate-700 mb-2">No careers found</h3>
-            <p className="text-slate-500">Try adjusting your search terms</p>
+
+            <h3 className="text-lg font-semibold text-slate-700 dark:text-slate-200 mb-2">
+              No careers found
+            </h3>
+
+            <p className="text-slate-500 dark:text-slate-400">
+              Try adjusting your search terms
+            </p>
+
           </div>
         )}
 
-        {/* CTA Section */}
+        {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="mt-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-8 md:p-12 text-center text-white"
         >
+
           <h2 className="text-2xl md:text-3xl font-bold mb-4">
             Not sure which career fits you?
           </h2>
+
           <p className="text-blue-100 mb-8 max-w-xl mx-auto">
-            Take our smart assessment quiz to discover which ICT career matches 
+            Take our smart assessment quiz to discover which ICT career matches
             your unique strengths and preferences.
           </p>
+
           <Link to={createPageUrl('Quiz')}>
-            <Button size="lg" className="bg-white text-purple-700 hover:bg-blue-50">
+            <Button
+              size="lg"
+              className="bg-white dark:bg-slate-900 text-purple-700 hover:bg-blue-50"
+            >
               Start Career Assessment
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
           </Link>
+
         </motion.div>
+
       </main>
+
     </div>
   );
 }
