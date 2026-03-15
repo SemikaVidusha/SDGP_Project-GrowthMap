@@ -134,26 +134,13 @@ export default function Settings() {
 
       <div className="max-w-2xl mx-auto px-4 py-8 space-y-4">
 
-        {/* Appearance */}
         <Section title="Appearance">
           <SettingRow
             icon={Moon} iconColor="bg-gradient-to-br from-indigo-500 to-purple-600"
             label="Dark Mode"
             description="Switch to a darker interface (coming soon)"
-            right={<Toggle checked={prefs.darkMode} onChange={set('darkMode')} />}
-          />
-          <SettingRow
-            icon={Palette} iconColor="bg-gradient-to-br from-pink-500 to-rose-500"
-            label="Accent Colour"
-            description="Currently: Purple/Blue gradient"
             border={false}
-            right={
-              <div className="flex items-center gap-1.5">
-                {['from-blue-500 to-purple-500', 'from-green-500 to-teal-500', 'from-orange-500 to-amber-500'].map((g, i) => (
-                  <div key={i} className={`w-5 h-5 rounded-full bg-gradient-to-br ${g} ${i === 0 ? 'ring-2 ring-offset-1 ring-purple-400' : ''}`} />
-                ))}
-              </div>
-            }
+            right={<Toggle checked={prefs.darkMode} onChange={set('darkMode')} />}
           />
         </Section>
 
