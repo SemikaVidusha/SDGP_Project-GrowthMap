@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Button } from '@/components/ui/button';
 import {
@@ -47,6 +47,7 @@ function Section({ title, children }) {
 }
 
 export default function Settings() {
+  const navigate = useNavigate();
   const [prefs, setPrefs] = useState({
     darkMode: false,
     emailNotifications: true,
@@ -160,7 +161,11 @@ export default function Settings() {
             description="Sign out of your GrowthMap account"
             border={false}
             right={
-              <Button onClick={() => base44?.auth?.logout?.()} size="sm" variant="outline"
+              <Button onClick={() => {
+                localStorage.removeItem("token");
+                localStorage.removeItem("user");
+                navigate("/login");
+              }} size="sm" variant="outline"
                 className="text-xs rounded-xl border-slate-200 hover:border-red-300 hover:text-red-600">
                 Sign Out
               </Button>
