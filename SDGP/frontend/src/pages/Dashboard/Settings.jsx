@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
@@ -61,6 +61,35 @@ export default function Settings() {
 
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          navigate("/login");
+          return;
+        }
+        
+        const res = await fetch("http://localhost:5000/api/users/settings", {
+          headers: {
+            "x-auth-token": token
+          }
+        });
+        
+        if (res.ok) {
+          const data = await res.json();
+          if (Object.keys(data).length > 0) {
+            setPrefs(prev => ({ ...prev, ...data }));
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch settings:", error);
+      }
+    };
+    
+    fetchSettings();
+  }, [navigate]);
 
   const set = (key) => (val) => {
     setPrefs(p => ({ ...p, [key]: val }));
