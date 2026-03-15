@@ -100,15 +100,15 @@ export default function Careers() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 dark:from-slate-950 via-white dark:via-slate-900 to-purple-50 dark:to-slate-950">
 
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-sm border-b border-slate-100 sticky top-0 z-50">
+      <header className="bg-white dark:bg-slate-900/80 dark:bg-slate-900/80 backdrop-blur-sm border-b border-slate-100 dark:border-slate-800 sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
 
           <Link
             to={createPageUrl('Home')}
-            className="flex items-center gap-2 text-slate-600 hover:text-slate-800 transition-colors"
+            className="flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:text-slate-100 transition-colors"
           >
           </Link>
 
@@ -134,7 +134,7 @@ export default function Careers() {
             Explore ICT Careers
           </h1>
 
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto mb-8">
+          <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-8">
             Discover the diverse world of ICT careers and find the path that
             matches your interests and skills.
           </p>
@@ -148,13 +148,13 @@ export default function Careers() {
               placeholder="Search careers, skills..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-12 py-6 rounded-xl border-slate-200 focus:border-purple-300 focus:ring-purple-200"
+              className="pl-12 py-6 rounded-xl border-slate-200 dark:border-slate-700 focus:border-purple-300 focus:ring-purple-200"
             />
 
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:text-slate-300"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -176,7 +176,7 @@ export default function Careers() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
-                className="bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg hover:border-purple-200 transition-all overflow-hidden group flex flex-col h-full"
+                className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-lg hover:border-purple-200 transition-all overflow-hidden group flex flex-col h-full"
               >
 
                 {/* Card Content */}
@@ -195,11 +195,11 @@ export default function Careers() {
 
                   </div>
 
-                  <h3 className="text-xl font-semibold text-slate-800 mb-2">
+                  <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-2">
                     {career.title}
                   </h3>
 
-                  <p className="text-slate-600 text-sm mb-4 line-clamp-2">
+                  <p className="text-slate-600 dark:text-slate-300 text-sm mb-4 line-clamp-2">
                     {career.description}
                   </p>
 
@@ -209,7 +209,7 @@ export default function Careers() {
                       <Badge
                         key={i}
                         variant="secondary"
-                        className="bg-slate-100 text-slate-600 text-xs"
+                        className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs"
                       >
                         {skill}
                       </Badge>
@@ -218,7 +218,7 @@ export default function Careers() {
                     {career.skills.length > 3 && (
                       <Badge
                         variant="secondary"
-                        className="bg-slate-100 text-slate-500 text-xs"
+                        className="bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-xs"
                       >
                         +{career.skills.length - 3}
                       </Badge>
@@ -226,8 +226,8 @@ export default function Careers() {
                   </div>
 
                   {/* Salary */}
-                  <div className="text-sm text-slate-500">
-                    <span className="font-medium text-slate-700">
+                  <div className="text-sm text-slate-500 dark:text-slate-400">
+                    <span className="font-medium text-slate-700 dark:text-slate-200">
                       Salary:
                     </span>{" "}
                     {career.salary}
@@ -236,7 +236,7 @@ export default function Careers() {
                 </div>
 
                 {/* Button */}
-                <div className="border-t border-slate-100 p-4 bg-slate-50/50 mt-auto">
+                <div className="border-t border-slate-100 dark:border-slate-800 p-4 bg-slate-50 dark:bg-slate-950/50 mt-auto">
 
                   <Button
                     className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 gap-2"
@@ -256,15 +256,15 @@ export default function Careers() {
         {filteredCareers.length === 0 && (
           <div className="text-center py-16">
 
-            <div className="w-16 h-16 mx-auto mb-4 bg-slate-100 rounded-full flex items-center justify-center">
+            <div className="w-16 h-16 mx-auto mb-4 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center">
               <Search className="w-8 h-8 text-slate-400" />
             </div>
 
-            <h3 className="text-lg font-semibold text-slate-700 mb-2">
+            <h3 className="text-lg font-semibold text-slate-700 dark:text-slate-200 mb-2">
               No careers found
             </h3>
 
-            <p className="text-slate-500">
+            <p className="text-slate-500 dark:text-slate-400">
               Try adjusting your search terms
             </p>
 
@@ -291,7 +291,7 @@ export default function Careers() {
           <Link to={createPageUrl('Quiz')}>
             <Button
               size="lg"
-              className="bg-white text-purple-700 hover:bg-blue-50"
+              className="bg-white dark:bg-slate-900 text-purple-700 hover:bg-blue-50"
             >
               Start Career Assessment
               <ArrowRight className="ml-2 w-5 h-5" />

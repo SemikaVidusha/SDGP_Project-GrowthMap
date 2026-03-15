@@ -36,7 +36,7 @@ export default function CareerCard({ career, matchScore, rank, onClick }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: rank * 0.1 }}
       whileHover={{ y: -4 }}
-      className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 hover:shadow-lg hover:border-purple-200 transition-all duration-300 cursor-pointer"
+      className="bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-lg hover:border-purple-200 transition-all duration-300 cursor-pointer"
       onClick={onClick}
     >
       <div className="flex items-start justify-between mb-4">
@@ -52,35 +52,35 @@ export default function CareerCard({ career, matchScore, rank, onClick }) {
                 </Badge>
               )}
             </div>
-            <h3 className="text-lg font-semibold text-slate-800">{career.title}</h3>
+            <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100">{career.title}</h3>
           </div>
         </div>
         <div className="text-right">
           <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
             {matchScore}%
           </div>
-          <span className="text-xs text-slate-500">match</span>
+          <span className="text-xs text-slate-500 dark:text-slate-400">match</span>
         </div>
       </div>
 
-      <p className="text-slate-600 text-sm mb-4 line-clamp-2">
+      <p className="text-slate-600 dark:text-slate-300 text-sm mb-4 line-clamp-2">
         {career.description}
       </p>
 
       <div className="flex flex-wrap gap-2 mb-4">
         {career.skills.slice(0, 3).map((skill, i) => (
-          <Badge key={i} variant="secondary" className="bg-slate-100 text-slate-600 text-xs">
+          <Badge key={i} variant="secondary" className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs">
             {skill}
           </Badge>
         ))}
         {career.skills.length > 3 && (
-          <Badge variant="secondary" className="bg-slate-100 text-slate-500 text-xs">
+          <Badge variant="secondary" className="bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-xs">
             +{career.skills.length - 3} more
           </Badge>
         )}
       </div>
 
-      <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+      <div className="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-1.5">
             <TrendingUp className="w-4 h-4 text-green-600" />
@@ -95,7 +95,7 @@ export default function CareerCard({ career, matchScore, rank, onClick }) {
         </Button>
       </div>
 
-      <div className="mt-4 text-xs text-slate-500">
+      <div className="mt-4 text-xs text-slate-500 dark:text-slate-400">
         Salary Range: {career.salary}
       </div>
     </motion.div>

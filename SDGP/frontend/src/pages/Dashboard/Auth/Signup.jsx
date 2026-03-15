@@ -16,9 +16,9 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 dark:from-slate-950 via-white dark:via-slate-900 to-indigo-50 flex items-center justify-center px-4">
       
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl border border-slate-100 p-8">
+      <div className="w-full max-w-md bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800 p-8">
 
         {/* GrowthMap Logo */}
         <div className="flex flex-col items-center mb-8">
@@ -29,18 +29,18 @@ export default function Signup() {
             className="w-28 h-auto mb-2 drop-shadow-md"
           />
 
-          <h2 className="text-2xl font-bold text-slate-800 tracking-tight">
+          <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100 tracking-tight">
             GrowthMap
           </h2>
 
-          <p className="text-sm text-slate-500 mt-1 text-center">
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 text-center">
             Discover your skills. Map your future.
           </p>
 
         </div>
 
         {/* Heading */}
-        <h3 className="text-lg font-semibold text-center text-slate-700 mb-6">
+        <h3 className="text-lg font-semibold text-center text-slate-700 dark:text-slate-200 mb-6">
           Create Your Account
         </h3>
 
@@ -90,7 +90,7 @@ export default function Signup() {
         </form>
 
         {/* Login link */}
-        <p className="text-sm text-center mt-6 text-slate-500">
+        <p className="text-sm text-center mt-6 text-slate-500 dark:text-slate-400">
           Already have an account?{" "}
           <Link
             to="/login"

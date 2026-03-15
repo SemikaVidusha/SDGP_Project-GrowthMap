@@ -33,20 +33,20 @@ export default function BudgetPathwayAnalyzer({ careerId }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.1 }}
-      className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden"
+      className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden"
     >
       {/* Section Header */}
       <button
         onClick={() => setExpanded(o => !o)}
-        className="w-full flex items-center justify-between px-5 py-4 bg-gradient-to-r from-emerald-50 to-teal-50 hover:from-emerald-100 hover:to-teal-100 transition-colors border-b border-slate-100"
+        className="w-full flex items-center justify-between px-5 py-4 bg-gradient-to-r from-emerald-50 to-teal-50 hover:from-emerald-100 hover:to-teal-100 transition-colors border-b border-slate-100 dark:border-slate-800"
       >
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-xl bg-emerald-100 flex items-center justify-center">
             <Wallet className="w-4 h-4 text-emerald-600" />
           </div>
           <div className="text-left">
-            <p className="font-bold text-slate-800">Budget-Friendly Pathway Analyzer</p>
-            <p className="text-xs text-slate-500">Compare education costs & find affordable alternatives</p>
+            <p className="font-bold text-slate-800 dark:text-slate-100">Budget-Friendly Pathway Analyzer</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400">Compare education costs & find affordable alternatives</p>
           </div>
         </div>
         <div className="flex items-center gap-3">
@@ -82,11 +82,11 @@ export default function BudgetPathwayAnalyzer({ careerId }) {
                     <p className="text-slate-300 text-sm leading-relaxed">{data.description}</p>
                   </div>
                   <div className="flex sm:flex-col gap-3 sm:gap-2 sm:text-right">
-                    <div className="bg-white/10 rounded-xl px-4 py-2.5 text-center">
+                    <div className="bg-white dark:bg-slate-900/10 rounded-xl px-4 py-2.5 text-center">
                       <p className="text-xs text-slate-400">Avg. Starting Salary</p>
                       <p className="text-base font-bold text-emerald-400">{LKR(data.avgStartingSalary)}/mo</p>
                     </div>
-                    <div className="bg-white/10 rounded-xl px-4 py-2.5 text-center">
+                    <div className="bg-white dark:bg-slate-900/10 rounded-xl px-4 py-2.5 text-center">
                       <p className="text-xs text-slate-400">Pathways Available</p>
                       <p className="text-base font-bold text-blue-400">{data.alternatives.length + 1}</p>
                     </div>
@@ -98,17 +98,17 @@ export default function BudgetPathwayAnalyzer({ careerId }) {
                   <p className="text-xs text-slate-400 font-semibold uppercase tracking-wider mb-2">Required Skills</p>
                   <div className="flex flex-wrap gap-1.5">
                     {data.requiredSkills.map((s, i) => (
-                      <span key={i} className="text-xs px-2.5 py-1 rounded-full bg-white/10 text-slate-200 font-medium">{s}</span>
+                      <span key={i} className="text-xs px-2.5 py-1 rounded-full bg-white dark:bg-slate-900/10 text-slate-200 font-medium">{s}</span>
                     ))}
                   </div>
                 </div>
               </div>
 
               {/* Cost Comparison Visual */}
-              <div className="bg-slate-50 rounded-2xl p-5">
+              <div className="bg-slate-50 dark:bg-slate-950 rounded-2xl p-5">
                 <div className="flex items-center gap-2 mb-4">
-                  <BarChart3 className="w-5 h-5 text-slate-600" />
-                  <h4 className="font-bold text-slate-800">Cost Comparison</h4>
+                  <BarChart3 className="w-5 h-5 text-slate-600 dark:text-slate-300" />
+                  <h4 className="font-bold text-slate-800 dark:text-slate-100">Cost Comparison</h4>
                 </div>
                 <PathwayCostBar
                   traditional={data.traditional}
@@ -134,8 +134,8 @@ export default function BudgetPathwayAnalyzer({ careerId }) {
               {/* Traditional vs Alternatives header */}
               <div>
                 <div className="flex items-center gap-2 mb-4">
-                  <BookOpen className="w-5 h-5 text-slate-600" />
-                  <h4 className="font-bold text-slate-800">Education Pathway Comparison</h4>
+                  <BookOpen className="w-5 h-5 text-slate-600 dark:text-slate-300" />
+                  <h4 className="font-bold text-slate-800 dark:text-slate-100">Education Pathway Comparison</h4>
                 </div>
 
                 {/* Traditional */}
@@ -201,7 +201,7 @@ export default function BudgetPathwayAnalyzer({ careerId }) {
 
       {/* Collapsed preview */}
       {!expanded && (
-        <div className="px-5 py-3 flex items-center gap-4 text-sm text-slate-500 border-t border-slate-50">
+        <div className="px-5 py-3 flex items-center gap-4 text-sm text-slate-500 dark:text-slate-400 border-t border-slate-50">
           <span className="flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-blue-400" />
             Traditional: {LKR(data.traditional.cost)}

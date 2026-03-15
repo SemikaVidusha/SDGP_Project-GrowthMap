@@ -72,7 +72,7 @@ function TagInput({ value, onChange, suggestions, placeholder }) {
   return (
     <div ref={wrapperRef} className="space-y-2 relative">
 
-      <div className="flex flex-wrap gap-2 min-h-10 p-3 border-2 border-slate-200 rounded-xl bg-white focus-within:ring-2 focus-within:ring-purple-300 transition">
+      <div className="flex flex-wrap gap-2 min-h-10 p-3 border-2 border-slate-200 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-900 focus-within:ring-2 focus-within:ring-purple-300 transition">
 
         {value.map(tag => (
           <span
@@ -92,20 +92,20 @@ function TagInput({ value, onChange, suggestions, placeholder }) {
           onKeyDown={handleKey}
           onFocus={() => setShowDropdown(true)}
           placeholder={value.length === 0 ? placeholder : 'Add more...'}
-          className="flex-1 min-w-24 outline-none text-sm text-slate-700 bg-transparent"
+          className="flex-1 min-w-24 outline-none text-sm text-slate-700 dark:text-slate-200 bg-transparent"
         />
 
         <button
           type="button"
           onClick={() => setShowDropdown(!showDropdown)}
         >
-          <ChevronDown className="w-4 h-4 text-slate-500" />
+          <ChevronDown className="w-4 h-4 text-slate-500 dark:text-slate-400" />
         </button>
 
       </div>
 
       {showDropdown && unusedSuggestions.length > 0 && (
-        <div className="absolute z-10 w-full bg-white border-2 border-slate-200 rounded-xl shadow-md max-h-40 overflow-y-auto">
+        <div className="absolute z-10 w-full bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-xl shadow-md max-h-40 overflow-y-auto">
           {unusedSuggestions.map(s => (
             <button
               key={s}
@@ -156,10 +156,10 @@ export default function UserInputForm({ onAnalyze }) {
     <div className="max-w-3xl mx-auto space-y-4">
 
       {/* Target Career */}
-      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm">
+      <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
         <div className="flex items-center gap-3 px-5 py-4 bg-gradient-to-br from-teal-300 to-purple-400  border-b">
           <Target className="w-4 h-4 text-black-600" />
-          <h3 className="font-semibold text-slate-800">Target Career</h3>
+          <h3 className="font-semibold text-slate-800 dark:text-slate-100">Target Career</h3>
         </div>
 
         <div className="p-5 grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -170,7 +170,7 @@ export default function UserInputForm({ onAnalyze }) {
               className={`p-3 text-sm font-medium rounded-xl border-2 text-left transition-all ${
                 form.targetCareer === c.id
                   ? 'border-purple-500 bg-purple-50'
-                  : 'border-slate-200 hover:border-purple-300'
+                  : 'border-slate-200 dark:border-slate-700 hover:border-purple-300'
               }`}
             >
               {c.label}
@@ -180,10 +180,10 @@ export default function UserInputForm({ onAnalyze }) {
       </div>
 
       {/* Education */}
-      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm">
+      <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
         <div className="flex items-center gap-3 px-5 py-4 bg-gradient-to-br from-teal-300 to-purple-400  border-b">
           <GraduationCap className="w-4 h-4 text-black-600" />
-          <h3 className="font-semibold text-slate-800">Education Level</h3>
+          <h3 className="font-semibold text-slate-800 dark:text-slate-100">Education Level</h3>
         </div>
 
         <div className="p-5 grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -200,7 +200,7 @@ export default function UserInputForm({ onAnalyze }) {
               className={`p-3 text-sm font-medium rounded-xl border-2 text-left transition-all ${
                 form.currentEducation === e.id
                   ? 'border-purple-500 bg-purple-50'
-                  : 'border-slate-200 hover:border-purple-300'
+                  : 'border-slate-200 dark:border-slate-700 hover:border-purple-300'
               }`}
             >
               {e.label}
@@ -210,10 +210,10 @@ export default function UserInputForm({ onAnalyze }) {
       </div>
 
       {/* Experience */}
-      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm">
+      <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
         <div className="flex items-center gap-3 px-5 py-4 bg-gradient-to-br from-teal-300 to-purple-400  border-b">
           <Briefcase className="w-4 h-4 text-black-600" />
-          <h3 className="font-semibold text-slate-800">Years of Experience</h3>
+          <h3 className="font-semibold text-slate-800 dark:text-slate-100">Years of Experience</h3>
         </div>
 
         <div className="p-5 flex flex-wrap gap-2">
@@ -224,7 +224,7 @@ export default function UserInputForm({ onAnalyze }) {
               className={`px-5 py-2 rounded-xl border-2 text-sm ${
                 form.yearsExperience === y
                   ? 'border-purple-500 bg-purple-50'
-                  : 'border-slate-200'
+                  : 'border-slate-200 dark:border-slate-700'
               }`}
             >
               {y === '0' ? 'No exp' : y === '5+' ? '5+ years' : `${y} yr`}
@@ -234,10 +234,10 @@ export default function UserInputForm({ onAnalyze }) {
       </div>
 
       {/* Technical Skills */}
-      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm">
+      <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
         <div className="flex items-center gap-3 px-5 py-4 bg-gradient-to-br from-teal-300 to-purple-400  border-b ">
           <Code2 className="w-4 h-4 text-black-600" />
-          <h3 className="font-semibold text-slate-800">Technical Skills</h3>
+          <h3 className="font-semibold text-slate-800 dark:text-slate-100">Technical Skills</h3>
         </div>
 
         <TagInput
@@ -253,7 +253,7 @@ export default function UserInputForm({ onAnalyze }) {
       </div>
 
       {/* Soft Skills */}
-      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm">
+      <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
         <div className="flex items-center gap-3 px-5 py-4 bg-gradient-to-br from-teal-300 to-purple-400 border-b">
           <Users className="w-4 h-4 text-black-600" />
           <h3 className="font-semibold">Soft Skills</h3>
@@ -268,7 +268,7 @@ export default function UserInputForm({ onAnalyze }) {
       </div>
 
       {/* Certifications */}
-      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm">
+      <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
         <div className="flex items-center gap-3 px-5 py-4 bg-gradient-to-br from-teal-300 to-purple-400  border-b">
           <Award className="w-4 h-4 text-black-600" />
           <h3 className="font-semibold">Certifications</h3>

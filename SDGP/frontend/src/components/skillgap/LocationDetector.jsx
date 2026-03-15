@@ -155,7 +155,7 @@ export default function LocationDetector({ onLocationDetected }) {
             onChange={(e) =>
               setManual((m) => ({ ...m, city: e.target.value }))
             }
-            className="flex-1 text-xs border border-slate-200 rounded-lg px-2 py-1.5 bg-white focus:outline-none focus:ring-1 focus:ring-purple-300"
+            className="flex-1 text-xs border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1.5 bg-white dark:bg-slate-900 focus:outline-none focus:ring-1 focus:ring-purple-300"
           />
 
           <select
@@ -163,7 +163,7 @@ export default function LocationDetector({ onLocationDetected }) {
             onChange={(e) =>
               setManual((m) => ({ ...m, province: e.target.value }))
             }
-            className="flex-1 text-xs border border-slate-200 rounded-lg px-2 py-1.5 bg-white focus:outline-none focus:ring-1 focus:ring-purple-300"
+            className="flex-1 text-xs border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1.5 bg-white dark:bg-slate-900 focus:outline-none focus:ring-1 focus:ring-purple-300"
           >
             <option value="">Select Province</option>
             {PROVINCES.map((p) => (

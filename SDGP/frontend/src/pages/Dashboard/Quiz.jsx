@@ -51,13 +51,13 @@ export default function Results() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 dark:from-slate-950 via-white dark:via-slate-900 to-purple-50 dark:to-slate-950">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-sm border-b border-slate-100 sticky top-0 z-50">
+      <header className="bg-white dark:bg-slate-900/80 dark:bg-slate-900/80 backdrop-blur-sm border-b border-slate-100 dark:border-slate-800 sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
           <Link 
             to={createPageUrl('Home')}
-            className="flex items-center gap-2 text-slate-600 hover:text-slate-800 transition-colors"
+            className="flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:text-slate-100 transition-colors"
           >
             <MapPin className="w-5 h-5 text-purple-600" />
             <span className="font-semibold">GrowthMap</span>
@@ -87,7 +87,7 @@ export default function Results() {
           <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
             Your Career Recommendations
           </h1>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+          <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
             Based on your responses, here are the ICT careers that best match your 
             strengths and preferences.
           </p>
@@ -123,7 +123,7 @@ export default function Results() {
                 <div className="text-4xl font-bold">{topCareer.matchScore}%</div>
                 <Button 
                   onClick={() => handleCareerClick(topCareer)}
-                  className="bg-white text-purple-700 hover:bg-blue-50"
+                  className="bg-white dark:bg-slate-900 text-purple-700 hover:bg-blue-50"
                 >
                   View Roadmap
                 </Button>
@@ -180,7 +180,7 @@ export default function Results() {
               </div>
               <div>
                 <div className="text-xl font-bold">{selectedCareer?.title}</div>
-                <div className="text-sm font-normal text-slate-500">Career Roadmap for Sri Lanka</div>
+                <div className="text-sm font-normal text-slate-500 dark:text-slate-400">Career Roadmap for Sri Lanka</div>
               </div>
             </DialogTitle>
           </DialogHeader>
@@ -192,7 +192,7 @@ export default function Results() {
                 careerTitle={selectedCareer.title}
               />
             ) : (
-              <div className="text-center py-8 text-slate-500">
+              <div className="text-center py-8 text-slate-500 dark:text-slate-400">
                 Roadmap not available for this career.
               </div>
             )}
@@ -206,7 +206,7 @@ export default function Results() {
           <p className="text-slate-400 text-sm">
             These recommendations are based on your quiz responses and are meant to guide your exploration.
           </p>
-          <p className="text-slate-500 text-xs mt-2">
+          <p className="text-slate-500 dark:text-slate-400 text-xs mt-2">
             Consider talking to career counselors and professionals for personalized advice.
           </p>
         </div>
