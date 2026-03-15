@@ -14,6 +14,8 @@ import traceback
 import numpy as np
 import os
 from dotenv import load_dotenv
+from functools import wraps
+from bson.objectid import ObjectId
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 load_dotenv(os.path.join(BASE_DIR, ".env"))
@@ -286,6 +288,30 @@ def get_roadmap(career_id):
 # ==================== AUTH ROUTES ====================
 
 auth_bp = Blueprint("auth", __name__)
+
+def token_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        token = None
+        if "Authorization" in request.headers:
+            auth_header = request.headers["Authorization"]
+            if auth_header.startswith("Bearer "):
+                token = auth_header.split(" ")[1]
+        
+        if not token:
+            return jsonify({"message": "Token is missing"}), 401
+            
+        try:
+            secret = os.getenv("JWT_SECRET", "fallback_secret")
+            data = jwt.decode(token, secret, algorithms=["HS256"])
+            current_user = users_col.find_one({"_id": ObjectId(data["id"])})
+            if not current_user:
+                return jsonify({"message": "User not found"}), 401
+        except Exception as e:
+            return jsonify({"message": "Token is invalid"}), 401
+            
+        return f(current_user, *args, **kwargs)
+    return decorated
 
 def generate_token(user_id):
     secret = os.getenv("JWT_SECRET", "fallback_secret")
