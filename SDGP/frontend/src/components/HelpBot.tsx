@@ -53,11 +53,17 @@ const HelpBot = () => {
                   <button 
                     className={`faq-question ${expandedId === faq.id ? 'active' : ''}`}
                     onClick={() => toggleAccordion(faq.id)}
+                    aria-expanded={expandedId === faq.id}
+                    aria-controls={`faq-answer-${faq.id}`}
                   >
                     {faq.question}
-                    <span className="faq-icon">{expandedId === faq.id ? '−' : '+'}</span>
+                    <span className="faq-icon" aria-hidden="true">{expandedId === faq.id ? '−' : '+'}</span>
                   </button>
-                  <div className={`faq-answer ${expandedId === faq.id ? 'expanded' : ''}`}>
+                  <div 
+                    id={`faq-answer-${faq.id}`}
+                    className={`faq-answer ${expandedId === faq.id ? 'expanded' : ''}`}
+                    role="region"
+                  >
                     <p>{faq.answer}</p>
                   </div>
                 </div>
