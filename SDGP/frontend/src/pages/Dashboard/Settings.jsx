@@ -50,7 +50,7 @@ function Section({ title, children }) {
 export default function Settings() {
   const navigate = useNavigate();
   const { setTheme, theme } = useTheme();
-
+  
   const [prefs, setPrefs] = useState({
     darkMode: false,
     emailNotifications: true,
@@ -109,7 +109,7 @@ export default function Settings() {
         console.error("Failed to fetch settings:", error);
       }
     };
-
+    
     fetchSettings();
   }, [navigate]);
 
