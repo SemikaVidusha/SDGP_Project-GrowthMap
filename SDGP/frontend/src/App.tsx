@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import Preloader from "./components/preloader";
 import Layout from "./Layout";
 import { ThemeProvider } from "./components/ThemeProvider";
+import HelpBot from "./components/HelpBot";
 
 import Home from "./pages/Dashboard/Home";
 import Quiz from "./pages/Dashboard/Quiz";
@@ -39,6 +40,7 @@ export default function App() {
     <>
       <ThemeProvider>
         <Preloader loading={loading} />
+        <HelpBot />
 
         <Routes>
 
