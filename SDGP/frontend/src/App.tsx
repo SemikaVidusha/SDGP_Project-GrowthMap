@@ -3,6 +3,8 @@ import { useEffect, useState, useRef } from "react";
 
 import Preloader from "./components/preloader";
 import Layout from "./Layout";
+import { ThemeProvider } from "./components/ThemeProvider";
+import HelpBot from "./components/HelpBot";
 
 import Home from "./pages/Dashboard/Home";
 import Quiz from "./pages/Dashboard/Quiz";
@@ -15,7 +17,6 @@ import VerifyCode from "./pages/Dashboard/Auth/VerifyCode";
 import VerifySignup from "./pages/Dashboard/Auth/VerifySignup";
 import ResetPassword from "./pages/Dashboard/Auth/ResetPassword";
 import SkillGap from "./pages/Dashboard/SkillGap";
-import Roadmap from "./pages/Dashboard/Roadmap";
 import Settings from "./pages/Dashboard/Settings";
 import Profile from "./pages/Dashboard/Profile";
 
@@ -41,34 +42,33 @@ export default function App() {
 
   return (
     <>
-      {/* <Preloader loading={loading} /> */}
+      <ThemeProvider>
+        <Preloader loading={loading} />
+        <HelpBot />
 
-      <Routes>
-        {/* Routes WITH Header + Footer */}
-        <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/quiz" element={<Quiz />} />
-          <Route path="/Quiz" element={<Quiz />} />
-          <Route path="/careers" element={<Careers />} />
-          <Route path="/Careers" element={<Careers />} />
-          <Route path="/results" element={<Results />} />
-          <Route path="/Results" element={<Results />} />
-          <Route path="/roadmap/:careerId" element={<Roadmap />} />
-          <Route path="/skillgap" element={<SkillGap />} />
-          <Route path="/SkillGap" element={<SkillGap />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/settings" element={<Settings />} />
-        </Route>
+        <Routes>
 
-        {/* Routes WITHOUT Layout - Auth */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/verify-signup" element={<VerifySignup />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/verify-code" element={<VerifyCode />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-      </Routes>
+          {/* Routes WITH Header + Footer */}
+          <Route element={<Layout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/quiz" element={<Quiz />} />
+            <Route path="/careers" element={<Careers />} />
+            <Route path="/skillgap" element={<SkillGap />} />
+            <Route path="/results" element={<Results />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/settings" element={<Settings />} />
+          </Route>
+
+          {/* Routes WITHOUT Layout - Auth */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/verify-signup" element={<VerifySignup />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/verify-code" element={<VerifyCode />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+        </Routes>
+      </ThemeProvider>
     </>
   );
 }

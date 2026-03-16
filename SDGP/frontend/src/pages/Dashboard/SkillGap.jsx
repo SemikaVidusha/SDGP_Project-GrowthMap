@@ -20,21 +20,21 @@ export default function SkillGap() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 dark:from-slate-950 via-white dark:via-slate-900 to-purple-50 dark:to-slate-950">
       {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-12 px-4">
+      <div className="text-grey py-12 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 rounded-full text-sm font-medium mb-4">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-grey/20 rounded-full text-sm font-medium mb-4">
               <span className="w-2 h-2 rounded-full bg-green-300 animate-pulse inline-block" />
-              AI-Powered Analysis
+              AI-Engine Ready
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold mb-3">Skill Gap Analyzer</h1>
-            <p className="text-blue-100 text-lg max-w-2xl mx-auto">
+            <h1 className="text-3xl md:text-4xl font-bold mb-3">AI-Powered Skill Gap Analyzer</h1>
+            <p className="text-grey-100 text-lg max-w-2xl mx-auto">
               Discover exactly what skills you need to reach your dream ICT career — and get a personalized roadmap to get there.
             </p>
           </motion.div>
@@ -47,12 +47,12 @@ export default function SkillGap() {
           {['input', 'result'].map((s, i) => (
             <React.Fragment key={s}>
               <div className={`flex items-center gap-2 text-sm font-medium transition-colors ${step === s || (s === 'result' && step === 'result') ? 'text-purple-700' : 'text-slate-400'}`}>
-                <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-colors ${step === s ? 'bg-purple-600 text-white' : s === 'result' && step === 'result' ? 'bg-purple-600 text-white' : 'bg-slate-200 text-slate-500'}`}>
+                <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-colors ${step === s ? 'bg-purple-600 text-white' : s === 'result' && step === 'result' ? 'bg-purple-600 text-white' : 'bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400'}`}>
                   {i + 1}
                 </div>
                 <span className="hidden sm:inline">{s === 'input' ? 'Your Profile' : 'Gap Analysis'}</span>
               </div>
-              {i < 1 && <div className={`flex-1 max-w-16 h-0.5 transition-colors ${step === 'result' ? 'bg-purple-600' : 'bg-slate-200'}`} />}
+              {i < 1 && <div className={`flex-1 max-w-16 h-0.5 transition-colors ${step === 'result' ? 'bg-purple-600' : 'bg-slate-200 dark:bg-slate-700'}`} />}
             </React.Fragment>
           ))}
         </div>

@@ -55,10 +55,10 @@ function Header() {
   const isActive = (page) => location.pathname.toLowerCase().includes(page.toLowerCase());
 
   return (
-    <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-100 shadow-sm">
+    <header className="sticky top-0 z-40 bg-white dark:bg-slate-900/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
         {/* Logo */}
-        <Link to={createPageUrl('Home')} className="flex items-center gap-2 font-bold text-slate-800 hover:text-purple-700 transition-colors">
+        <Link to={createPageUrl('Home')} className="flex items-center gap-2 font-bold text-slate-800 dark:text-slate-100 hover:text-purple-700 transition-colors">
           <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
             <MapPin className="w-4 h-4 text-white" />
           </div>
@@ -74,7 +74,7 @@ function Header() {
               className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
                 isActive(page)
                   ? 'bg-purple-100 text-purple-700'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                  : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 dark:bg-slate-800'
               }`}
             >
               {label}
@@ -85,16 +85,16 @@ function Header() {
         {/* Right icons */}
         <div className="flex items-center gap-1">
           <Link to={createPageUrl('Profile')} title="Profile"
-            className={`p-2 rounded-lg transition-colors ${isActive('Profile') ? 'bg-purple-100 text-purple-700' : 'text-slate-500 hover:text-slate-800 hover:bg-slate-100'}`}>
+            className={`p-2 rounded-lg transition-colors ${isActive('Profile') ? 'bg-purple-100 text-purple-700' : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 dark:bg-slate-800'}`}>
             <UserCircle className="w-5 h-5" />
           </Link>
           <Link to={createPageUrl('Settings')} title="Settings"
-            className={`p-2 rounded-lg transition-colors ${isActive('Settings') ? 'bg-purple-100 text-purple-700' : 'text-slate-500 hover:text-slate-800 hover:bg-slate-100'}`}>
+            className={`p-2 rounded-lg transition-colors ${isActive('Settings') ? 'bg-purple-100 text-purple-700' : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 dark:bg-slate-800'}`}>
             <Settings className="w-5 h-5" />
           </Link>
           {/* Mobile menu toggle */}
           <button onClick={() => setMenuOpen(o => !o)}
-            className="md:hidden ml-1 p-2 rounded-lg text-slate-500 hover:bg-slate-100 transition-colors">
+            className="md:hidden ml-1 p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 dark:bg-slate-800 transition-colors">
             {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
@@ -102,26 +102,26 @@ function Header() {
 
       {/* Mobile Nav Dropdown */}
       {menuOpen && (
-        <div className="md:hidden border-t border-slate-100 bg-white px-4 py-3 flex flex-col gap-1">
+        <div className="md:hidden border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 py-3 flex flex-col gap-1">
           {navLinks.map(({ label, page }) => (
             <Link
               key={page}
               to={createPageUrl(page)}
               onClick={() => setMenuOpen(false)}
               className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                isActive(page) ? 'bg-purple-100 text-purple-700' : 'text-slate-600 hover:bg-slate-100'
+                isActive(page) ? 'bg-purple-100 text-purple-700' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 dark:bg-slate-800'
               }`}
             >
               {label}
             </Link>
           ))}
-          <div className="border-t border-slate-100 mt-2 pt-2 flex gap-2">
+          <div className="border-t border-slate-100 dark:border-slate-800 mt-2 pt-2 flex gap-2">
             <Link to={createPageUrl('Profile')} onClick={() => setMenuOpen(false)}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm text-slate-600 hover:bg-slate-100 flex-1">
+              className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 dark:bg-slate-800 flex-1">
               <UserCircle className="w-4 h-4" /> Profile
             </Link>
             <Link to={createPageUrl('Settings')} onClick={() => setMenuOpen(false)}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm text-slate-600 hover:bg-slate-100 flex-1">
+              className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 dark:bg-slate-800 flex-1">
               <Settings className="w-4 h-4" /> Settings
             </Link>
           </div>
@@ -167,7 +167,7 @@ function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-slate-800 mt-8 pt-6 text-center text-slate-500 text-xs">
+        <div className="border-t border-slate-800 mt-8 pt-6 text-center text-slate-500 dark:text-slate-400 text-xs">
           GrowthMap · Final Year Project Prototype · 2026
         </div>
       </div>

@@ -16,26 +16,26 @@ export default function PathwayCard({ pathway, isTraditional, index, onViewDetai
           ? 'border-purple-300 shadow-md'
           : isTraditional
           ? 'border-blue-200'
-          : 'border-slate-200'
+          : 'border-slate-200 dark:border-slate-700'
       }`}
     >
       {pathway.highlight && (
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 to-pink-500" />
       )}
 
-      <div className={`px-5 py-4 ${isTraditional ? 'bg-blue-50' : pathway.highlight ? 'bg-purple-50' : 'bg-white'}`}>
+      <div className={`px-5 py-4 ${isTraditional ? 'bg-blue-50' : pathway.highlight ? 'bg-purple-50' : 'bg-white dark:bg-slate-900'}`}>
         {/* Header */}
         <div className="flex items-start justify-between gap-3 mb-3">
           <div className="flex items-start gap-3">
-            <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${isTraditional ? 'bg-blue-100' : pathway.highlight ? 'bg-purple-100' : 'bg-slate-100'}`}>
+            <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${isTraditional ? 'bg-blue-100' : pathway.highlight ? 'bg-purple-100' : 'bg-slate-100 dark:bg-slate-800'}`}>
               {isTraditional
                 ? <Building2 className="w-5 h-5 text-blue-600" />
-                : <BookOpen className={`w-5 h-5 ${pathway.highlight ? 'text-purple-600' : 'text-slate-600'}`} />
+                : <BookOpen className={`w-5 h-5 ${pathway.highlight ? 'text-purple-600' : 'text-slate-600 dark:text-slate-300'}`} />
               }
             </div>
             <div>
               <div className="flex items-center gap-2 flex-wrap mb-0.5">
-                <h3 className="font-bold text-slate-800 text-base">{pathway.label}</h3>
+                <h3 className="font-bold text-slate-800 dark:text-slate-100 text-base">{pathway.label}</h3>
                 <span className={`text-xs px-2 py-0.5 rounded-full font-semibold ${pathway.badgeColor}`}>{pathway.badge}</span>
                 {pathway.highlight && (
                   <span className="flex items-center gap-1 text-xs text-purple-600 font-semibold">
@@ -43,33 +43,33 @@ export default function PathwayCard({ pathway, isTraditional, index, onViewDetai
                   </span>
                 )}
               </div>
-              <p className="text-sm text-slate-600 font-medium">{pathway.type}</p>
-              <p className="text-xs text-slate-500">{pathway.institution}</p>
+              <p className="text-sm text-slate-600 dark:text-slate-300 font-medium">{pathway.type}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">{pathway.institution}</p>
             </div>
           </div>
         </div>
 
         {/* Cost & Duration */}
         <div className="flex gap-3 mb-4">
-          <div className={`flex-1 rounded-xl p-3 text-center ${isTraditional ? 'bg-blue-100/60' : pathway.highlight ? 'bg-purple-100/60' : 'bg-slate-100'}`}>
-            <p className="text-xs text-slate-500 font-medium mb-0.5">Total Cost</p>
-            <p className={`text-lg font-bold ${isTraditional ? 'text-blue-700' : pathway.highlight ? 'text-purple-700' : 'text-slate-700'}`}>
+          <div className={`flex-1 rounded-xl p-3 text-center ${isTraditional ? 'bg-blue-100/60' : pathway.highlight ? 'bg-purple-100/60' : 'bg-slate-100 dark:bg-slate-800'}`}>
+            <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mb-0.5">Total Cost</p>
+            <p className={`text-lg font-bold ${isTraditional ? 'text-blue-700' : pathway.highlight ? 'text-purple-700' : 'text-slate-700 dark:text-slate-200'}`}>
               {LKR(pathway.cost)}
             </p>
           </div>
-          <div className={`flex-1 rounded-xl p-3 text-center ${isTraditional ? 'bg-blue-100/60' : pathway.highlight ? 'bg-purple-100/60' : 'bg-slate-100'}`}>
-            <p className="text-xs text-slate-500 font-medium mb-0.5">Duration</p>
-            <p className="text-base font-bold text-slate-700">{pathway.duration}</p>
+          <div className={`flex-1 rounded-xl p-3 text-center ${isTraditional ? 'bg-blue-100/60' : pathway.highlight ? 'bg-purple-100/60' : 'bg-slate-100 dark:bg-slate-800'}`}>
+            <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mb-0.5">Duration</p>
+            <p className="text-base font-bold text-slate-700 dark:text-slate-200">{pathway.duration}</p>
           </div>
         </div>
 
         {/* Skills Gained (only for alternatives) */}
         {!isTraditional && pathway.skillsGained && (
           <div className="mb-4">
-            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Skills You'll Gain</p>
+            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Skills You'll Gain</p>
             <div className="flex flex-wrap gap-1.5">
               {pathway.skillsGained.map((s, i) => (
-                <span key={i} className="text-xs px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-600 font-medium">{s}</span>
+                <span key={i} className="text-xs px-2.5 py-1 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-medium">{s}</span>
               ))}
             </div>
           </div>
@@ -77,10 +77,10 @@ export default function PathwayCard({ pathway, isTraditional, index, onViewDetai
 
         {/* Outcomes */}
         <div className="mb-4">
-          <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Key Outcomes</p>
+          <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Key Outcomes</p>
           <ul className="space-y-1.5">
             {pathway.outcomes.map((o, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-slate-600">
+              <li key={i} className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-300">
                 <CheckCircle2 className="w-3.5 h-3.5 text-green-500 flex-shrink-0 mt-0.5" />
                 {o}
               </li>

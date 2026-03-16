@@ -41,7 +41,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 dark:from-slate-950 via-white dark:via-slate-900 to-purple-50 dark:to-slate-950">
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%239C92AC%22%20fill-opacity%3D%220.05%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E')] opacity-50" />
@@ -67,7 +67,7 @@ export default function Home() {
                 </span>
               </h1>
               
-              <p className="text-lg md:text-xl text-slate-600 mb-8 max-w-xl mx-auto lg:mx-0">
+              <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 mb-8 max-w-xl mx-auto lg:mx-0">
                 Take our smart assessment quiz and discover the perfect ICT career path for you, 
                 with step-by-step guidance aligned with Sri Lankan education pathways.
               </p>
@@ -80,7 +80,7 @@ export default function Home() {
                   </Button>
                 </Link>
                 <Link to={createPageUrl("Careers")}>
-                  <Button variant="outline" size="lg" className="border-2 border-slate-200 hover:border-purple-300 px-8 py-6 text-lg rounded-xl w-full sm:w-auto">
+                  <Button variant="outline" size="lg" className="border-2 border-slate-200 dark:border-slate-700 hover:border-purple-300 px-8 py-6 text-lg rounded-xl w-full sm:w-auto">
                     <Compass className="mr-2 w-5 h-5" />
                     Explore Careers
                   </Button>
@@ -93,7 +93,7 @@ export default function Home() {
                 </Link>
               </div>
 
-              <div className="mt-10 flex items-center justify-center lg:justify-start gap-8 text-sm text-slate-500">
+              <div className="mt-10 flex items-center justify-center lg:justify-start gap-8 text-sm text-slate-500 dark:text-slate-400">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-green-500" />
                   20 Questions
@@ -118,25 +118,25 @@ export default function Home() {
             >
               <div className="relative w-full max-w-md mx-auto">
                 {/* Floating cards */}
-                <div className="absolute -left-4 top-8 bg-white rounded-2xl shadow-xl p-4 z-10">
+                <div className="absolute -left-4 top-8 bg-white dark:bg-slate-900 rounded-2xl shadow-xl p-4 z-10">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
                       <Code className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <div className="text-sm font-semibold text-slate-800">Software Engineer</div>
+                      <div className="text-sm font-semibold text-slate-800 dark:text-slate-100">Software Engineer</div>
                       <div className="text-xs text-green-600">92% Match</div>
                     </div>
                   </div>
                 </div>
 
-                <div className="absolute -right-4 top-32 bg-white rounded-2xl shadow-xl p-4 z-10">
+                <div className="absolute -right-4 top-32 bg-white dark:bg-slate-900 rounded-2xl shadow-xl p-4 z-10">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
                       <Palette className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <div className="text-sm font-semibold text-slate-800">UI/UX Designer</div>
+                      <div className="text-sm font-semibold text-slate-800 dark:text-slate-100">UI/UX Designer</div>
                       <div className="text-xs text-blue-600">85% Match</div>
                     </div>
                   </div>
@@ -148,8 +148,8 @@ export default function Home() {
                     <div className="w-24 h-24 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
                       <MapPin className="w-12 h-12 text-white" />
                     </div>
-                    <h3 className="text-xl font-bold text-slate-800 mb-2">GrowthMap</h3>
-                    <p className="text-sm text-slate-600">Your ICT Career Navigator</p>
+                    <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-2">GrowthMap</h3>
+                    <p className="text-sm text-slate-600 dark:text-slate-300">Your ICT Career Navigator</p>
                   </div>
                 </div>
               </div>
@@ -159,7 +159,7 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white dark:bg-slate-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             className="text-center mb-16"
@@ -170,7 +170,7 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
               How GrowthMap Works
             </h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+            <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
               Our intelligent platform analyzes your strengths and guides you towards 
               the perfect ICT career with a customized learning path.
             </p>
@@ -184,13 +184,13 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-gradient-to-br from-slate-50 to-purple-50 rounded-2xl p-6 border border-slate-100 hover:shadow-lg transition-shadow"
+                className="bg-gradient-to-br from-slate-50 dark:from-slate-950 to-purple-50 dark:to-slate-950 rounded-2xl p-6 border border-slate-100 dark:border-slate-800 hover:shadow-lg transition-shadow"
               >
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center mb-4">
                   <feature.icon className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-lg font-semibold text-slate-800 mb-2">{feature.title}</h3>
-                <p className="text-slate-600 text-sm">{feature.description}</p>
+                <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-2">{feature.title}</h3>
+                <p className="text-slate-600 dark:text-slate-300 text-sm">{feature.description}</p>
               </motion.div>
             ))}
           </div>
@@ -198,7 +198,7 @@ export default function Home() {
       </section>
 
       {/* Career Preview Section */}
-      <section className="py-20 bg-gradient-to-b from-white to-purple-50">
+      <section className="py-20 bg-gradient-to-b from-white to-purple-50 dark:to-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             className="text-center mb-12"
@@ -209,7 +209,7 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
               ICT Careers You Can Explore
             </h2>
-            <p className="text-lg text-slate-600">
+            <p className="text-lg text-slate-600 dark:text-slate-300">
               Discover which path aligns with your unique skills and interests
             </p>
           </motion.div>
@@ -223,12 +223,12 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ y: -4 }}
-                className="bg-white rounded-2xl p-6 text-center shadow-sm border border-slate-100 hover:shadow-lg transition-all cursor-pointer"
+                className="bg-white dark:bg-slate-900 rounded-2xl p-6 text-center shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-lg transition-all cursor-pointer"
               >
                 <div className={`w-14 h-14 mx-auto rounded-xl bg-gradient-to-br ${career.color} flex items-center justify-center mb-4`}>
                   <career.icon className="w-7 h-7 text-white" />
                 </div>
-                <h3 className="font-semibold text-slate-800">{career.name}</h3>
+                <h3 className="font-semibold text-slate-800 dark:text-slate-100">{career.name}</h3>
               </motion.div>
             ))}
           </div>
@@ -264,7 +264,7 @@ export default function Home() {
                 with a personalized roadmap for success.
               </p>
               <Link to={createPageUrl("Quiz")}>
-                <Button size="lg" className="bg-white text-purple-700 hover:bg-blue-50 px-8 py-6 text-lg rounded-xl">
+                <Button size="lg" className="bg-white dark:bg-slate-900 text-purple-700 hover:bg-blue-50 px-8 py-6 text-lg rounded-xl">
                   Start Free Assessment
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>

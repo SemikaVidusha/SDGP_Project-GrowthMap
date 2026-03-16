@@ -31,11 +31,11 @@ export default function PathwayCostBar({ traditional, alternatives }) {
               <div className="text-right">
                 <span className={`text-sm font-bold ${p.textColor}`}>{LKR(p.cost)}</span>
                 {savings > 0 && (
-                  <span className="text-xs text-slate-500 ml-2">save {LKR(savings)}</span>
+                  <span className="text-xs text-slate-500 dark:text-slate-400 ml-2">save {LKR(savings)}</span>
                 )}
               </div>
             </div>
-            <div className="h-3 bg-white/60 rounded-full overflow-hidden">
+            <div className="h-3 bg-white dark:bg-slate-900/60 rounded-full overflow-hidden">
               <motion.div
                 className={`h-full rounded-full ${p.color}`}
                 initial={{ width: 0 }}

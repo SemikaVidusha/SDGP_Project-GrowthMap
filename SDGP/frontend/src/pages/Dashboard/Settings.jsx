@@ -7,14 +7,15 @@ import {
   ArrowLeft, Bell, Moon, Globe, Shield, Trash2, ChevronRight,
   LogOut, Eye, EyeOff, Check, MapPin, Palette, Volume2
 } from 'lucide-react';
+import { useTheme } from '@/components/ThemeProvider';
 
 function Toggle({ checked, onChange }) {
   return (
     <button
       onClick={() => onChange(!checked)}
-      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${checked ? 'bg-purple-600' : 'bg-slate-200'}`}
+      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${checked ? 'bg-purple-600' : 'bg-slate-200 dark:bg-slate-700'}`}
     >
-      <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform ${checked ? 'translate-x-6' : 'translate-x-1'}`} />
+      <span className={`inline-block h-4 w-4 transform rounded-full bg-white dark:bg-slate-900 shadow transition-transform ${checked ? 'translate-x-6' : 'translate-x-1'}`} />
     </button>
   );
 }
@@ -27,8 +28,8 @@ function SettingRow({ icon: Icon, iconColor, label, description, right, border =
           <Icon className="w-4 h-4 text-white" />
         </div>
         <div>
-          <p className="text-sm font-medium text-slate-800">{label}</p>
-          {description && <p className="text-xs text-slate-500 mt-0.5">{description}</p>}
+          <p className="text-sm font-medium text-slate-800 dark:text-slate-100">{label}</p>
+          {description && <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{description}</p>}
         </div>
       </div>
       <div className="flex-shrink-0">{right}</div>
@@ -39,7 +40,7 @@ function SettingRow({ icon: Icon, iconColor, label, description, right, border =
 function Section({ title, children }) {
   return (
     <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-      className="bg-white rounded-2xl border border-slate-100 shadow-sm px-5 overflow-hidden">
+      className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm px-5 overflow-hidden">
       <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider pt-4 pb-2">{title}</h3>
       {children}
     </motion.div>
@@ -48,6 +49,8 @@ function Section({ title, children }) {
 
 export default function Settings() {
   const navigate = useNavigate();
+  const { setTheme, theme } = useTheme();
+
   const [prefs, setPrefs] = useState({
     darkMode: false,
     emailNotifications: true,
@@ -61,6 +64,27 @@ export default function Settings() {
 
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [saved, setSaved] = useState(false);
+
+  const handleDeleteAccount = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (token) {
+        const res = await fetch("http://localhost:5000/api/users/profile", {
+          method: "DELETE",
+          headers: {
+            "x-auth-token": token
+          }
+        });
+        if (res.ok) {
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          navigate("/login");
+        }
+      }
+    } catch (error) {
+      console.error("Failed to delete account:", error);
+    }
+  };
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -85,6 +109,7 @@ export default function Settings() {
         console.error("Failed to fetch settings:", error);
       }
     };
+
     fetchSettings();
   }, [navigate]);
 
@@ -103,6 +128,11 @@ export default function Settings() {
           },
           body: JSON.stringify(newPrefs)
         });
+        
+        // Update live theme without reloading
+        if (key === 'darkMode') {
+          setTheme(val ? 'dark' : 'light');
+        }
       }
     } catch (error) {
       console.error("Failed to save settings:", error);
@@ -113,70 +143,35 @@ export default function Settings() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 dark:from-slate-950 via-white dark:via-slate-900 to-purple-50 dark:to-slate-950">
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-10 px-4">
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-xl mx-auto text-center">
 
           <motion.div initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/20 rounded-full text-xs font-medium mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-slate-900/20 rounded-full text-m font-medium mb-3">
               <Check className="w-3 h-3" />
               {saved ? 'Preferences saved' : 'App Settings'}
             </div>
-            <h1 className="text-2xl font-bold">Settings</h1>
-            <p className="text-blue-100 text-sm mt-1">Manage your preferences and account</p>
+            <h1 className="text-4xl font-bold">Settings</h1>
+            <p className="text-blue-100 text-m mt-1">Manage your preferences and account</p>
           </motion.div>
         </div>
       </div>
 
       <div className="max-w-2xl mx-auto px-4 py-8 space-y-4">
 
-        {/* Appearance */}
         <Section title="Appearance">
           <SettingRow
             icon={Moon} iconColor="bg-gradient-to-br from-indigo-500 to-purple-600"
             label="Dark Mode"
             description="Switch to a darker interface (coming soon)"
+            border={false}
             right={<Toggle checked={prefs.darkMode} onChange={set('darkMode')} />}
           />
-          <SettingRow
-            icon={Palette} iconColor="bg-gradient-to-br from-pink-500 to-rose-500"
-            label="Accent Colour"
-            description="Currently: Purple/Blue gradient"
-            border={false}
-            right={
-              <div className="flex items-center gap-1.5">
-                {['from-blue-500 to-purple-500', 'from-green-500 to-teal-500', 'from-orange-500 to-amber-500'].map((g, i) => (
-                  <div key={i} className={`w-5 h-5 rounded-full bg-gradient-to-br ${g} ${i === 0 ? 'ring-2 ring-offset-1 ring-purple-400' : ''}`} />
-                ))}
-              </div>
-            }
-          />
         </Section>
 
-        {/* Notifications */}
-        <Section title="Notifications">
-          <SettingRow
-            icon={Bell} iconColor="bg-gradient-to-br from-orange-500 to-amber-500"
-            label="Email Notifications"
-            description="Receive updates about your career progress"
-            right={<Toggle checked={prefs.emailNotifications} onChange={set('emailNotifications')} />}
-          />
-          <SettingRow
-            icon={Bell} iconColor="bg-gradient-to-br from-blue-500 to-cyan-500"
-            label="Quiz Reminders"
-            description="Remind me to retake the assessment periodically"
-            right={<Toggle checked={prefs.quizReminders} onChange={set('quizReminders')} />}
-          />
-          <SettingRow
-            icon={Bell} iconColor="bg-gradient-to-br from-purple-500 to-pink-500"
-            label="Progress Updates"
-            description="Notify me about new learning resources"
-            border={false}
-            right={<Toggle checked={prefs.progressUpdates} onChange={set('progressUpdates')} />}
-          />
-        </Section>
-
+        
         {/* Sound */}
         <Section title="Sound & Experience">
           <SettingRow
@@ -199,7 +194,7 @@ export default function Settings() {
               <select
                 value={prefs.language}
                 onChange={e => set('language')(e.target.value)}
-                className="text-sm border border-slate-200 rounded-lg px-2 py-1 text-slate-700 focus:outline-none focus:ring-2 focus:ring-purple-400 bg-white"
+                className="text-sm border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-400 bg-white dark:bg-slate-900"
               >
                 <option value="en">English</option>
                 <option value="si">Sinhala</option>
@@ -209,22 +204,7 @@ export default function Settings() {
           />
         </Section>
 
-        {/* Privacy */}
-        <Section title="Privacy">
-          <SettingRow
-            icon={Eye} iconColor="bg-gradient-to-br from-violet-500 to-purple-600"
-            label="Public Profile"
-            description="Allow others to see your career goals"
-            right={<Toggle checked={prefs.publicProfile} onChange={set('publicProfile')} />}
-          />
-          <SettingRow
-            icon={Shield} iconColor="bg-gradient-to-br from-green-500 to-emerald-500"
-            label="Anonymous Data Sharing"
-            description="Help improve GrowthMap with usage data"
-            border={false}
-            right={<Toggle checked={prefs.dataSharing} onChange={set('dataSharing')} />}
-          />
-        </Section>
+        
 
         {/* Account */}
         <Section title="Account">
@@ -247,17 +227,16 @@ export default function Settings() {
                 localStorage.removeItem("user");
                 navigate("/login");
               }} size="sm" variant="outline"
-                className="text-xs rounded-xl border-slate-200 hover:border-red-300 hover:text-red-600">
+                className="text-xs rounded-xl border-slate-200 dark:border-slate-700 hover:border-red-300 hover:text-red-600">
                 Sign Out
               </Button>
             }
           />
         </Section>
 
-        {/* Danger Zone */}
+        {/* Delete account */}
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-2xl border border-red-100 shadow-sm px-5 overflow-hidden">
-          <h3 className="text-xs font-semibold text-red-400 uppercase tracking-wider pt-4 pb-2">Danger Zone</h3>
+          className="bg-white dark:bg-slate-900 rounded-2xl border border-red-100 shadow-sm px-5 overflow-hidden">
           {!showDeleteConfirm ? (
             <div className="flex items-center justify-between gap-4 py-4">
               <div className="flex items-center gap-3">
@@ -265,8 +244,8 @@ export default function Settings() {
                   <Trash2 className="w-4 h-4 text-white" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-slate-800">Delete Account</p>
-                  <p className="text-xs text-slate-500">Permanently remove your account and all data</p>
+                  <p className="text-sm font-medium text-slate-800 dark:text-slate-100">Delete Account</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">Permanently remove your account and all data</p>
                 </div>
               </div>
               <Button onClick={() => setShowDeleteConfirm(true)} size="sm" variant="outline"
@@ -278,7 +257,7 @@ export default function Settings() {
             <div className="py-4 space-y-3">
               <p className="text-sm text-red-700 font-medium">Are you sure? This cannot be undone.</p>
               <div className="flex gap-2">
-                <Button size="sm" className="bg-red-600 hover:bg-red-700 text-white text-xs rounded-xl">
+                <Button onClick={handleDeleteAccount} size="sm" className="bg-red-600 hover:bg-red-700 text-white text-xs rounded-xl">
                   Yes, delete my account
                 </Button>
                 <Button onClick={() => setShowDeleteConfirm(false)} size="sm" variant="outline"

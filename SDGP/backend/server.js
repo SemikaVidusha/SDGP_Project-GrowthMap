@@ -17,6 +17,9 @@ app.use(express.json()); // JSON data handle karanna
 // Auth routes (Login, Register, Settings)
 app.use('/api/auth', require('./routes/authRoutes'));
 
+// User routes (Settings)
+app.use('/api/users', require('./routes/userRoutes'));
+
 // Skills & Dashboard routes (Careers, Home, Quiz, Results, SkillGap)
 app.use('/api/skills', require('./routes/skillRoutes'));
 

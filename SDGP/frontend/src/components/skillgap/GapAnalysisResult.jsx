@@ -25,10 +25,10 @@ function MatchMeter({ percent }) {
             transition={{ duration: 1.5, ease: "easeOut" }} />
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <motion.span className="text-3xl font-bold text-slate-800" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
+          <motion.span className="text-3xl font-bold text-slate-800 dark:text-slate-100" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
             {percent}%
           </motion.span>
-          <span className="text-xs text-slate-500 font-medium">Match</span>
+          <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">Match</span>
         </div>
       </div>
       <span className={`px-4 py-1.5 rounded-full text-sm font-semibold ${bgColor} ${labelColor}`}>{label}</span>
@@ -39,7 +39,7 @@ function MatchMeter({ percent }) {
 function SkillRow({ skill, matched, type }) {
   return (
     <div className={`flex items-center justify-between py-2 px-3 rounded-lg ${matched ? 'bg-green-50' : 'bg-red-50'}`}>
-      <span className="text-sm text-slate-700 font-medium">{skill}</span>
+      <span className="text-sm text-slate-700 dark:text-slate-200 font-medium">{skill}</span>
       <div className="flex items-center gap-1.5">
         {matched
           ? <><CheckCircle2 className="w-4 h-4 text-green-500" /><span className="text-xs text-green-600 font-medium">Matched</span></>
@@ -53,12 +53,12 @@ function SkillRow({ skill, matched, type }) {
 function CollapsibleSection({ title, icon: Icon, iconColor, count, total, children }) {
   const [open, setOpen] = useState(true);
   return (
-    <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-      <button onClick={() => setOpen(o => !o)} className="w-full flex items-center justify-between px-5 py-4 hover:bg-slate-50 transition-colors">
+    <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden">
+      <button onClick={() => setOpen(o => !o)} className="w-full flex items-center justify-between px-5 py-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 dark:bg-slate-950 transition-colors">
         <div className="flex items-center gap-3">
           <Icon className={`w-5 h-5 ${iconColor}`} />
-          <span className="font-semibold text-slate-800">{title}</span>
-          <span className="text-sm text-slate-500 font-normal">{count}/{total} matched</span>
+          <span className="font-semibold text-slate-800 dark:text-slate-100">{title}</span>
+          <span className="text-sm text-slate-500 dark:text-slate-400 font-normal">{count}/{total} matched</span>
         </div>
         {open ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
       </button>
@@ -83,11 +83,11 @@ export default function GapAnalysisResult({ result, onReset }) {
             <p className="text-white/80 text-sm font-medium mb-1">Your match score for</p>
             <h2 className="text-2xl font-bold mb-3">{career.title}</h2>
             <div className="flex flex-wrap gap-2 justify-center sm:justify-start">
-              <div className="flex items-center gap-1.5 bg-white/20 rounded-lg px-3 py-1.5 text-sm">
+              <div className="flex items-center gap-1.5 bg-white dark:bg-slate-900/20 rounded-lg px-3 py-1.5 text-sm">
                 <Clock className="w-4 h-4" />
                 <span>Est. {timeline} to readiness</span>
               </div>
-              <div className="flex items-center gap-1.5 bg-white/20 rounded-lg px-3 py-1.5 text-sm">
+              <div className="flex items-center gap-1.5 bg-white dark:bg-slate-900/20 rounded-lg px-3 py-1.5 text-sm">
                 <TrendingUp className="w-4 h-4" />
                 <span>{missingTech.length} tech skills missing</span>
               </div>
@@ -146,11 +146,11 @@ export default function GapAnalysisResult({ result, onReset }) {
 
       {/* Learning Resources */}
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}
-        className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-        <div className="flex items-center justify-between px-5 py-4 bg-purple-50 border-b border-slate-100">
+        className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden">
+        <div className="flex items-center justify-between px-5 py-4 bg-purple-50 border-b border-slate-100 dark:border-slate-800">
           <div className="flex items-center gap-3">
             <BookOpen className="w-5 h-5 text-purple-600" />
-            <span className="font-semibold text-slate-800">Recommended Learning Resources</span>
+            <span className="font-semibold text-slate-800 dark:text-slate-100">Recommended Learning Resources</span>
           </div>
         </div>
         {/* Location detector */}
@@ -162,15 +162,15 @@ export default function GapAnalysisResult({ result, onReset }) {
             const isLocal = r.institute?.isLocal;
             return (
               <div key={i}
-                className={`flex flex-col p-3 border rounded-xl transition-all group ${isLocal ? 'border-slate-100 hover:border-purple-200 hover:bg-purple-50 cursor-pointer' : 'border-slate-100 hover:border-blue-200 hover:bg-blue-50'}`}
+                className={`flex flex-col p-3 border rounded-xl transition-all group ${isLocal ? 'border-slate-100 dark:border-slate-800 hover:border-purple-200 hover:bg-purple-50 cursor-pointer' : 'border-slate-100 dark:border-slate-800 hover:border-blue-200 hover:bg-blue-50'}`}
                 onClick={() => isLocal && setSelectedResource(r)}>
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex-1">
-                    <p className={`font-medium text-sm text-slate-800 ${isLocal ? 'group-hover:text-purple-700' : 'group-hover:text-blue-700'}`}>{r.name}</p>
-                    <p className="text-xs text-slate-500 mt-0.5">{r.skill}</p>
+                    <p className={`font-medium text-sm text-slate-800 dark:text-slate-100 ${isLocal ? 'group-hover:text-purple-700' : 'group-hover:text-blue-700'}`}>{r.name}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{r.skill}</p>
                   </div>
                   <div className="flex flex-col items-end gap-1 flex-shrink-0">
-                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${r.type === 'Free' ? 'bg-green-100 text-green-700' : r.type === 'Freemium' ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-slate-600'}`}>
+                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${r.type === 'Free' ? 'bg-green-100 text-green-700' : r.type === 'Freemium' ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}`}>
                       {r.type}
                     </span>
                     {!isLocal && (
@@ -212,18 +212,18 @@ export default function GapAnalysisResult({ result, onReset }) {
         <ol className="space-y-2 text-sm text-blue-100">
           {missingTech.slice(0, 3).map((s, i) => (
             <li key={i} className="flex items-start gap-2">
-              <span className="w-5 h-5 rounded-full bg-white/20 flex-shrink-0 flex items-center justify-center text-xs font-bold text-white mt-0.5">{i + 1}</span>
+              <span className="w-5 h-5 rounded-full bg-white dark:bg-slate-900/20 flex-shrink-0 flex items-center justify-center text-xs font-bold text-white mt-0.5">{i + 1}</span>
               <span>Learn <strong className="text-white">{s}</strong> — start with free resources or beginner courses online.</span>
             </li>
           ))}
           {!educationMet && (
             <li className="flex items-start gap-2">
-              <span className="w-5 h-5 rounded-full bg-white/20 flex-shrink-0 flex items-center justify-center text-xs font-bold text-white mt-0.5">{missingTech.slice(0, 3).length + 1}</span>
+              <span className="w-5 h-5 rounded-full bg-white dark:bg-slate-900/20 flex-shrink-0 flex items-center justify-center text-xs font-bold text-white mt-0.5">{missingTech.slice(0, 3).length + 1}</span>
               <span>Pursue a <strong className="text-white">{career.education}</strong>-level qualification from a recognized institution.</span>
             </li>
           )}
           <li className="flex items-start gap-2">
-            <span className="w-5 h-5 rounded-full bg-white/20 flex-shrink-0 flex items-center justify-center text-xs font-bold text-white mt-0.5">✓</span>
+            <span className="w-5 h-5 rounded-full bg-white dark:bg-slate-900/20 flex-shrink-0 flex items-center justify-center text-xs font-bold text-white mt-0.5">✓</span>
             <span>Aim for your first certification: <strong className="text-white">{career.certifications[0]}</strong> to boost your profile.</span>
           </li>
         </ol>
@@ -235,7 +235,7 @@ export default function GapAnalysisResult({ result, onReset }) {
 
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
         <Button onClick={onReset} variant="outline" size="lg"
-          className="w-full border-2 border-slate-200 hover:border-purple-400 hover:text-purple-600 rounded-2xl py-5 font-medium">
+          className="w-full border-2 border-slate-200 dark:border-slate-700 hover:border-purple-400 hover:text-purple-600 rounded-2xl py-5 font-medium">
           <RotateCcw className="w-4 h-4 mr-2" /> Analyze a Different Career
         </Button>
       </motion.div>

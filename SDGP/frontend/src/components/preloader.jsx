@@ -10,7 +10,7 @@ const Preloader = ({ loading }) => {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
           className="fixed inset-0 z-50 flex items-center justify-center 
-                     bg-white/70 backdrop-blur-xl"
+                     bg-white dark:bg-slate-900/70 backdrop-blur-xl"
         >
           <motion.video
             autoPlay
