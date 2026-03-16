@@ -164,7 +164,7 @@ export default function Results() {
           </DialogHeader>
 
           {roadmap ? (
-            <div className="space-y-4 px-4 pb-6">
+            <div className="space-y-4 px-4 pb-6 ">
               {(roadmap.stages || []).map((s, i) => (
                 <div key={i} className="p-4 border rounded">
                   <h4 className="font-semibold">{s.title}</h4>

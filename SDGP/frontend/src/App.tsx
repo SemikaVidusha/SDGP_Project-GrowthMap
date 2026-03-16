@@ -30,7 +30,7 @@ export default function App() {
 
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1200); // 5s is too long for UX
+    }, 1200);
 
     return () => clearTimeout(timer);
   }, [location]);
