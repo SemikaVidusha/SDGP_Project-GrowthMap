@@ -94,32 +94,11 @@ export default function Settings() {
             description="Switch to a darker interface (coming soon)"
             right={<Toggle checked={prefs.darkMode} onChange={set('darkMode')} />}
           />
-          <SettingRow
-            icon={Palette} iconColor="bg-gradient-to-br from-pink-500 to-rose-500"
-            label="Accent Colour"
-            description="Currently: Purple/Blue gradient"
-            border={false}
-            right={
-              <div className="flex items-center gap-1.5">
-                {['from-blue-500 to-purple-500', 'from-green-500 to-teal-500', 'from-orange-500 to-amber-500'].map((g, i) => (
-                  <div key={i} className={`w-5 h-5 rounded-full bg-gradient-to-br ${g} ${i === 0 ? 'ring-2 ring-offset-1 ring-purple-400' : ''}`} />
-                ))}
-              </div>
-            }
-          />
+          
         </Section>
 
         
-        {/* Sound */}
-        <Section title="Sound & Experience">
-          <SettingRow
-            icon={Volume2} iconColor="bg-gradient-to-br from-teal-500 to-green-500"
-            label="Sound Effects"
-            description="Play sounds on quiz interactions"
-            border={false}
-            right={<Toggle checked={prefs.soundEffects} onChange={set('soundEffects')} />}
-          />
-        </Section>
+        
 
         {/* Language */}
         <Section title="Language & Region">
