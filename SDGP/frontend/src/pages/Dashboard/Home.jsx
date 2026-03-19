@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { createPageUrl } from "@/utils";
-import { 
-  Compass, MapPin, BookOpen, ArrowRight, 
+import {
+  Compass, MapPin, BookOpen, ArrowRight,
   Sparkles, Target, Users, Brain,
-  Code, Shield, Palette, BarChart3
+  Code, Shield, Palette, BarChart3, TrendingUp
 } from 'lucide-react';
 
 export default function Home() {
@@ -89,6 +89,12 @@ export default function Home() {
                   <Button variant="outline" size="lg" className="border-2 border-purple-300 text-purple-700 hover:bg-purple-50 px-8 py-6 text-lg rounded-xl w-full sm:w-auto">
                     <Target className="mr-2 w-5 h-5" />
                     Skill Gap Analyzer
+                  </Button>
+                </Link>
+                <Link to={createPageUrl("job-trends")}>
+                  <Button variant="outline" size="lg" className="border-2 border-blue-300 text-blue-700 hover:bg-blue-50 px-8 py-6 text-lg rounded-xl w-full sm:w-auto">
+                    <TrendingUp className="mr-2 w-5 h-5" />
+                    Job Trends
                   </Button>
                 </Link>
               </div>
