@@ -1,40 +1,92 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate, Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { createPageUrl } from "@/utils";
-//import { careers, roadmaps } from '../components/quiz/QuizData';
 import TraitChart from "../../components/results/TraitChart";
-import CareerCard from '../../components/results/CareerCard';
-import ExplainabilityPanel from '../../components/results/ExplainabilityPanel';
-//import RoadmapTimeline from '../components/roadmap/RoadmapTimeline';
-import { 
-  MapPin, ArrowLeft, RefreshCw, Share2, 
-  ChevronLeft, Download, Sparkles 
-} from 'lucide-react';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import CareerCard from "../../components/results/CareerCard";
+import ExplainabilityPanel from "../../components/results/ExplainabilityPanel";
+import { RefreshCw, Sparkles } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 export default function Results() {
+  const location = useLocation();
   const navigate = useNavigate();
-  const [results, setResults] = useState(null);
+
+  const [rawResult, setRawResult] = useState(null);
+  const [careersMeta, setCareersMeta] = useState([]);
+  const [careerMatches, setCareerMatches] = useState([]);
+  const [traitScores, setTraitScores] = useState({});
+
   const [selectedCareer, setSelectedCareer] = useState(null);
+  const [roadmap, setRoadmap] = useState(null);
   const [showRoadmap, setShowRoadmap] = useState(false);
 
+  // fetch career metadata
   useEffect(() => {
-    const storedResults = sessionStorage.getItem('quizResults');
-    if (storedResults) {
-      setResults(JSON.parse(storedResults));
-    } else {
-      navigate(createPageUrl('Quiz'));
-    }
-  }, [navigate]);
+    fetch("http://127.0.0.1:5000/api/careers")
+      .then(r => r.json())
+      .then(setCareersMeta)
+      .catch(() => setCareersMeta([]));
+  }, []);
 
-  if (!results) {
+  // get prediction results
+  useEffect(() => {
+    if (location?.state?.rawPrediction) {
+      setRawResult(location.state.rawPrediction);
+      setTraitScores(location.state.traitScores || {});
+      return;
+    }
+
+    const raw = localStorage.getItem("assessmentResult");
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      setRawResult(parsed);
+      setTraitScores(parsed.traits || parsed.normalizedTraits || {});
+      return;
+    }
+
+    navigate("/quiz");
+  }, [location, navigate]);
+
+  // merge ML result with MongoDB metadata
+  useEffect(() => {
+    if (!rawResult || !careersMeta.length) return;
+
+    const merged = rawResult.topCareers.map(tc => {
+      const meta = careersMeta.find(c => c.careerId === tc.career || c.id === tc.career);
+
+      return {
+        id: meta?.id || tc.career,
+        title: meta?.name || tc.career.replace(/_/g, " "),
+        description: meta?.description || "",
+        skills: meta?.skills || [],
+        demand: meta?.demand || "Medium",
+        salary: meta?.salary || "Varies",
+        traits: meta?.traits || {},
+        matchScore: Math.round(tc.score),
+        rawScore: tc.score
+      };
+    });
+
+    const sorted = [...merged].sort((a, b) => b.rawScore - a.rawScore);
+
+    setCareerMatches(sorted);
+  }, [rawResult, careersMeta]);
+
+  // fetch roadmap (kept as optional modal fallback)
+  useEffect(() => {
+    if (!selectedCareer?.id) return;
+
+    fetch(`http://127.0.0.1:5000/api/roadmaps/${selectedCareer.id}`)
+      .then(r => {
+        if (!r.ok) throw new Error("Roadmap not found");
+        return r.json();
+      })
+      .then(setRoadmap)
+      .catch(() => setRoadmap(null));
+  }, [selectedCareer]);
+
+  if (!rawResult || !careerMatches.length) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-pulse text-purple-600">Loading results...</div>
@@ -42,95 +94,51 @@ export default function Results() {
     );
   }
 
-  const { traitScores, careerMatches } = results;
   const topCareer = careerMatches[0];
 
-  const handleCareerClick = (career) => {
-    setSelectedCareer(career);
-    setShowRoadmap(true);
-  };
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 dark:from-slate-950 via-white dark:via-slate-900 to-purple-50 dark:to-slate-950">
-      {/* Header */}
-      <header className="bg-white dark:bg-slate-900/80 dark:bg-slate-900/80 backdrop-blur-sm border-b border-slate-100 dark:border-slate-800 sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link 
-            to={createPageUrl('Home')}
-            className="flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:text-slate-100 transition-colors"
-          >
-            <MapPin className="w-5 h-5 text-purple-600" />
-            <span className="font-semibold">GrowthMap</span>
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-purple-50">
+      <header className="bg-white border-b">
+        <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between">
+          <h2 className="font-bold text-purple-600">GrowthMap</h2>
+          <Link to="/quiz">
+            <Button variant="outline" size="sm">
+              <RefreshCw className="w-4 h-4 mr-2" /> Retake Quiz
+            </Button>
           </Link>
-          <div className="flex items-center gap-3">
-            <Link to={createPageUrl('Quiz')}>
-              <Button variant="outline" size="sm" className="gap-2">
-                <RefreshCw className="w-4 h-4" />
-                <span className="hidden sm:inline">Retake Quiz</span>
-              </Button>
-            </Link>
-          </div>
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-4 py-8 md:py-12">
-        {/* Results Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 rounded-full text-green-700 text-sm font-medium mb-4">
-            <Sparkles className="w-4 h-4" />
-            Assessment Complete
+      <main className="max-w-6xl mx-auto px-4 py-10">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 rounded-full text-green-700 text-sm mb-4">
+            <Sparkles className="w-4 h-4" /> Assessment Complete
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-            Your Career Recommendations
-          </h1>
-          <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-            Based on your responses, here are the ICT careers that best match your 
-            strengths and preferences.
-          </p>
+          <h1 className="text-3xl font-bold">Your Career Recommendations</h1>
         </motion.div>
 
         <div className="grid lg:grid-cols-3 gap-8">
-          {/* Left Column - Trait Chart */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
-            className="lg:col-span-1"
-          >
+          <div className="lg:col-span-1">
             <TraitChart traitScores={traitScores} />
-          </motion.div>
+          </div>
 
-          {/* Right Column - Career Cards */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Top Match Highlight */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3 }}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-6 text-white"
-            >
-              <div className="flex items-center gap-2 mb-2">
-                <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                <span className="text-sm font-medium text-blue-100">Best Match</span>
-              </div>
-              <h2 className="text-2xl font-bold mb-2">{topCareer.title}</h2>
-              <p className="text-blue-100 mb-4">{topCareer.description}</p>
-              <div className="flex items-center justify-between">
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-6 text-white">
+              <h2 className="text-2xl font-bold">{topCareer.title}</h2>
+              <p className="text-blue-100">{topCareer.description}</p>
+              <div className="flex items-center justify-between mt-4">
                 <div className="text-4xl font-bold">{topCareer.matchScore}%</div>
-                <Button 
-                  onClick={() => handleCareerClick(topCareer)}
-                  className="bg-white dark:bg-slate-900 text-purple-700 hover:bg-blue-50"
-                >
-                  View Roadmap
-                </Button>
+                <div>
+                  <Button
+                    onClick={() => navigate(`/roadmap/${topCareer.id}`)}
+                    className="bg-white text-purple-700 hover:bg-blue-50"
+                  >
+                    View Roadmap
+                  </Button>
+                </div>
               </div>
-            </motion.div>
+            </div>
 
-            {/* Other Matches */}
             <div className="grid md:grid-cols-2 gap-4">
               {careerMatches.slice(1, 5).map((career, index) => (
                 <CareerCard
@@ -138,79 +146,37 @@ export default function Results() {
                   career={career}
                   matchScore={career.matchScore}
                   rank={index + 1}
-                  onClick={() => handleCareerClick(career)}
+                  onClick={() => navigate(`/roadmap/${career.id}`)}
                 />
               ))}
             </div>
 
-            {/* View All Careers */}
-            <div className="text-center pt-4">
-              <Link to={createPageUrl('Careers')}>
-                <Button variant="outline" className="gap-2">
-                  View All ICT Careers
-                </Button>
-              </Link>
-            </div>
+            <ExplainabilityPanel career={topCareer} traitScores={traitScores} />
           </div>
         </div>
-
-        {/* Explainability Section */}
-        {topCareer && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="mt-12"
-          >
-            <ExplainabilityPanel 
-              career={topCareer} 
-              traitScores={traitScores}
-            />
-          </motion.div>
-        )}
       </main>
 
-      {/* Roadmap Modal */}
+      {/* Legacy modal kept as fallback (optional) */}
       <Dialog open={showRoadmap} onOpenChange={setShowRoadmap}>
-        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto" aria-describedby="roadmap-modal-desc">
           <DialogHeader>
-            <DialogTitle className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-                <MapPin className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <div className="text-xl font-bold">{selectedCareer?.title}</div>
-                <div className="text-sm font-normal text-slate-500 dark:text-slate-400">Career Roadmap for Sri Lanka</div>
-              </div>
-            </DialogTitle>
+            <DialogTitle>{selectedCareer?.title} Roadmap</DialogTitle>
           </DialogHeader>
-          
-          <div className="mt-6">
-            {selectedCareer && roadmaps[selectedCareer.id] ? (
-              <RoadmapTimeline 
-                roadmap={roadmaps[selectedCareer.id]} 
-                careerTitle={selectedCareer.title}
-              />
-            ) : (
-              <div className="text-center py-8 text-slate-500 dark:text-slate-400">
-                Roadmap not available for this career.
-              </div>
-            )}
-          </div>
+
+          {roadmap ? (
+            <div className="space-y-4 px-4 pb-6 ">
+              {(roadmap.stages || []).map((s, i) => (
+                <div key={i} className="p-4 border rounded">
+                  <h4 className="font-semibold">{s.title}</h4>
+                  <p className="text-sm">{s.description}</p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-10 text-slate-500">Roadmap not available.</div>
+          )}
         </DialogContent>
       </Dialog>
-
-      {/* Footer */}
-      <footer className="bg-slate-900 text-white py-8 mt-16">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <p className="text-slate-400 text-sm">
-            These recommendations are based on your quiz responses and are meant to guide your exploration.
-          </p>
-          <p className="text-slate-500 dark:text-slate-400 text-xs mt-2">
-            Consider talking to career counselors and professionals for personalized advice.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }

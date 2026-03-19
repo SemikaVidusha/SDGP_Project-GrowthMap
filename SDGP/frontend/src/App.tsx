@@ -19,6 +19,8 @@ import ResetPassword from "./pages/Dashboard/Auth/ResetPassword";
 import SkillGap from "./pages/Dashboard/SkillGap";
 import Settings from "./pages/Dashboard/Settings";
 import Profile from "./pages/Dashboard/Profile";
+import Roadmap from "./pages/Dashboard/Roadmap";
+import PageNotFound from "./lib/PageNotFound";
 
 export default function App() {
   const location = useLocation();
@@ -58,6 +60,7 @@ export default function App() {
             <Route path="/results" element={<Results />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/roadmap/:careerId" element={<Roadmap />} />
           </Route>
 
           {/* Routes WITHOUT Layout - Auth */}
@@ -68,6 +71,7 @@ export default function App() {
           <Route path="/verify-code" element={<VerifyCode />} />
           <Route path="/reset-password" element={<ResetPassword />} />
 
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </ThemeProvider>
     </>

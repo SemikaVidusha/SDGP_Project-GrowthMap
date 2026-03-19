@@ -1,14 +1,22 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-//import { traitDescriptions } from '../quiz/QuizData';
-import { Brain, Lightbulb, Cpu, Users, Search } from 'lucide-react';
+import { Brain, Lightbulb, Cpu, Users, Crown, Zap, Shield, Heart, Star, Search } from 'lucide-react';
+
+const traitDescriptions = {
+  logic: { name: 'Logical Thinking', description: 'Analytical problem solving', icon: 'Brain' },
+  creativity: { name: 'Creative Thinking', description: 'Innovation and ideas', icon: 'Lightbulb' },
+  technical: { name: 'Technical Aptitude', description: 'Technology understanding', icon: 'Cpu' },
+  empathy: { name: 'Empathy', description: 'Understanding others', icon: 'Heart' },
+  leadership: { name: 'Leadership', description: 'Team guidance', icon: 'Crown' },
+  social: { name: 'Social Skills', description: 'Communication abilities', icon: 'Users' },
+  discipline: { name: 'Discipline', description: 'Consistency and focus', icon: 'Shield' },
+  adaptability: { name: 'Adaptability', description: 'Flexibility to change', icon: 'Zap' },
+  focus: { name: 'Focus', description: 'Concentration power', icon: 'Search' },
+  risk: { name: 'Risk Taking', description: 'Comfort with uncertainty', icon: 'Star' }
+};
 
 const iconMap = {
-  Brain: Brain,
-  Lightbulb: Lightbulb,
-  Cpu: Cpu,
-  Users: Users,
-  Search: Search
+  Brain, Lightbulb, Cpu, Users, Crown, Zap, Shield, Heart, Star, Search
 };
 
 export default function TraitChart({ traitScores }) {

@@ -41,9 +41,9 @@ export default function Roadmap() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto px-6 py-10">
+    <div className="max-w-5xl mx-auto px-6 py-10 ">
       <Button
-        variant="ghost"
+        variant="ghost "
         className="mb-6 flex items-center gap-2"
         onClick={() => navigate(-1)}
       >

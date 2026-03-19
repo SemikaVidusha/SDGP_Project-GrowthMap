@@ -22,6 +22,7 @@ const iconMap = {
 };
 
 export default function CareerCard({ career, matchScore, rank, onClick }) {
+  if (!career) return null;
   const Icon = iconMap[career.icon] || Briefcase;
   
   const demandColors = {
@@ -68,7 +69,7 @@ export default function CareerCard({ career, matchScore, rank, onClick }) {
       </p>
 
       <div className="flex flex-wrap gap-2 mb-4">
-        {career.skills.slice(0, 3).map((skill, i) => (
+        {(career.skills || []).slice(0, 3).map((skill, i) => (
           <Badge key={i} variant="secondary" className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs">
             {skill}
           </Badge>

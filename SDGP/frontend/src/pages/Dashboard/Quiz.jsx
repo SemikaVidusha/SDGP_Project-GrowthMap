@@ -1,216 +1,292 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import React, { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { createPageUrl } from "@/utils";
-//import { careers, roadmaps } from '../components/quiz/QuizData';
-import TraitChart from '../../components/results/TraitChart';
-import CareerCard from '../../components/results/CareerCard';
-import ExplainabilityPanel from '../../components/results/ExplainabilityPanel';
-//import RoadmapTimeline from '../components/roadmap/RoadmapTimeline';
-import { 
-  MapPin, ArrowLeft, RefreshCw, Share2, 
-  ChevronLeft, Download, Sparkles 
-} from 'lucide-react';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import ProgressIndicator from "@/components/ui/progress-indicator"
 
-export default function Results() {
+// Feature order must match backend exactly
+const FEATURE_ORDER = [
+  "logic", "creativity", "technical", "empathy",
+  "leadership", "social", "discipline", "adaptability",
+  "focus", "risk"
+];
+
+export default function Quiz() {
   const navigate = useNavigate();
-  const [results, setResults] = useState(null);
-  const [selectedCareer, setSelectedCareer] = useState(null);
-  const [showRoadmap, setShowRoadmap] = useState(false);
+  const [questions, setQuestions] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [traits, setTraits] = useState({
+    logic: 0, creativity: 0, leadership: 0, empathy: 0,
+    discipline: 0, social: 0, technical: 0, risk: 0,
+    focus: 0, adaptability: 0
+  });
+  const [answersLog, setAnswersLog] = useState([]);
+  const [participantImageLoading, setParticipantImageLoading] = useState(true);
+  const participantImageRef = useRef(null);
+  const [selectedOption, setSelectedOption] = useState(null);
+
+  // Handle image loading state
+  useEffect(() => {
+    const img = participantImageRef.current;
+    if (!img) return;
+
+    // Check if already loaded (for cached images)
+    if (img.complete && img.naturalHeight > 0) {
+      setParticipantImageLoading(false);
+      return;
+    }
+
+    // Fallback timeout in case image doesn't load
+    const timeout = setTimeout(() => {
+      setParticipantImageLoading(false);
+    }, 3000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
 
   useEffect(() => {
-    const storedResults = sessionStorage.getItem('quizResults');
-    if (storedResults) {
-      setResults(JSON.parse(storedResults));
-    } else {
-      navigate(createPageUrl('Quiz'));
+    // load questions from public/data/questions.json
+    async function load() {
+      try {
+        const res = await fetch("/data/questions.json");
+        if (!res.ok) throw new Error("questions.json not found");
+        const qs = await res.json();
+        setQuestions(qs);
+      } catch (e) {
+        console.error("Failed to load quiz questions:", e);
+        setQuestions([]);
+      } finally {
+        setLoading(false);
+      }
     }
-  }, [navigate]);
+    load();
+  }, []);
 
-  if (!results) {
+  // legacy normalizeTraits implementation ported
+  function normalizeTraits(rawTraits, questionsList) {
+    const maxScores = {};
+    questionsList.forEach(q => {
+      q.options.forEach(opt => {
+        if (!maxScores[opt.trait] || opt.value > maxScores[opt.trait]) {
+          maxScores[opt.trait] = opt.value;
+        }
+      });
+    });
+
+    const normalized = {};
+    Object.keys(rawTraits).forEach(trait => {
+      const max = (maxScores[trait] || 1) * questionsList.length;
+      normalized[trait] = max === 0 ? 0 : rawTraits[trait] / max;
+    });
+
+    // ensure every feature in FEATURE_ORDER present
+    FEATURE_ORDER.forEach(f => {
+      if (normalized[f] === undefined) normalized[f] = 0;
+    });
+
+    return normalized;
+  }
+
+const selectOption = (option) => {
+  setSelectedOption(option);
+};
+
+  const goNext = () => {
+  if (!selectedOption) return;
+
+  const option = selectedOption;
+
+  // update traits
+  setTraits(prev => ({
+    ...prev,
+    [option.trait]: prev[option.trait] + option.value
+  }));
+
+  const q = questions[currentIndex];
+
+  // log answer
+  setAnswersLog(prev => ([
+    ...prev,
+    {
+      questionId: q.id,
+      question: q.question,
+      selected: option.text,
+      trait: option.trait,
+      value: option.value
+    }
+  ]));
+
+  setSelectedOption(null);
+
+  const next = currentIndex + 1;
+
+  if (next < questions.length) {
+    setCurrentIndex(next);
+  } else {
+    finishQuiz();
+  }
+};
+
+const goBack = () => {
+  if (currentIndex > 0) {
+    setCurrentIndex(currentIndex - 1);
+  }
+};
+
+  const finishQuiz = async () => {
+    // compute normalized traits with same logic
+    const normalized = normalizeTraits(traits, questions);
+
+    // Mock data for fallback - available in both paths
+    const mockPrediction = {
+      bestCareer: "software_engineer",
+      topCareers: [
+        { career: "software_engineer", score: 0.92 },
+        { career: "frontend_developer", score: 0.85 },
+        { career: "fullstack_developer", score: 0.78 },
+        { career: "data_scientist", score: 0.71 },
+        { career: "ai_ml_engineer", score: 0.65 }
+      ]
+    };
+
+    let prediction = mockPrediction;
+
+    // Try backend first
+    try {
+      const response = await fetch("http://127.0.0.1:5000/api/ml/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ traits: normalized })
+      });
+
+      if (!response.ok) {
+        const text = await response.text();
+        throw new Error(`Prediction failed (${response.status}): ${text}`);
+      }
+
+      prediction = await response.json();
+      console.log("Real ML prediction used");
+
+    } catch (err) {
+      console.error("ML Prediction Error:", err);
+      console.warn("Using mock prediction data");
+    }
+
+
+
+// Now always save and navigate
+    const resultData = {
+      bestCareer: prediction.bestCareer,
+      topCareers: prediction.topCareers,
+      traits: normalized,
+      rawTraits: traits,
+      answers: answersLog,
+      totalQuestions: questions.length,
+      createdAt: new Date().toISOString()
+    };
+
+    localStorage.setItem("assessmentResult", JSON.stringify(resultData));
+    const history = JSON.parse(localStorage.getItem("assessmentHistory") || "[]");
+    history.push(resultData);
+    localStorage.setItem("assessmentHistory", JSON.stringify(history));
+
+    const careerMatches = (prediction.topCareers || []).map(tc => ({
+      id: tc.career,
+      title: tc.career.replace(/_/g, " "),
+      description: "",
+      matchScore: Math.round((tc.score || 0) * 100),
+      rawScore: tc.score
+    }));
+
+    const reactResult = {
+      traitScores: normalized,
+      careerMatches,
+      rawPrediction: prediction,
+      isMock: prediction === mockPrediction
+    };
+
+    navigate("/results", { state: reactResult });
+  };
+
+
+
+
+  // UI helpers
+  if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-pulse text-purple-600">Loading results...</div>
+        <div>Loading quiz...</div>
       </div>
     );
   }
 
-  const { traitScores, careerMatches } = results;
-  const topCareer = careerMatches[0];
+  if (!questions || questions.length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div>No quiz questions found. Put questions.json into public/data/</div>
+      </div>
+    );
+  }
 
-  const handleCareerClick = (career) => {
-    setSelectedCareer(career);
-    setShowRoadmap(true);
-  };
+  const currentQuestion = questions[currentIndex];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 dark:from-slate-950 via-white dark:via-slate-900 to-purple-50 dark:to-slate-950">
-      {/* Header */}
-      <header className="bg-white dark:bg-slate-900/80 dark:bg-slate-900/80 backdrop-blur-sm border-b border-slate-100 dark:border-slate-800 sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link 
-            to={createPageUrl('Home')}
-            className="flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:text-slate-100 transition-colors"
-          >
-            <MapPin className="w-5 h-5 text-purple-600" />
-            <span className="font-semibold">GrowthMap</span>
-          </Link>
-          <div className="flex items-center gap-3">
-            <Link to={createPageUrl('Quiz')}>
-              <Button variant="outline" size="sm" className="gap-2">
-                <RefreshCw className="w-4 h-4" />
-                <span className="hidden sm:inline">Retake Quiz</span>
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-purple-50 p-6">
+      <div className="max-w-3xl mx-auto bg-white rounded-xl shadow p-6">
+        {/* Participant image removed - placeholder fixed */}
+        <h2 className="text-2xl font-bold mb-4">Career Assessment</h2>
+        <ProgressIndicator
+          current={currentIndex + 1}
+          total={questions.length}
+        />
+
+        <div className="mb-6">
+          <div className="text-lg font-semibold mb-3">{currentQuestion.question}</div>
+          <div className="grid gap-3">
+            {currentQuestion.options.map((opt, i) => (
+              <button
+                key={i}
+                onClick={() => selectOption(opt)}
+                className={`p-4 border rounded-lg text-left transition transform
+                          ${selectedOption === opt
+                            ? "border-purple-500 bg-purple-50"
+                            : "hover:bg-slate-50 hover:-translate-y-0.5"
+                          }`}
+              >
+                {opt.text}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between mt-6">
+          <div className="text-sm text-slate-500">
+            Your progress will be saved locally.
+          </div>
+
+          <div className="flex gap-2">
+
+            {currentIndex > 0 && (
+              <Button variant="outline" onClick={goBack}>
+                Back
               </Button>
-            </Link>
-          </div>
-        </div>
-      </header>
-
-      <main className="max-w-6xl mx-auto px-4 py-8 md:py-12">
-        {/* Results Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 rounded-full text-green-700 text-sm font-medium mb-4">
-            <Sparkles className="w-4 h-4" />
-            Assessment Complete
-          </div>
-          <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-            Your Career Recommendations
-          </h1>
-          <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-            Based on your responses, here are the ICT careers that best match your 
-            strengths and preferences.
-          </p>
-        </motion.div>
-
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Left Column - Trait Chart */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
-            className="lg:col-span-1"
-          >
-            <TraitChart traitScores={traitScores} />
-          </motion.div>
-
-          {/* Right Column - Career Cards */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Top Match Highlight */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3 }}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-6 text-white"
-            >
-              <div className="flex items-center gap-2 mb-2">
-                <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                <span className="text-sm font-medium text-blue-100">Best Match</span>
-              </div>
-              <h2 className="text-2xl font-bold mb-2">{topCareer.title}</h2>
-              <p className="text-blue-100 mb-4">{topCareer.description}</p>
-              <div className="flex items-center justify-between">
-                <div className="text-4xl font-bold">{topCareer.matchScore}%</div>
-                <Button 
-                  onClick={() => handleCareerClick(topCareer)}
-                  className="bg-white dark:bg-slate-900 text-purple-700 hover:bg-blue-50"
-                >
-                  View Roadmap
-                </Button>
-              </div>
-            </motion.div>
-
-            {/* Other Matches */}
-            <div className="grid md:grid-cols-2 gap-4">
-              {careerMatches.slice(1, 5).map((career, index) => (
-                <CareerCard
-                  key={career.id}
-                  career={career}
-                  matchScore={career.matchScore}
-                  rank={index + 1}
-                  onClick={() => handleCareerClick(career)}
-                />
-              ))}
-            </div>
-
-            {/* View All Careers */}
-            <div className="text-center pt-4">
-              <Link to={createPageUrl('Careers')}>
-                <Button variant="outline" className="gap-2">
-                  View All ICT Careers
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        {/* Explainability Section */}
-        {topCareer && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="mt-12"
-          >
-            <ExplainabilityPanel 
-              career={topCareer} 
-              traitScores={traitScores}
-            />
-          </motion.div>
-        )}
-      </main>
-
-      {/* Roadmap Modal */}
-      <Dialog open={showRoadmap} onOpenChange={setShowRoadmap}>
-        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-                <MapPin className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <div className="text-xl font-bold">{selectedCareer?.title}</div>
-                <div className="text-sm font-normal text-slate-500 dark:text-slate-400">Career Roadmap for Sri Lanka</div>
-              </div>
-            </DialogTitle>
-          </DialogHeader>
-          
-          <div className="mt-6">
-            {selectedCareer && roadmaps[selectedCareer.id] ? (
-              <RoadmapTimeline 
-                roadmap={roadmaps[selectedCareer.id]} 
-                careerTitle={selectedCareer.title}
-              />
-            ) : (
-              <div className="text-center py-8 text-slate-500 dark:text-slate-400">
-                Roadmap not available for this career.
-              </div>
             )}
-          </div>
-        </DialogContent>
-      </Dialog>
 
-      {/* Footer */}
-      <footer className="bg-slate-900 text-white py-8 mt-16">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <p className="text-slate-400 text-sm">
-            These recommendations are based on your quiz responses and are meant to guide your exploration.
-          </p>
-          <p className="text-slate-500 dark:text-slate-400 text-xs mt-2">
-            Consider talking to career counselors and professionals for personalized advice.
-          </p>
+            {currentIndex < questions.length - 1 ? (
+              <Button className="h-full bg-gradient-to-r from-blue-500 to-purple-500" onClick={goNext} disabled={!selectedOption}>
+                Next
+              </Button>
+            ) : (
+              <Button className="h-full bg-gradient-to-r from-blue-500 to-purple-500" onClick={goNext} disabled={!selectedOption}>
+                Finish
+              </Button>
+            )}
+
+          </div>
         </div>
-      </footer>
+      </div>
     </div>
   );
 }
