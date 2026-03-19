@@ -2,7 +2,6 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 
 import Preloader from "./components/preloader";
-import Layout from "./Layout";
 import { ThemeProvider } from "./components/ThemeProvider";
 import HelpBot from "./components/HelpBot";
 
@@ -15,6 +14,8 @@ import Signup from "./pages/Dashboard/Auth/Signup";
 import SkillGap from "./pages/Dashboard/SkillGap";
 import Settings from "./pages/Dashboard/Settings";
 import Profile from "./pages/Dashboard/Profile";
+import JobTrends from "./pages/Dashboard/JobTrends";
+import Layout from "./Layout";
 
 export default function App() {
   const location = useLocation();
@@ -51,6 +52,7 @@ export default function App() {
             <Route path="/quiz" element={<Quiz />} />
             <Route path="/careers" element={<Careers />} />
             <Route path="/skillgap" element={<SkillGap />} />
+            <Route path="/job-trends" element={<JobTrends />} />
             <Route path="/results" element={<Results />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/settings" element={<Settings />} />
