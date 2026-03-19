@@ -117,12 +117,10 @@ export default function Careers() {
               Take Assessment
             </Button>
           </Link>
-
         </div>
       </header>
 
       <main className="max-w-6xl mx-auto px-4 py-8 md:py-12">
-
         {/* Page Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -159,7 +157,6 @@ export default function Careers() {
                 <X className="w-5 h-5" />
               </button>
             )}
-
           </div>
         </motion.div>
 

@@ -117,13 +117,11 @@ function TagInput({ value, onChange, suggestions, placeholder }) {
           ))}
         </div>
       )}
-
     </div>
   );
 }
 
 export default function UserInputForm({ onAnalyze }) {
-
   const [form, setForm] = useState({
     targetCareer: '',
     currentEducation: '',
