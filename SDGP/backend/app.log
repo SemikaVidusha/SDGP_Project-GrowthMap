@@ -41,3 +41,9 @@
 2026-03-21 13:17:11,229 - __main__ - INFO - Received chat request with 4 messages
 2026-03-21 13:17:11,774 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
 2026-03-21 13:17:11,809 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 13:17:11] "POST /api/chat HTTP/1.1" 200 -
+2026-03-21 14:09:10,515 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 14:09:10] "[33mOPTIONS /api/users/settings HTTP/1.1[0m" 404 -
+2026-03-21 14:09:10,526 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 14:09:10] "[33mOPTIONS /api/users/settings HTTP/1.1[0m" 404 -
+2026-03-21 15:26:53,478 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 15:26:53] "OPTIONS /api/chat HTTP/1.1" 200 -
+2026-03-21 15:26:53,487 - __main__ - INFO - Received chat request with 2 messages
+2026-03-21 15:26:54,296 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-21 15:26:54,312 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 15:26:54] "POST /api/chat HTTP/1.1" 200 -
