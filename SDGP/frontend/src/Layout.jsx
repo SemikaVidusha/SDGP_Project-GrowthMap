@@ -10,7 +10,8 @@ const navLinks = [
   { label: "Quiz", page: "Quiz" },
   { label: "Careers", page: "Careers" },
   { label: "Skill Gap", page: "SkillGap" },
-{ label: 'Job Trends', page: 'job-trends' },
+  { label: 'Job Trends', page: 'job-trends' },
+  { label: "CV Generator", page: "cv-generator" },
 ];
 
 function Header() {

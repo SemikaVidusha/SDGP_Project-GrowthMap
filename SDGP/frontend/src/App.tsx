@@ -23,6 +23,7 @@ import Roadmap from "./pages/Dashboard/Roadmap";
 import PageNotFound from "./lib/PageNotFound";
 import JobDetailsTrend from "./pages/JobDetailsTrend";
 import JobTrends from "./pages/Dashboard/JobTrends";
+import CVGenerator from "./pages/Dashboard/CVGenerator";
 
 export default function App() {
   const location = useLocation();
@@ -65,6 +66,7 @@ export default function App() {
             <Route path="/roadmap/:careerId" element={<Roadmap />} />
             <Route path="/job-trends" element={<JobTrends />} />
             <Route path="/job-trends/:id" element={<JobDetailsTrend />} />
+            <Route path="/cv-generator" element={<CVGenerator />} />
           </Route>
 
           {/* Routes WITHOUT Layout - Auth */}
