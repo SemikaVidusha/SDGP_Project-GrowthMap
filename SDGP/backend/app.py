@@ -16,6 +16,7 @@ import os
 from dotenv import load_dotenv
 from functools import wraps
 from bson.objectid import ObjectId
+from groq import Groq
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 load_dotenv(os.path.join(BASE_DIR, ".env"))
@@ -179,6 +180,75 @@ CORS(app, resources={r"/api/*": {"origins": "*"}})
 ml_bp = Blueprint("ml", __name__)
 careers_bp = Blueprint("careers", __name__)
 roadmaps_bp = Blueprint("roadmaps", __name__)
+cv_bp = Blueprint("cv", __name__)
+
+@cv_bp.route("/generate", methods=["POST"])
+def generate_cv():
+    data = request.get_json(force=True)
+    
+    name = data.get("name", "User")
+    target_role = data.get("targetRole", "Professional")
+    email = data.get("email", "")
+    phone = data.get("phone", "")
+    summary = data.get("summary", "")
+    education = data.get("education", "")
+    experience = data.get("experience", "")
+    skills = data.get("skills", "")
+    projects = data.get("projects", "")
+    
+    # Check for Groq API Key
+    api_key = os.environ.get("GROQ_API_KEY")
+    if not api_key:
+        return jsonify({"error": "GROQ_API_KEY is not configured in the backend environment."}), 500
+        
+    try:
+        client = Groq(api_key=api_key)
+        
+        prompt = f"""Act as an expert CV writer. Create a highly professional CV in STRICT Markdown format.
+
+Use EXACTLY this structure with the specified heading levels (# and ##):
+
+# {name}
+**Email:** {email} | **Phone:** {phone}
+**Target Role:** {target_role}
+
+## Professional Summary
+{summary}
+
+## Education
+{education}
+
+## Work Experience
+{experience}
+
+## Skills
+{skills}
+
+## Projects
+{projects}
+
+Do NOT use just bold text for section titles. You MUST use # for the name and ## for section titles. Expand, format, and professionally rewrite the summary, experience, and projects to sound impressive and ATS-friendly. Do not include any conversational text or meta-commentary, just the CV markdown.
+"""
+        chat_completion = client.chat.completions.create(
+            messages=[
+                {
+                    "role": "system",
+                    "content": "You are an expert CV writer. You generate clean, professional CVs in pure Markdown."
+                },
+                {
+                    "role": "user",
+                    "content": prompt,
+                }
+            ],
+            model="llama-3.1-8b-instant",
+        )
+        
+        generated_cv = chat_completion.choices[0].message.content
+        return jsonify({"cv": generated_cv}), 200
+        
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"error": f"Failed to generate CV: {str(e)}"}), 500
 
 @ml_bp.route("/predict", methods=["POST"])
 def predict():
@@ -636,6 +706,7 @@ app.register_blueprint(careers_bp, url_prefix="/api/careers")
 app.register_blueprint(roadmaps_bp, url_prefix="/api/roadmaps")
 app.register_blueprint(auth_bp, url_prefix="/api/auth")
 app.register_blueprint(users_bp, url_prefix="/api/users")
+app.register_blueprint(cv_bp, url_prefix="/api/cv")
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000, debug=True)
