@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import axios from 'axios';
-import { io } from 'socket.io-client';
 import {
   AreaChart,
   Area,
@@ -14,7 +13,7 @@ import {
 } from 'recharts';
 import { Activity, BarChart3, Briefcase, RefreshCw, TrendingUp, Users } from 'lucide-react';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001';
 const MONTH_WINDOW = 24;
 
 const numberFormatter = new Intl.NumberFormat('en-US');
@@ -111,7 +110,9 @@ const formatDemand = (value) => numberFormatter.format(Math.round(value || 0));
 
 const StatCard = ({ icon, label, value, helper }) => (
   <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-    <div className="bg-slate-50 w-12 h-12 rounded-2xl flex items-center justify-center mb-4">{icon}</div>
+    <div className="bg-slate-50 w-12 h-12 rounded-2xl flex items-center justify-center mb-4">
+      {icon}
+    </div>
     <p className="text-slate-500 font-medium">{label}</p>
     <div className="flex items-end justify-between gap-2">
       <h4 className="text-3xl font-bold text-slate-900">{value}</h4>
@@ -133,8 +134,7 @@ const JobTrends = () => {
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState('');
-  const [liveConnected, setLiveConnected] = useState(false);
-
+  const [liveConnected] = useState(false);
   const selectedRoleRef = useRef(selectedRole);
   const activeRoleCountRef = useRef(roles.length);
 
@@ -243,52 +243,6 @@ const JobTrends = () => {
     loadRoleData(selectedRole, true);
   }, [selectedRole, loadRoleData]);
 
-  useEffect(() => {
-    const socket = io(API_BASE_URL, {
-      transports: ['websocket'],
-    });
-
-    socket.on('connect', () => {
-      setLiveConnected(true);
-    });
-
-    socket.on('disconnect', () => {
-      setLiveConnected(false);
-    });
-
-    socket.on('job-trends:update', (payload) => {
-      if (!payload || !payload.point) {
-        return;
-      }
-
-      const livePoint = normalizePoint(payload.point);
-
-      if (Array.isArray(payload.latestRoleDemands) && payload.latestRoleDemands.length) {
-        setLatestRoleDemands(payload.latestRoleDemands);
-      } else {
-        setLatestRoleDemands((current) => mergeRoleSnapshot(current, livePoint));
-      }
-
-      if (livePoint.title !== selectedRoleRef.current) {
-        return;
-      }
-
-      setTrendPoints((currentPoints) => {
-        const mergedPoints = mergeTrendPoint(currentPoints, livePoint);
-        setStats(computeLocalStats(
-          mergedPoints,
-          activeRoleCountRef.current,
-          selectedRoleRef.current
-        ));
-        return mergedPoints;
-      });
-    });
-
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
-
   const activeStats = useMemo(
     () => stats || computeLocalStats(trendPoints, roles.length, selectedRole || 'Role'),
     [stats, trendPoints, roles.length, selectedRole]
@@ -338,7 +292,7 @@ const JobTrends = () => {
             id="roleFilter"
             value={selectedRole}
             onChange={(event) => setSelectedRole(event.target.value)}
-            className="w-full sm:w-72 border border-slate-200 rounded-xl px-3 py-2 text-sm text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-blue-300"
+            className="w-full sm:w-72 border border-slate-200 rounded-xl px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-300"
           >
             {roles.map((role) => (
               <option key={role} value={role}>{role}</option>
@@ -384,7 +338,7 @@ const JobTrends = () => {
                 <AreaChart data={trendPoints}>
                   <defs>
                     <linearGradient id="selectedRoleGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3} />
+                      <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.8} />
                       <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
                     </linearGradient>
                   </defs>
@@ -394,7 +348,7 @@ const JobTrends = () => {
                   <Tooltip
                     formatter={(value) => [formatDemand(value), 'Demand']}
                     labelFormatter={(label) => `Month: ${label}`}
-                    contentStyle={{ borderRadius: '15px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}
+                    contentStyle={{ fontSize: '15px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}
                   />
                   <Area
                     type="monotone"
@@ -409,13 +363,13 @@ const JobTrends = () => {
             </div>
           </div>
 
-          <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-200">
+          <div className="bg-white p-8 rounded-3xl shadow-sm border-slate-200">
             <h3 className="text-xl font-bold mb-6 text-slate-800">Latest Demand by Role</h3>
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={roleRanking}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                  <XAxis dataKey="title" stroke="#94a3b8" interval={0} angle={-15} textAnchor="end" height={70} />
+                  <XAxis dataKey="title" stroke="#94a3b8" interval={0} angle="-15" textAnchor="end" height={70} />
                   <YAxis stroke="#94a3b8" />
                   <Tooltip
                     formatter={(value) => [formatDemand(value), 'Demand']}
@@ -440,3 +394,4 @@ const JobTrends = () => {
 };
 
 export default JobTrends;
+

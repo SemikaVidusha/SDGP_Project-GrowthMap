@@ -1,37 +1,32 @@
-const express = require('express');
-const cors = require('cors');
-const connectDB = require('./config/db');
-require('dotenv').config();
+require("dotenv").config();
 
-// 1. Initialize Express App
+const express = require("express");
+const cors = require("cors");
+const connectDB = require("./config/db");
+
 const app = express();
 
-// 2. Connect to MongoDB Database
-connectDB();
+// Connect DB (DISABLED for demo - prevents crash without MongoDB)
+// connectDB();
 
-// 3. Setup Middleware
-app.use(cors()); // Frontend ekath ekka connect wenna
-app.use(express.json()); // JSON data handle karanna
+console.log('🚀 Server starting WITHOUT database connection...');
+console.log('✅ Job trends endpoints now use mock data!');
 
-// 4. API Routes Connection
-// Auth routes (Login, Register, Settings)
-app.use('/api/auth', require('./routes/authRoutes'));
+// Middleware
+app.use(cors());
+app.use(express.json());
 
-// User routes (Settings)
-app.use('/api/users', require('./routes/userRoutes'));
+// Routes
+app.use("/api/job-trends", require("./routes/jobTrendRoutes"));
 
-// Skills & Dashboard routes (Careers, Home, Quiz, Results, SkillGap)
-app.use('/api/skills', require('./routes/skillRoutes'));
-
-// 5. Error Handling Middleware (Optional but good)
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send({ message: 'Something went wrong on the server!' });
+// Optional: test route
+app.get("/", (req, res) => {
+  res.send("API running... Job trends available without DB!");
 });
 
-// 6. Start the Server
-const PORT = process.env.PORT || 5000;
+// Port
+const PORT = process.env.PORT || 5001;
+
 app.listen(PORT, () => {
-    console.log(`🚀 Server is running on: http://localhost:${PORT}`);
-    console.log(`✅ API Endpoints are ready for Frontend.`);
+  console.log(`Server running on port ${PORT}`);
 });

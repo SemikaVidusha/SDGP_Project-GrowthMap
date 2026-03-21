@@ -26,6 +26,7 @@ export default function Navbar() {
         <Link to="/quiz" className="hover:underline">Quiz</Link>
         <Link to="/careers" className="hover:underline">Careers</Link>
         <Link to="/results" className="hover:underline">Results</Link>
+<Link to="/job-trends" className="hover:underline">Job Trends</Link>
       </div>
 
       <button
