@@ -21,6 +21,8 @@ import Settings from "./pages/Dashboard/Settings";
 import Profile from "./pages/Dashboard/Profile";
 import Roadmap from "./pages/Dashboard/Roadmap";
 import PageNotFound from "./lib/PageNotFound";
+import JobDetailsTrend from "./pages/JobDetailsTrend";
+import JobTrends from "./pages/Dashboard/JobTrends";
 
 export default function App() {
   const location = useLocation();
@@ -61,6 +63,8 @@ export default function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/roadmap/:careerId" element={<Roadmap />} />
+            <Route path="/job-trends" element={<JobTrends />} />
+            <Route path="/job-trends/:id" element={<JobDetailsTrend />} />
           </Route>
 
           {/* Routes WITHOUT Layout - Auth */}
