@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../../../components/ui/button";
 import { Input } from "../../../components/ui/input";
 import { Mail, Lock } from "lucide-react";
@@ -9,9 +9,36 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = (e) => {
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("Login:", { email, password });
+    setError("");
+    setIsLoading(true);
+
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Login failed");
+
+      // Save token and user details to localStorage
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+
+      // Redirect to home/dashboard
+      navigate("/home");
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -38,6 +65,13 @@ export default function Login() {
 
         </div>
 
+        {/* Error/Message Banners */}
+        {error && (
+          <div className="mb-4 p-3 bg-red-50 text-red-600 text-sm rounded-lg text-center border border-red-100 animate-in fade-in slide-in-from-top-2">
+            {error}
+          </div>
+        )}
+
         {/* Heading */}
         <h3 className="text-lg font-semibold text-center text-slate-700 dark:text-slate-200 mb-6">
           Welcome Back
@@ -54,6 +88,7 @@ export default function Login() {
               className="pl-10 rounded-lg"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              disabled={isLoading}
             />
           </div>
 
@@ -66,6 +101,7 @@ export default function Login() {
               className="pl-10 rounded-lg"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              disabled={isLoading}
             />
           </div>
 
@@ -79,8 +115,8 @@ export default function Login() {
           </div>
 
           {/* Login Button */}
-          <Button className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 rounded-lg">
-            Login
+          <Button disabled={isLoading} className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 rounded-lg">
+            {isLoading ? "Logging in..." : "Login"}
           </Button>
         </form>
 
