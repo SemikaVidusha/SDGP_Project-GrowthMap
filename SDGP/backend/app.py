@@ -5,7 +5,10 @@ import joblib
 import traceback
 import numpy as np
 import os
+import logging
 from dotenv import load_dotenv
+from groq import Groq
+from duckduckgo_search import DDGS
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 load_dotenv(os.path.join(BASE_DIR, ".env"))
@@ -15,6 +18,15 @@ print(f".env file path being loaded: {os.path.join(BASE_DIR, '.env')}")
 print(f".env file exists: {os.path.exists(os.path.join(BASE_DIR, '.env'))}")
 print(f"After load_dotenv - MONGO_URI: {os.getenv('MONGO_URI')}")
 print(f"After load_dotenv - JWT_SECRET: {os.getenv('JWT_SECRET')}")
+
+# Setup basic logging to file for the AI to read
+logging.basicConfig(
+    filename=os.path.join(BASE_DIR, 'app.log'),
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+logger.info("Application started")
 
 DATASET_DIR = os.path.abspath(os.path.join(BASE_DIR, "..", "dataset"))
 
@@ -166,6 +178,7 @@ CORS(app, resources={r"/api/*": {"origins": "*"}})
 ml_bp = Blueprint("ml", __name__)
 careers_bp = Blueprint("careers", __name__)
 roadmaps_bp = Blueprint("roadmaps", __name__)
+chat_bp = Blueprint("chat", __name__)
 
 @ml_bp.route("/predict", methods=["POST"])
 def predict():
@@ -272,9 +285,140 @@ def get_roadmap(career_id):
         return jsonify(roadmap), 200
     return jsonify({"error": "Roadmap not found"}), 404
 
+# Initialize Groq client
+try:
+    groq_client = Groq()
+    logger.info("Groq client initialized successfully.")
+except Exception as e:
+    logger.error(f"Failed to initialize Groq client: {e}")
+    groq_client = None
+
+def search_web(query):
+    """Search the web for real-time information."""
+    try:
+        logger.info(f"AI executing web search for: {query}")
+        results = DDGS().text(query, max_results=3)
+        return str(list(results))
+    except Exception as e:
+        logger.error(f"Web search error: {e}")
+        return f"Error searching web: {e}"
+
+def read_logs():
+    """Read recent logs to diagnose backend issues."""
+    log_file = os.path.join(BASE_DIR, 'app.log')
+    try:
+        with open(log_file, 'r') as f:
+            lines = f.readlines()
+            return "".join(lines[-30:])
+    except Exception as e:
+        return f"Could not read logs: {e}"
+
+@chat_bp.route("/", methods=["POST"], strict_slashes=False)
+def chat():
+    try:
+        data = request.get_json(force=True)
+        messages = data.get("messages", [])
+        
+        if not messages:
+            return jsonify({"error": "No messages provided"}), 400
+            
+        if not groq_client:
+            return jsonify({"error": "Groq API key not configured properly in the backend. Please add GROQ_API_KEY to your .env file."}), 500
+
+        system_prompt = {
+            "role": "system",
+            "content": "You are HelpBot, the intelligent assistant for GrowthMap. "
+                       "Your goal is to help users navigate the platform and answer their questions. "
+                       "You can use tools to search the web for real-time data or read backend logs if asked to diagnose issues. "
+                       "Keep responses helpful, friendly, and concise. Do not expose sensitive internal data."
+        }
+        
+        tools = [
+            {
+                "type": "function",
+                "function": {
+                    "name": "search_web",
+                    "description": "Searches the web using DuckDuckGo for up-to-date information or current events.",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "query": {"type": "string", "description": "The search query"}
+                        },
+                        "required": ["query"],
+                    },
+                },
+            },
+            {
+                "type": "function",
+                "function": {
+                    "name": "read_logs",
+                    "description": "Reads the most recent application log lines to check for backend errors or state.",
+                    "parameters": {"type": "object", "properties": {}},
+                },
+            }
+        ]
+
+        logger.info(f"Received chat request with {len(messages)} messages")
+        
+        # Determine if we should parse dict objects instead of full ChatCompletion
+        formatted_messages = [system_prompt] + messages
+        response = groq_client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=formatted_messages,
+            tools=tools,
+            tool_choice="auto",
+            max_tokens=1024
+        )
+
+        response_message = response.choices[0].message
+        tool_calls = response_message.tool_calls
+
+        if tool_calls:
+            import json
+            available_functions = {
+                "search_web": search_web,
+                "read_logs": read_logs,
+            }
+            
+            # Use `model_dump()` to ensure tool_calls dicts can be serialized correctly if required by Groq API
+            formatted_messages.append(response_message.model_dump())
+            
+            for tool_call in tool_calls:
+                function_name = tool_call.function.name
+                function_to_call = available_functions[function_name]
+                function_args = json.loads(tool_call.function.arguments)
+                if function_name == "search_web":
+                    function_response = function_to_call(query=function_args.get("query"))
+                else:
+                    function_response = function_to_call()
+                
+                formatted_messages.append(
+                    {
+                        "tool_call_id": tool_call.id,
+                        "role": "tool",
+                        "name": function_name,
+                        "content": function_response,
+                    }
+                )
+            
+            second_response = groq_client.chat.completions.create(
+                model="llama-3.3-70b-versatile",
+                messages=formatted_messages
+            )
+            final_content = second_response.choices[0].message.content
+        else:
+            final_content = response_message.content
+
+        return jsonify({"reply": final_content}), 200
+
+    except Exception as e:
+        logger.error(f"Chat endpoint error: {traceback.format_exc()}")
+        return jsonify({"error": str(e)}), 500
+
 app.register_blueprint(ml_bp, url_prefix="/api/ml")
 app.register_blueprint(careers_bp, url_prefix="/api/careers")
 app.register_blueprint(roadmaps_bp, url_prefix="/api/roadmaps")
+app.register_blueprint(chat_bp, url_prefix="/api/chat")
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000, debug=True)
