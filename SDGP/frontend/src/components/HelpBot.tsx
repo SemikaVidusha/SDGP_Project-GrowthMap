@@ -1,86 +1,118 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './HelpBot.css';
 
-const faqs = [
-  {
-    id: 1,
-    question: "How do I create an account?",
-    answer: "You can create an account by clicking the 'Sign Up' button at the top right corner of the page and filling out the required details."
-  },
-  {
-    id: 2,
-    question: "What is GrowthMap?",
-    answer: "GrowthMap is your personalized Career Pathway Platform to test your skills, find gaps, and reach your dream career."
-  },
-  {
-    id: 3,
-    question: "How does the Skill Gap Analysis work?",
-    answer: "It compares your current skills from quiz results with industry requirements and suggests courses or learning paths."
-  },
-  {
-    id: 4,
-    question: "I forgot my password, what should I do?",
-    answer: "Go to the Login page and click on 'Forgot Password'. You will receive an OTP in your email to reset it."
-  },
-  {
-    id: 5,
-    question: "Can I edit my profile information?",
-    answer: "Yes, you can navigate to the 'Profile' section from the dashboard to update your personal details and skills."
-  },
-  {
-    id: 6,
-    question: "What should I do if my skill gap is too large?",
-    answer: "Don't worry! GrowthMap provides targeted course recommendations based on your gap analysis to help you upskill."
-  }
-];
+interface Message {
+  role: 'user' | 'assistant';
+  content: string;
+}
 
 const HelpBot = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [expandedId, setExpandedId] = useState<number | null>(null);
+  const [messages, setMessages] = useState<Message[]>([
+    { role: 'assistant', content: 'Welcome! I am the AI HelpBot. How can I help you navigate your career path today?' }
+  ]);
+  const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const toggleBot = () => {
     setIsOpen(!isOpen);
-    if (isOpen) setExpandedId(null); // Reset accordion when closing bot
   };
 
-  const toggleAccordion = (id: number) => {
-    setExpandedId(expandedId === id ? null : id);
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      scrollToBottom();
+    }
+  }, [messages, isOpen, isLoading]);
+
+  const sendMessage = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!input.trim() || isLoading) return;
+
+    const userMsg: Message = { role: 'user', content: input.trim() };
+    const newMessages = [...messages, userMsg];
+    
+    setMessages(newMessages);
+    setInput('');
+    setIsLoading(true);
+
+    try {
+      // Assuming the backend is running on localhost:5000. Adjust if deployed.
+      const response = await fetch('http://127.0.0.1:5000/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ messages: newMessages })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setMessages(prev => [...prev, { role: 'assistant', content: data.reply }]);
+      } else {
+        setMessages(prev => [...prev, { role: 'assistant', content: `Error: ${data.error || 'Failed to get response.'}` }]);
+      }
+    } catch (error) {
+      setMessages(prev => [...prev, { role: 'assistant', content: 'Connection error. Please try again later.' }]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <div className="help-bot-container">
       <div className={`help-bot-popup ${isOpen ? 'open' : ''}`}>
         <div className="help-bot-header">
-          <h3>GrowthMap Help</h3>
-          <button className="close-btn" onClick={toggleBot}>&times;</button>
-        </div>
-        <div className="help-bot-content">
-          <p className="help-bot-welcome">Welcome! How can we help you today?</p>
-          <div className="help-bot-faqs">
-            {faqs.map((faq) => (
-                <div key={faq.id} className="faq-item">
-                  <button 
-                    className={`faq-question ${expandedId === faq.id ? 'active' : ''}`}
-                    onClick={() => toggleAccordion(faq.id)}
-                    aria-expanded={expandedId === faq.id}
-                    aria-controls={`faq-answer-${faq.id}`}
-                  >
-                    {faq.question}
-                    <span className="faq-icon" aria-hidden="true">{expandedId === faq.id ? '−' : '+'}</span>
-                  </button>
-                  <div 
-                    id={`faq-answer-${faq.id}`}
-                    className={`faq-answer ${expandedId === faq.id ? 'expanded' : ''}`}
-                    role="region"
-                  >
-                    <p>{faq.answer}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+          <div className="help-bot-header-title">
+            <span className="ai-icon">✨</span>
+            <h3>GrowthMap AI Help</h3>
           </div>
+          <button className="close-btn" onClick={toggleBot} aria-label="Close Bot">&times;</button>
         </div>
-      <button className="help-bot-fab" onClick={toggleBot} aria-label="Help">
+        
+        <div className="help-bot-body">
+          {messages.map((msg, index) => (
+            <div key={index} className={`chat-message ${msg.role}`}>
+              <div className="chat-bubble">
+                <p>{msg.content}</p>
+              </div>
+            </div>
+          ))}
+          {isLoading && (
+            <div className="chat-message assistant">
+              <div className="chat-bubble typing-indicator">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+          )}
+          <div ref={messagesEndRef} />
+        </div>
+
+        <form className="help-bot-footer" onSubmit={sendMessage}>
+          <input
+            type="text"
+            className="chat-input"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Ask me anything..."
+            disabled={isLoading}
+          />
+          <button type="submit" className="chat-submit-btn" disabled={!input.trim() || isLoading} aria-label="Send Message">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+        </form>
+      </div>
+
+      <button className="help-bot-fab" onClick={toggleBot} aria-label="Toggle Help Bot">
         <span className="help-icon">
           {isOpen ? (
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -90,6 +122,8 @@ const HelpBot = () => {
           ) : (
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              <path d="M12 8v4" />
+              <path d="M12 16h.01" />
             </svg>
           )}
         </span>
