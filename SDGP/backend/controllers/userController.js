@@ -1,20 +1,19 @@
 const User = require('../models/User');
 
+// Public default settings for MVP demo - no auth/DB required
 exports.getSettings = async (req, res) => {
     try {
-        const user = await User.findById(req.user.id).select('settings');
-        if (!user) return res.status(404).json({ msg: 'User not found' });
-        
-        // If user doesn't have settings yet, return defaults
-        res.json(user.settings || {
+        // Return default settings immediately (no user required)
+        res.json({
             darkMode: false,
             emailNotifications: true,
             twoFactorAuth: false,
-            language: 'English'
+            language: 'English',
+            theme: 'light'
         });
     } catch (err) {
         console.error("Error fetching settings:", err.message);
-        res.status(500).send('Server Error');
+        res.status(500).json({ message: 'Server Error' });
     }
 };
 
@@ -22,29 +21,24 @@ exports.updateSettings = async (req, res) => {
     try {
         const settingsUpdates = req.body;
         
-        // Use $set to update specific fields within the settings object
-        const user = await User.findByIdAndUpdate(
-            req.user.id,
-            { $set: { settings: settingsUpdates } },
-            { new: true, upsert: true }
-        ).select('settings');
-        
-        res.json(user.settings);
+        // For demo, just echo back (no persistent save)
+        res.json({
+            ...settingsUpdates,
+            message: 'Settings updated (demo mode)'
+        });
     } catch (err) {
         console.error("Error updating settings:", err.message);
-        res.status(500).send('Server Error');
+        res.status(500).json({ message: 'Server Error' });
     }
 };
 
 exports.deleteProfile = async (req, res) => {
     try {
-        const user = await User.findByIdAndDelete(req.user.id);
-        if (!user) {
-            return res.status(404).json({ msg: 'User not found' });
-        }
-        res.json({ msg: 'User deleted successfully' });
+        // Demo mode - no deletion
+        res.status(405).json({ message: 'Profile deletion disabled for demo' });
     } catch (err) {
         console.error("Error deleting user:", err.message);
-        res.status(500).send('Server Error');
+        res.status(500).json({ message: 'Server Error' });
     }
 };
+
