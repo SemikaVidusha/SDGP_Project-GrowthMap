@@ -1,0 +1,211 @@
+2026-03-21 13:02:21,764 - __main__ - INFO - Application started
+2026-03-21 13:02:23,984 - __main__ - ERROR - Failed to initialize Groq client: The api_key client option must be set either by passing api_key to the client or by setting the GROQ_API_KEY environment variable
+2026-03-21 13:02:24,013 - werkzeug - WARNING -  * Debugger is active!
+2026-03-21 13:02:24,015 - werkzeug - INFO -  * Debugger PIN: 116-384-466
+2026-03-21 13:07:38,991 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 13:07:38] "[32mOPTIONS /api/chat HTTP/1.1[0m" 308 -
+2026-03-21 13:08:28,860 - werkzeug - INFO -  * Detected change in 'C:\\Users\\MSI\\Documents\\GitHub\\SDGP_Project-GrowthMap\\SDGP\\backend\\app.py', reloading
+2026-03-21 13:08:30,190 - __main__ - INFO - Application started
+2026-03-21 13:08:32,399 - __main__ - ERROR - Failed to initialize Groq client: The api_key client option must be set either by passing api_key to the client or by setting the GROQ_API_KEY environment variable
+2026-03-21 13:08:32,423 - werkzeug - WARNING -  * Debugger is active!
+2026-03-21 13:08:32,425 - werkzeug - INFO -  * Debugger PIN: 116-384-466
+2026-03-21 13:08:53,303 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 13:08:53] "OPTIONS /api/chat HTTP/1.1" 200 -
+2026-03-21 13:08:53,308 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 13:08:53] "[35m[1mPOST /api/chat HTTP/1.1[0m" 500 -
+2026-03-21 13:09:19,409 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 13:09:19] "OPTIONS /api/chat HTTP/1.1" 200 -
+2026-03-21 13:09:19,414 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 13:09:19] "[35m[1mPOST /api/chat HTTP/1.1[0m" 500 -
+2026-03-21 13:09:43,472 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 13:09:43] "OPTIONS /api/chat HTTP/1.1" 200 -
+2026-03-21 13:09:43,476 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 13:09:43] "[35m[1mPOST /api/chat HTTP/1.1[0m" 500 -
+2026-03-21 13:14:45,634 - __main__ - INFO - Application started
+2026-03-21 13:14:48,062 - __main__ - INFO - Groq client initialized successfully.
+2026-03-21 13:14:48,077 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-21 13:14:48,077 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-21 13:14:48,078 - werkzeug - INFO -  * Restarting with stat
+2026-03-21 13:14:48,615 - __main__ - INFO - Application started
+2026-03-21 13:15:05,348 - __main__ - INFO - Application started
+2026-03-21 13:15:07,452 - __main__ - INFO - Groq client initialized successfully.
+2026-03-21 13:15:07,463 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-21 13:15:07,463 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-21 13:15:07,464 - werkzeug - INFO -  * Restarting with stat
+2026-03-21 13:15:07,992 - __main__ - INFO - Application started
+2026-03-21 13:15:09,916 - __main__ - INFO - Groq client initialized successfully.
+2026-03-21 13:15:09,923 - werkzeug - WARNING -  * Debugger is active!
+2026-03-21 13:15:09,925 - werkzeug - INFO -  * Debugger PIN: 116-384-466
+2026-03-21 13:16:26,957 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 13:16:26] "[33mOPTIONS /api/users/settings HTTP/1.1[0m" 404 -
+2026-03-21 13:16:26,961 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 13:16:26] "[33mOPTIONS /api/users/settings HTTP/1.1[0m" 404 -
+2026-03-21 13:16:37,325 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 13:16:37] "OPTIONS /api/chat HTTP/1.1" 200 -
+2026-03-21 13:16:37,327 - __main__ - INFO - Received chat request with 2 messages
+2026-03-21 13:16:37,902 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-21 13:16:38,017 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 13:16:38] "POST /api/chat HTTP/1.1" 200 -
+2026-03-21 13:17:11,226 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 13:17:11] "OPTIONS /api/chat HTTP/1.1" 200 -
+2026-03-21 13:17:11,229 - __main__ - INFO - Received chat request with 4 messages
+2026-03-21 13:17:11,774 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-21 13:17:11,809 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 13:17:11] "POST /api/chat HTTP/1.1" 200 -
+2026-03-21 14:09:10,515 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 14:09:10] "[33mOPTIONS /api/users/settings HTTP/1.1[0m" 404 -
+2026-03-21 14:09:10,526 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 14:09:10] "[33mOPTIONS /api/users/settings HTTP/1.1[0m" 404 -
+2026-03-21 15:26:53,478 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 15:26:53] "OPTIONS /api/chat HTTP/1.1" 200 -
+2026-03-21 15:26:53,487 - __main__ - INFO - Received chat request with 2 messages
+2026-03-21 15:26:54,296 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-21 15:26:54,312 - werkzeug - INFO - 127.0.0.1 - - [21/Mar/2026 15:26:54] "POST /api/chat HTTP/1.1" 200 -
+2026-03-30 07:42:48,640 - __main__ - INFO - Application started
+2026-03-30 07:43:08,623 - __main__ - INFO - Groq client initialized successfully.
+2026-03-30 07:43:08,684 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 07:43:08,699 - werkzeug - INFO -  * Debugger PIN: 116-384-466
+2026-03-30 07:43:16,335 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 07:43:16] "[33mOPTIONS /api/users/settings HTTP/1.1[0m" 404 -
+2026-03-30 07:43:16,340 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 07:43:16] "[33mOPTIONS /api/users/settings HTTP/1.1[0m" 404 -
+2026-03-30 07:43:28,730 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 07:43:28] "OPTIONS /api/chat HTTP/1.1" 200 -
+2026-03-30 07:43:28,736 - __main__ - INFO - Received chat request with 2 messages
+2026-03-30 07:43:29,254 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2026-03-30 07:43:29,361 - __main__ - ERROR - Chat endpoint error: Traceback (most recent call last):
+  File "C:\Users\MSI\Documents\GitHub\SDGP_Project-GrowthMap\SDGP\backend\app.py", line 365, in chat
+    response = groq_client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+    ...<3 lines>...
+        max_tokens=1024
+    )
+  File "C:\Users\MSI\Documents\GitHub\SDGP_Project-GrowthMap\SDGP\backend\venv\Lib\site-packages\groq\resources\chat\completions.py", line 461, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/openai/v1/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<45 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Documents\GitHub\SDGP_Project-GrowthMap\SDGP\backend\venv\Lib\site-packages\groq\_base_client.py", line 1280, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Documents\GitHub\SDGP_Project-GrowthMap\SDGP\backend\venv\Lib\site-packages\groq\_base_client.py", line 1067, in request
+    raise self._make_status_error_from_response(err.response) from None
+groq.AuthenticationError: Error code: 401 - {'error': {'message': 'Invalid API Key', 'type': 'invalid_request_error', 'code': 'invalid_api_key'}}
+
+2026-03-30 07:43:29,362 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 07:43:29] "[35m[1mPOST /api/chat HTTP/1.1[0m" 500 -
+2026-03-30 07:53:49,142 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 07:53:49] "[33mOPTIONS /api/users/settings HTTP/1.1[0m" 404 -
+2026-03-30 07:53:49,220 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 07:53:49] "[33mOPTIONS /api/users/settings HTTP/1.1[0m" 404 -
+2026-03-30 07:57:37,352 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 07:57:37] "[33mOPTIONS /api/users/settings HTTP/1.1[0m" 404 -
+2026-03-30 07:57:37,354 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 07:57:37] "[33mOPTIONS /api/users/settings HTTP/1.1[0m" 404 -
+2026-03-30 07:57:37,605 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 07:57:37] "[33mOPTIONS /api/users/settings HTTP/1.1[0m" 404 -
+2026-03-30 07:57:37,630 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 07:57:37] "[33mOPTIONS /api/users/settings HTTP/1.1[0m" 404 -
+2026-03-30 07:57:49,408 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 07:57:49] "OPTIONS /api/chat HTTP/1.1" 200 -
+2026-03-30 07:57:49,420 - __main__ - INFO - Received chat request with 2 messages
+2026-03-30 07:57:49,927 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2026-03-30 07:57:49,943 - __main__ - ERROR - Chat endpoint error: Traceback (most recent call last):
+  File "C:\Users\MSI\Documents\GitHub\SDGP_Project-GrowthMap\SDGP\backend\app.py", line 365, in chat
+    response = groq_client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+    ...<3 lines>...
+        max_tokens=1024
+    )
+  File "C:\Users\MSI\Documents\GitHub\SDGP_Project-GrowthMap\SDGP\backend\venv\Lib\site-packages\groq\resources\chat\completions.py", line 461, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/openai/v1/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<45 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Documents\GitHub\SDGP_Project-GrowthMap\SDGP\backend\venv\Lib\site-packages\groq\_base_client.py", line 1280, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Documents\GitHub\SDGP_Project-GrowthMap\SDGP\backend\venv\Lib\site-packages\groq\_base_client.py", line 1067, in request
+    raise self._make_status_error_from_response(err.response) from None
+groq.AuthenticationError: Error code: 401 - {'error': {'message': 'Invalid API Key', 'type': 'invalid_request_error', 'code': 'invalid_api_key'}}
+
+2026-03-30 07:57:49,948 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 07:57:49] "[35m[1mPOST /api/chat HTTP/1.1[0m" 500 -
+2026-03-30 07:58:26,149 - __main__ - INFO - Application started
+2026-03-30 07:58:30,129 - __main__ - INFO - Groq client initialized successfully.
+2026-03-30 07:58:30,156 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-30 07:58:30,156 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-30 07:58:30,158 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 07:58:31,244 - __main__ - INFO - Application started
+2026-03-30 07:58:34,494 - __main__ - INFO - Groq client initialized successfully.
+2026-03-30 07:58:34,509 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 07:58:34,511 - werkzeug - INFO -  * Debugger PIN: 116-384-466
+2026-03-30 08:00:31,171 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 08:00:31] "[33mOPTIONS /api/users/settings HTTP/1.1[0m" 404 -
+2026-03-30 08:00:31,176 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 08:00:31] "[33mOPTIONS /api/users/settings HTTP/1.1[0m" 404 -
+2026-03-30 08:01:43,267 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 08:01:43] "OPTIONS /api/chat HTTP/1.1" 200 -
+2026-03-30 08:01:43,274 - __main__ - INFO - Received chat request with 2 messages
+2026-03-30 08:01:44,012 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-30 08:01:44,064 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 08:01:44] "POST /api/chat HTTP/1.1" 200 -
+2026-03-30 08:06:32,450 - __main__ - INFO - Application started
+2026-03-30 08:06:36,757 - __main__ - INFO - Groq client initialized successfully.
+2026-03-30 08:06:36,784 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-30 08:06:36,784 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-30 08:06:36,787 - werkzeug - INFO -  * Restarting with stat
+2026-03-30 08:06:37,956 - __main__ - INFO - Application started
+2026-03-30 08:06:42,355 - __main__ - INFO - Groq client initialized successfully.
+2026-03-30 08:06:42,370 - werkzeug - WARNING -  * Debugger is active!
+2026-03-30 08:06:42,372 - werkzeug - INFO -  * Debugger PIN: 116-384-466
+2026-03-30 08:09:00,767 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 08:09:00] "[33mOPTIONS /api/users/settings HTTP/1.1[0m" 404 -
+2026-03-30 08:09:00,768 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 08:09:00] "[33mOPTIONS /api/users/settings HTTP/1.1[0m" 404 -
+2026-03-30 08:09:05,053 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 08:09:05] "[33mOPTIONS /api/users/settings HTTP/1.1[0m" 404 -
+2026-03-30 08:09:05,418 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 08:09:05] "[33mOPTIONS /api/users/settings HTTP/1.1[0m" 404 -
+2026-03-30 08:09:15,297 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 08:09:15] "OPTIONS /api/chat HTTP/1.1" 200 -
+2026-03-30 08:09:15,303 - __main__ - INFO - Received chat request with 2 messages
+2026-03-30 08:09:16,053 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2026-03-30 08:09:16,076 - __main__ - ERROR - Chat endpoint error: Traceback (most recent call last):
+  File "C:\Users\MSI\Documents\GitHub\SDGP_Project-GrowthMap\SDGP\backend\app.py", line 365, in chat
+    response = groq_client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+    ...<3 lines>...
+        max_tokens=1024
+    )
+  File "C:\Users\MSI\Documents\GitHub\SDGP_Project-GrowthMap\SDGP\backend\venv\Lib\site-packages\groq\resources\chat\completions.py", line 461, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/openai/v1/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<45 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Documents\GitHub\SDGP_Project-GrowthMap\SDGP\backend\venv\Lib\site-packages\groq\_base_client.py", line 1280, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Documents\GitHub\SDGP_Project-GrowthMap\SDGP\backend\venv\Lib\site-packages\groq\_base_client.py", line 1067, in request
+    raise self._make_status_error_from_response(err.response) from None
+groq.AuthenticationError: Error code: 401 - {'error': {'message': 'Invalid API Key', 'type': 'invalid_request_error', 'code': 'invalid_api_key'}}
+
+2026-03-30 08:09:16,079 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 08:09:16] "[35m[1mPOST /api/chat HTTP/1.1[0m" 500 -
+2026-03-30 08:09:58,510 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 08:09:58] "[33mOPTIONS /api/users/settings HTTP/1.1[0m" 404 -
+2026-03-30 08:09:58,514 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 08:09:58] "[33mOPTIONS /api/users/settings HTTP/1.1[0m" 404 -
+2026-03-30 08:10:07,393 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 08:10:07] "OPTIONS /api/chat HTTP/1.1" 200 -
+2026-03-30 08:10:07,398 - __main__ - INFO - Received chat request with 2 messages
+2026-03-30 08:10:07,923 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2026-03-30 08:10:07,935 - __main__ - ERROR - Chat endpoint error: Traceback (most recent call last):
+  File "C:\Users\MSI\Documents\GitHub\SDGP_Project-GrowthMap\SDGP\backend\app.py", line 365, in chat
+    response = groq_client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+    ...<3 lines>...
+        max_tokens=1024
+    )
+  File "C:\Users\MSI\Documents\GitHub\SDGP_Project-GrowthMap\SDGP\backend\venv\Lib\site-packages\groq\resources\chat\completions.py", line 461, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/openai/v1/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<45 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Documents\GitHub\SDGP_Project-GrowthMap\SDGP\backend\venv\Lib\site-packages\groq\_base_client.py", line 1280, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Documents\GitHub\SDGP_Project-GrowthMap\SDGP\backend\venv\Lib\site-packages\groq\_base_client.py", line 1067, in request
+    raise self._make_status_error_from_response(err.response) from None
+groq.AuthenticationError: Error code: 401 - {'error': {'message': 'Invalid API Key', 'type': 'invalid_request_error', 'code': 'invalid_api_key'}}
+
+2026-03-30 08:10:07,938 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 08:10:07] "[35m[1mPOST /api/chat HTTP/1.1[0m" 500 -
+2026-03-30 08:14:54,716 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 08:14:54] "[33mOPTIONS /api/users/settings HTTP/1.1[0m" 404 -
+2026-03-30 08:14:54,720 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 08:14:54] "[33mOPTIONS /api/users/settings HTTP/1.1[0m" 404 -
+2026-03-30 08:41:34,716 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 08:41:34] "[33mOPTIONS /api/users/settings HTTP/1.1[0m" 404 -
+2026-03-30 08:41:34,729 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 08:41:34] "[33mOPTIONS /api/users/settings HTTP/1.1[0m" 404 -
+2026-03-30 08:42:15,954 - werkzeug - INFO -  * Detected change in 'C:\\Users\\MSI\\Documents\\GitHub\\SDGP_Project-GrowthMap\\SDGP\\backend\\app.py', reloading
+2026-03-30 08:42:18,445 - werkzeug - INFO -  * Restarting with stat
