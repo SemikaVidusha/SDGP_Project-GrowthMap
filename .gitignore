@@ -20,3 +20,4 @@ env/
 
 # Node
 node_modules/
+*.log
