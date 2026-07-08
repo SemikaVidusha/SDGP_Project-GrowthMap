@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
@@ -9,7 +9,7 @@ import { createPageUrl } from "@/utils";
 import { 
   Search, ArrowRight, TrendingUp, Briefcase,
   Code, Network, Palette, BarChart3, Shield, Globe, 
-  Database, Users, CheckCircle, Smartphone, X
+  Database, Users, CheckCircle, Smartphone, X, Bookmark, BookmarkCheck
 } from 'lucide-react';
 
 const iconMap = {
@@ -27,6 +27,22 @@ const iconMap = {
 
 export default function Careers() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [activeTab, setActiveTab] = useState('all'); // 'all' | 'saved'
+
+  // Load bookmarks from localStorage
+  const [bookmarks, setBookmarks] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('growthmap_bookmarks') || '[]');
+    } catch { return []; }
+  });
+
+  const toggleBookmark = (id) => {
+    setBookmarks(prev => {
+      const next = prev.includes(id) ? prev.filter(b => b !== id) : [...prev, id];
+      localStorage.setItem('growthmap_bookmarks', JSON.stringify(next));
+      return next;
+    });
+  };
 
   const demandColors = {
     "Very High": "bg-green-100 text-green-700",
@@ -91,13 +107,19 @@ export default function Careers() {
     }
   ];
 
-  const filteredCareers = careers.filter(career =>
-    career.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    career.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    career.skills.some(skill =>
-      skill.toLowerCase().includes(searchQuery.toLowerCase())
-    )
-  );
+  const filteredCareers = useMemo(() => {
+    let list = careers;
+    if (activeTab === 'saved') list = list.filter(c => bookmarks.includes(c.id));
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      list = list.filter(c =>
+        c.title.toLowerCase().includes(q) ||
+        c.description.toLowerCase().includes(q) ||
+        c.skills.some(s => s.toLowerCase().includes(q))
+      );
+    }
+    return list;
+  }, [searchQuery, activeTab, bookmarks]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 dark:from-slate-950 via-white dark:via-slate-900 to-purple-50 dark:to-slate-950">
@@ -138,6 +160,23 @@ export default function Careers() {
             Discover the diverse world of ICT careers and find the path that
             matches your interests and skills.
           </p>
+
+          {/* Filter Tabs */}
+          <div className="flex justify-center gap-2 mb-6">
+            {['all', 'saved'].map(tab => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${
+                  activeTab === tab
+                    ? 'bg-purple-600 text-white shadow-md shadow-purple-200'
+                    : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-purple-300'
+                }`}
+              >
+                {tab === 'all' ? 'All Careers' : `Saved (${bookmarks.length})`}
+              </button>
+            ))}
+          </div>
 
           {/* Search */}
           <div className="max-w-md mx-auto relative">
@@ -188,10 +227,25 @@ export default function Careers() {
                       <Icon className="w-7 h-7 text-white" />
                     </div>
 
-                    <Badge className={demandColors[career.demand]}>
-                      <TrendingUp className="w-3 h-3 mr-1" />
-                      {career.demand}
-                    </Badge>
+                    <div className="flex items-center gap-2">
+                      <Badge className={demandColors[career.demand]}>
+                        <TrendingUp className="w-3 h-3 mr-1" />
+                        {career.demand}
+                      </Badge>
+                      <button
+                        onClick={() => toggleBookmark(career.id)}
+                        title={bookmarks.includes(career.id) ? 'Remove bookmark' : 'Save career'}
+                        className={`p-1.5 rounded-lg transition-all hover:scale-110 ${
+                          bookmarks.includes(career.id)
+                            ? 'text-purple-600 bg-purple-50 dark:bg-purple-900/30'
+                            : 'text-slate-400 hover:text-purple-500 hover:bg-purple-50'
+                        }`}
+                      >
+                        {bookmarks.includes(career.id)
+                          ? <BookmarkCheck className="w-4 h-4" />
+                          : <Bookmark className="w-4 h-4" />}
+                      </button>
+                    </div>
 
                   </div>
 
@@ -257,15 +311,19 @@ export default function Careers() {
           <div className="text-center py-16">
 
             <div className="w-16 h-16 mx-auto mb-4 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center">
-              <Search className="w-8 h-8 text-slate-400" />
+              {activeTab === 'saved'
+                ? <Bookmark className="w-8 h-8 text-purple-400" />
+                : <Search className="w-8 h-8 text-slate-400" />}
             </div>
 
             <h3 className="text-lg font-semibold text-slate-700 dark:text-slate-200 mb-2">
-              No careers found
+              {activeTab === 'saved' ? 'No saved careers yet' : 'No careers found'}
             </h3>
 
             <p className="text-slate-500 dark:text-slate-400">
-              Try adjusting your search terms
+              {activeTab === 'saved'
+                ? 'Click the bookmark icon on any career card to save it here.'
+                : 'Try adjusting your search terms'}
             </p>
 
           </div>
