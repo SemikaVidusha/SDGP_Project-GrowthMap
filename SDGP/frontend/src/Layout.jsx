@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Link, useLocation, Outlet, useNavigate } from "react-router-dom";
-import { MapPin, UserCircle, Settings, Menu, X, LogOut } from "lucide-react";
+import { MapPin, UserCircle, Settings, Menu, X, LogOut, Moon, Sun } from "lucide-react";
 import { createPageUrl } from "@/utils";
 import Footer from "./components/Footer";
 import logo from '@/assets/logo.png';
+import { useTheme } from './components/ThemeProvider';
 
 const navLinks = [
   { label: "Home", page: "Home" },
@@ -17,6 +18,7 @@ function Header() {
   const location = useLocation();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   const isActive = (page) =>
     location.pathname.toLowerCase().includes(page.toLowerCase());
@@ -67,6 +69,17 @@ function Header() {
 
         {/* Right Side Icons */}
         <div className="flex items-center gap-2">
+
+          {/* Dark Mode Toggle */}
+          <button
+            onClick={toggleTheme}
+            title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            className="p-2 rounded-lg transition-all duration-300 text-slate-500 dark:text-amber-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:scale-110"
+          >
+            {theme === 'dark'
+              ? <Sun className="w-5 h-5" />
+              : <Moon className="w-5 h-5" />}
+          </button>
 
           <Link
             to={createPageUrl("Profile")}
