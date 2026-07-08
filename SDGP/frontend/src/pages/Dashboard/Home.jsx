@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { createPageUrl } from "@/utils";
+import AnimatedCounter from "@/components/AnimatedCounter";
 import { 
   Compass, MapPin, BookOpen, ArrowRight, 
   Sparkles, Target, Users, Brain,
@@ -191,6 +192,47 @@ export default function Home() {
                 </div>
                 <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-2">{feature.title}</h3>
                 <p className="text-slate-600 dark:text-slate-300 text-sm">{feature.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-16 bg-gradient-to-r from-blue-600 to-purple-600">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-10"
+          >
+            <h2 className="text-3xl font-bold text-white mb-2">GrowthMap in Numbers</h2>
+            <p className="text-blue-100">Empowering Sri Lankan ICT aspirants every day</p>
+          </motion.div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {[
+              { label: 'Students Guided', target: 1200, suffix: '+', icon: Users },
+              { label: 'ICT Careers Mapped', target: 10, suffix: '', icon: MapPin },
+              { label: 'Satisfaction Rate', target: 95, suffix: '%', icon: Sparkles },
+              { label: 'Local Institutions', target: 4, suffix: '', icon: BookOpen },
+            ].map(({ label, target, suffix, icon: Icon }, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                whileHover={{ scale: 1.05 }}
+                className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white/20 hover:bg-white/20 transition-all cursor-default"
+              >
+                <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-white/20 flex items-center justify-center">
+                  <Icon className="w-6 h-6 text-white" />
+                </div>
+                <div className="text-4xl font-bold text-white mb-1">
+                  <AnimatedCounter target={target} suffix={suffix} />
+                </div>
+                <div className="text-blue-100 text-sm font-medium">{label}</div>
               </motion.div>
             ))}
           </div>
