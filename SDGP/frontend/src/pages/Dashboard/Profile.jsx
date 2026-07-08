@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import {
   User, Mail, MapPin, Calendar, Briefcase, GraduationCap,
   ArrowLeft, Edit3, Save, X, CheckCircle2, Target, BookOpen,
-  Award, TrendingUp, Sparkles
+  Award, TrendingUp, Sparkles, History, ChevronDown, ChevronUp
 } from 'lucide-react';
 const educationLabels = {
   ol: "O/L (Ordinary Level)",
@@ -33,10 +33,17 @@ export default function Profile() {
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
 
+  // Load assessment history from localStorage
+  const [assessmentHistory, setAssessmentHistory] = useState([]);
+  const [historyExpanded, setHistoryExpanded] = useState(true);
+
+  // Helper: format career id to readable name
+  const formatCareerName = (id) =>
+    id ? id.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) : '—';
+
   // LOAD USER FROM LOCAL STORAGE (Fake Backend)
   useEffect(() => {
     const storedUser = localStorage.getItem("growthmap_user");
-
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
       setUser(parsedUser);
@@ -51,11 +58,16 @@ export default function Profile() {
         education: "",
         target_career: ""
       };
-
       localStorage.setItem("growthmap_user", JSON.stringify(defaultUser));
       setUser(defaultUser);
       setForm(defaultUser);
     }
+
+    // Load assessment history
+    try {
+      const history = JSON.parse(localStorage.getItem("assessmentHistory") || "[]");
+      setAssessmentHistory(history.reverse()); // newest first
+    } catch { setAssessmentHistory([]); }
   }, []);
 
   const handleChange = (e) => {
@@ -285,6 +297,73 @@ export default function Profile() {
           </Link>
         </motion.div>
 
+        {/* Assessment History */}
+        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
+          className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm p-5">
+          <button
+            onClick={() => setHistoryExpanded(e => !e)}
+            className="w-full flex items-center justify-between gap-2 mb-1"
+          >
+            <div className="flex items-center gap-2">
+              <History className="w-5 h-5 text-amber-500" />
+              <h2 className="font-semibold text-slate-800 dark:text-slate-100">Past Assessments</h2>
+              <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-medium">
+                {assessmentHistory.length}
+              </span>
+            </div>
+            {historyExpanded
+              ? <ChevronUp className="w-4 h-4 text-slate-400" />
+              : <ChevronDown className="w-4 h-4 text-slate-400" />}
+          </button>
+
+          {historyExpanded && (
+            assessmentHistory.length === 0 ? (
+              <div className="text-center py-8">
+                <div className="w-12 h-12 mx-auto mb-3 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center">
+                  <History className="w-6 h-6 text-slate-400" />
+                </div>
+                <p className="text-sm text-slate-500 dark:text-slate-400">No assessments taken yet.</p>
+                <Link to={createPageUrl('Quiz')}>
+                  <Button size="sm" className="mt-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl">
+                    Take Your First Quiz
+                  </Button>
+                </Link>
+              </div>
+            ) : (
+              <div className="mt-3 space-y-3">
+                {assessmentHistory.slice(0, 5).map((entry, i) => {
+                  const topCareer = entry.topCareers?.[0];
+                  const score = topCareer ? Math.round((topCareer.score || 0) * 100) : 0;
+                  const date = entry.createdAt
+                    ? new Date(entry.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+                    : 'Unknown date';
+                  return (
+                    <div key={i} className="flex items-center justify-between gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 hover:border-purple-200 transition-colors">
+                      <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+                          <Award className="w-4 h-4 text-white" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">
+                            {formatCareerName(entry.bestCareer || topCareer?.career)}
+                          </p>
+                          <p className="text-xs text-slate-500 dark:text-slate-400">{date}</p>
+                        </div>
+                      </div>
+                      <div className={`text-sm font-bold px-3 py-1 rounded-full ${
+                        score >= 80 ? 'bg-green-100 text-green-700' :
+                        score >= 60 ? 'bg-blue-100 text-blue-700' :
+                        'bg-amber-100 text-amber-700'
+                      }`}>
+                        {score}%
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )
+          )}
+        </motion.div>
 
       </div>
     </div>
