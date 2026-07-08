@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { MapPin, UserCircle, Settings, Compass, Brain, Target, Menu, X } from 'lucide-react';
+import { MapPin, UserCircle, Settings, Compass, Brain, Target, Menu, X, Moon, Sun } from 'lucide-react';
+import { useTheme } from './ThemeProvider';
 
 function Preloader() {
   return (
@@ -52,6 +53,7 @@ const navLinks = [
 function Header() {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   const isActive = (page) => location.pathname.toLowerCase().includes(page.toLowerCase());
 
@@ -85,6 +87,16 @@ function Header() {
 
         {/* Right icons */}
         <div className="flex items-center gap-1">
+          {/* Dark Mode Toggle */}
+          <button
+            onClick={toggleTheme}
+            title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            className="p-2 rounded-lg transition-all duration-300 text-slate-500 dark:text-amber-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:scale-110"
+          >
+            {theme === 'dark'
+              ? <Sun className="w-5 h-5" />
+              : <Moon className="w-5 h-5" />}
+          </button>
           <Link to={createPageUrl('Profile')} title="Profile"
             className={`p-2 rounded-lg transition-colors ${isActive('Profile') ? 'bg-purple-100 text-purple-700' : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 dark:bg-slate-800'}`}>
             <UserCircle className="w-5 h-5" />
