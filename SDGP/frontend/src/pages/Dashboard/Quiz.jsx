@@ -25,26 +25,52 @@ export default function Quiz() {
   const participantImageRef = useRef(null);
   const [selectedOption, setSelectedOption] = useState(null);
 
+  // Timer state: 30 seconds per question
+  const TIMER_SECONDS = 30;
+  const [timeLeft, setTimeLeft] = useState(TIMER_SECONDS);
+  const timerRef = useRef(null);
+  const quizFinishedRef = useRef(false);
+
   // Handle image loading state
   useEffect(() => {
     const img = participantImageRef.current;
     if (!img) return;
-
-    // Check if already loaded (for cached images)
     if (img.complete && img.naturalHeight > 0) {
       setParticipantImageLoading(false);
       return;
     }
-
-    // Fallback timeout in case image doesn't load
     const timeout = setTimeout(() => {
       setParticipantImageLoading(false);
     }, 3000);
-
-    return () => {
-      clearTimeout(timeout);
-    };
+    return () => clearTimeout(timeout);
   }, []);
+
+  // Countdown timer — resets on each question change
+  useEffect(() => {
+    if (loading || questions.length === 0) return;
+    setTimeLeft(TIMER_SECONDS);
+    clearInterval(timerRef.current);
+    if (quizFinishedRef.current) return;
+
+    timerRef.current = setInterval(() => {
+      setTimeLeft(prev => {
+        if (prev <= 1) {
+          clearInterval(timerRef.current);
+          // Auto-skip: advance without trait update
+          setCurrentIndex(ci => {
+            const next = ci + 1;
+            if (next < questions.length) return next;
+            quizFinishedRef.current = true;
+            return ci;
+          });
+          return TIMER_SECONDS;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timerRef.current);
+  }, [currentIndex, loading, questions.length]);
 
   useEffect(() => {
     // load questions from public/data/questions.json
@@ -95,18 +121,13 @@ const selectOption = (option) => {
 
   const goNext = () => {
   if (!selectedOption) return;
-
+  clearInterval(timerRef.current);
   const option = selectedOption;
-
-  // update traits
   setTraits(prev => ({
     ...prev,
     [option.trait]: prev[option.trait] + option.value
   }));
-
   const q = questions[currentIndex];
-
-  // log answer
   setAnswersLog(prev => ([
     ...prev,
     {
@@ -117,11 +138,8 @@ const selectOption = (option) => {
       value: option.value
     }
   ]));
-
   setSelectedOption(null);
-
   const next = currentIndex + 1;
-
   if (next < questions.length) {
     setCurrentIndex(next);
   } else {
@@ -235,12 +253,31 @@ const goBack = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-purple-50 p-6">
       <div className="max-w-3xl mx-auto bg-white rounded-xl shadow p-6">
-        {/* Participant image removed - placeholder fixed */}
         <h2 className="text-2xl font-bold mb-4">Career Assessment</h2>
         <ProgressIndicator
           current={currentIndex + 1}
           total={questions.length}
         />
+
+        {/* Timer Bar */}
+        <div className="mt-3 mb-5">
+          <div className="flex items-center justify-between text-xs text-slate-500 mb-1">
+            <span>Time remaining</span>
+            <span className={`font-semibold tabular-nums ${
+              timeLeft <= 10 ? 'text-red-500' : 'text-slate-600'
+            }`}>{timeLeft}s</span>
+          </div>
+          <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+            <div
+              className={`h-full rounded-full transition-all duration-1000 ${
+                timeLeft <= 10
+                  ? 'bg-gradient-to-r from-red-500 to-rose-400'
+                  : 'bg-gradient-to-r from-blue-500 to-purple-500'
+              }`}
+              style={{ width: `${(timeLeft / TIMER_SECONDS) * 100}%` }}
+            />
+          </div>
+        </div>
 
         <div className="mb-6">
           <div className="text-lg font-semibold mb-3">{currentQuestion.question}</div>
